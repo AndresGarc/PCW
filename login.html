@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=S, initial-scale=1.0">
+    <title>NS - Login</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>NegocioSincero</h1>
+    </header>
+    <nav id="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buscar.html">Buscar</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="registro.html">Registrate</a></li>
+        <li><a href="nuevo.html">Nuevo producto</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+    </nav>
+
+    <h2>Login</h2>
+    <form class="formLog" action="index.html" method="get">
+      <p>
+        <label for="nomUsu">Nombre usuario</label>
+        <input type="text" name="nomUsu" autofocus required>
+      </p>
+      <p>
+        <label for="pwd">Contraseña</label>
+        <input type="password" name="pwd" required>
+      </p>
+      <button type="submit" name="login">Login</button>
+    </form>
+    <p>¿Aún no estas registrado? Únete!</p>
+    <a href="registro.html">Registrate</a>
+  </body>
+</html>

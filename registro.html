@@ -2,18 +2,54 @@
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Registro</title>
+    <meta name="viewport" content="width=S, initial-scale=1.0">
+    <title>NS - Registro</title>
   </head>
 
   <body>
+    <header>
+      <h1>NegocioSincero</h1>
+    </header>
+    <nav id="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buscar.html">Buscar</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="registro.html">Registrate</a></li>
+        <li><a href="nuevo.html">Nuevo producto</a></li>
+        <li><a href="index.html">Logout</a></li>
+      </ul>
+    </nav>
 
-
-
-    <form action="index.html">
-      
-
+    <h2>Registrate!</h2>
+    <form class="formReg" action="index.html" enctype="multipart/form-data" method="post">
+      <p><b>Campo obligatorio (*)</b></p>
+      <p>
+        <label for="login">Nombre usuario (*)</label>
+        <input type="text" name="login" autofocus minlength="4" maxlength="20" pattern="^\d|[^a-zA-Z0-9]+" required>
+      </p>
+      <p>
+        <label for="pwd">Contraseña (*)</label>
+        <input type="password" name="pwd" minlength="6" maxlength="20" pattern="[^a-zA-Z0-9_-]+" required>
+      </p>
+      <p>
+        <label for="pwd2">Confirmar contraseña (*)</label>
+        <input type="password" name="pwd2" minlength="6" maxlength="20" pattern="[^a-zA-Z0-9_-]+" required>
+      </p>
+      <p>
+        <label for="nombre">Nombre (*)</label>
+        <input type="text" name="nombre" required>
+      </p>
+      <p>
+        <label for="email">Email (*)</label>
+        <input type="text" name="email" required>
+      </p>
+      <p>
+        <label for="foto">Foto de perfil</label>
+        <input type="file" name="foto" accept="image/*">
+        <img src="img/No-image-available.png" alt="foto de perfil">
+      </p>
+      <button type="submit" name="submit">Registrar</button>
     </form>
-
   </body>
-
 </html>
