@@ -20,5 +20,31 @@
         <li><a href="index.html">Logout</a></li>
       </ul>
     </nav>
+    <form method="get">
+      <p>
+        <label for="Articulo">Nombre del Articulo</label>
+        <input type="text" name="Articulo" size="20" maxlength="100" required>
+      </p>
+      <p>
+        <label for="descripcion">Descripcion</label> 
+         <textarea id="descripcion" rows=4 cols=20 maxlength="300" required>Descripcion del producto</textarea>
+      </p>
+      <p>
+        <label for="precio">Precio</label>
+        <input type="number" name="precio" size="20" required>
+      </p>
+      <p>
+        <label for="Categoria">Categoria</label>
+        <input type="text" name="Categoria" size="20" maxlength="100" required>
+      </p>
+      <p><input type="submit" value="Enviar"></p>
+      <!--enlazar a datalist-->
+
+      <p>
+        <input type="file" value="foto">
+
+      </p>
+    </form>
+
   </body>
 </html>
