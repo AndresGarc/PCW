@@ -1,3 +1,104 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
 
-* {font-family: 'Merriweather Sans', sans-serif;}
+* {
+  font-family: 'Merriweather Sans', sans-serif;
+  box-sizing: border-box; /*Para el ancho de los elementos, tendrá en cuenta el padding que yo he añadido*/
+  }
+
+  /* VARIABLES */
+  :root{
+    --colorRosa: #FFD4BA;
+    --colorCrema: #F9F9E3;
+    --colorAzulC: #93CDD8;
+    --colorAzulN: #78B1C9;
+    --colorAzulO: #021435;
+  }
+  /* FIN VARIABLES */
+
+/*CABECERA*/
+  #logo{
+
+  }
+
+  header,nav{
+    background-color: white;
+  }
+/*END CABECERA*/
+
+/*BODY*/
+
+body{
+  background-color: var(--colorAzulC);
+  min-width: 360px; /* MÍNIMO PANTALLA */
+}
+
+/*NAVBAR*/
+/*END NAVBAR*/
+
+
+
+/*FORMULARIOS*/
+
+form{
+  border: 2.25px solid var(--colorAzulO);
+  border-radius: 15px;
+  margin: .5em;
+  padding: .5em;
+  background-color: var(--colorAzulN);
+  color: var(--colorAzulO);
+
+}
+
+  #tituloReg{
+    font-size: 1.2em;
+    text-align: center;
+    border-bottom: 1px solid var(--colorAzulO);
+    padding-bottom: .2em;
+  }
+
+  form>p{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 1.15em;
+  }
+
+
+    form>p>input{
+      width: 75%;
+      margin: .2em auto;
+      padding: .5em;
+      border-radius: 15px;
+    }
+
+      form>p>input:focus{
+        background-color: var(--colorCrema);
+      }
+
+    form>p>img{
+      width: 200px;
+      height: 200px;
+      margin: .5em auto;
+    }
+
+    form>button{
+      padding: .5em;
+      width: 30%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius:15px;
+    }
+
+/*END FORMULARIOS*/
+
+/*END BODY*/
+
+
+@media all and (min-width:655px){
+
+  form{
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

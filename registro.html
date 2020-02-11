@@ -2,7 +2,7 @@
 <html lang="es" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=S, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
     <title>NS - Registro</title>
   </head>
@@ -24,7 +24,7 @@
 
     <h2>Registrate!</h2>
     <form class="formReg" action="index.html" enctype="multipart/form-data" method="post">
-      <p><b>Campo obligatorio (*)</b></p>
+      <p id="tituloReg"><b>Campo obligatorio (*)</b></p>
       <p>
         <label for="login">Nombre usuario (*)</label>
         <input type="text" name="login" autofocus minlength="4" maxlength="20" pattern="^\d|[^a-zA-Z0-9]+" required>
