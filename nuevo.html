@@ -11,6 +11,8 @@
       <h1>NegocioSincero</h1>
     </header>
     <nav id="navbar">
+      <label for="mostrar">mostrar</label>
+      <input type="checkbox" id="mostrar">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="buscar.html">Buscar</a></li>
@@ -22,27 +24,28 @@
     </nav>
     <form method="get">
       <p>
-        <label for="Articulo">Nombre del Articulo</label>
-        <input type="text" name="Articulo" size="20" maxlength="100" required>
+        <label for="Articulo">Nombre del Articulo(*)</label>
+        <input type="text" name="Articulo" size="20" maxlength="100" required autofocus>
       </p>
       <p>
-        <label for="descripcion">Descripcion</label> 
+        <label for="descripcion">Descripcion(*)</label> 
          <textarea id="descripcion" rows=4 cols=20 maxlength="300" required>Descripcion del producto</textarea>
       </p>
       <p>
-        <label for="precio">Precio</label>
+        <label for="precio">Precio(*)</label>
         <input type="number" name="precio" size="20" required>
       </p>
       <p>
-        <label for="Categoria">Categoria</label>
+        <label for="Categoria">Categoria(*)</label>
         <input type="text" name="Categoria" size="20" maxlength="100" required>
       </p>
-      <p><input type="submit" value="Enviar"></p>
+      <p><button type="submit"></p>
+      <p><input type="reset" value="Reiniciar"></p>
       <!--enlazar a datalist-->
 
       <p>
-        <input type="file" value="foto">
-
+        <img>
+        <input type="file" value="foto" accept="image/">
       </p>
     </form>
 

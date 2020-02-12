@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
 
 * {
-  font-family: 'Merriweather Sans', sans-serif;
+  font-family: 'Merriweather Sans', sans-serif; /* le pone sans seriff a todos por defecto ????? */
   box-sizing: border-box; /*Para el ancho de los elementos, tendrá en cuenta el padding que yo he añadido*/
   }
 
@@ -22,6 +22,15 @@
 
   header,nav{
     background-color: white;
+    
+  }
+
+  body>header>h1 {
+    font-family:'MerryWeather Sans';
+    text-align:center;
+    padding: 1em;
+    margin-bottom:0;
+    background-color: var(--colorRosa);
   }
 /*END CABECERA*/
 
@@ -33,6 +42,49 @@ body{
 }
 
 /*NAVBAR*/
+
+body>nav{  
+  background-color:var(--colorCrema);
+  text-align:center;
+  
+}
+
+
+body>nav>ul{
+  list-style-type: none;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  
+  position:relative;
+  left:-120%;
+  margin-top:0;
+  padding-bottom:1em;   
+  max-height: 1em; 
+  transition:max-height .5s;
+}
+
+#mostrar:checked+ul{ /* al ser checkeado que el siguiente */
+  left: 0;
+  max-height: 20em;
+}
+
+
+body>nav>label{
+  cursor:pointer;
+}
+body>nav>#mostrar{
+  cursor:pointer;
+}
+
+body>nav>ul>li>a{
+  font-family:'MerryWeather Sans';
+  font-size: 1.5em;
+  font-weight:bold;
+  text-decoration:none; 
+}
+
+
 /*END NAVBAR*/
 
 
@@ -100,5 +152,25 @@ form{
   form{
     max-width: 800px;
     margin: 0 auto;
+  }
+}
+
+@media all and (min-width:360px){
+  
+  body>nav>label{
+    display:none;
+  }   
+  body>nav>#mostrar{
+   display:none;
+  }   
+
+  body>nav>ul{
+   display:flex;
+   flex-direction:row;
+   left:0;
+   max-height:20em;
+  }
+  body>nav>ul>li{
+    padding: .5em;
   }
 }
