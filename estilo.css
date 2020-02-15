@@ -18,40 +18,54 @@
 
 /*CABECERA*/
   #logo{
-
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    max-height: auto;
   }
 
   header,nav{
-    background-color: white;
-
+    margin: 0 2em;
   }
 
-  body>header {
-
+  header {
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    margin-top: 2em;
   }
 
-  body>header>h1 {
-    text-align:center;
+  header>h1, header>h2 {
+    padding: .5em;
+  }
+
+  header>h1 {
+    margin:0;
+    padding-left: 15%;
     color: var(--colorCrema);
-    padding: 1em;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    margin-bottom:0;
     background-color: var(--colorPrueba);
+    border-top: 3px solid var(--colorAzulC);
+    border-left: 3px solid var(--colorAzulC);
+    border-right: 3px solid var(--colorAzulC);
+  }
+
+  header>h2{
+    margin:0 auto;
+    text-align:center;
+    background-color: white;
+    color: var(--colorPrueba);
+    border-bottom: 3px solid #e3e3e3;
+    border-left: 3px solid var(--colorAzulC);
+    border-right: 3px solid var(--colorAzulC);
   }
 /*END CABECERA*/
 
 /*BODY*/
 
 body{
-  background-color: var(--colorAzulC);
+  background-color: #d2f4fa /*var(--colorAzulC)*/;
   min-width: 360px; /* MÍNIMO PANTALLA */
-}
-h2{
-  text-align:center;
-  color: var(--colorPrueba);
 }
 
 /*NAVBAR*/
@@ -61,44 +75,44 @@ body>nav{
   text-align:center;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-
+  border-left: 3px solid var(--colorAzulC);
+  border-right: 3px solid var(--colorAzulC);
+  border-bottom: 3px solid var(--colorAzulC);
 }
 
+  body>nav>ul{
+    list-style-type: none;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 
-body>nav>ul{
-  list-style-type: none;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+    position:relative;
+    left:-120%;
+    margin-top:0;
 
-  position:relative;
-  left:-120%;
-  margin-top:0;
-  padding-bottom:1em;
-  max-height: 1em;
-  transition:max-height .5s;
-}
+    max-height: 1em;
+    transition:max-height .5s;
+  }
 
-#mostrar:checked+ul{ /* al ser checkeado que el siguiente */
-  left: 0;
-  max-height: 20em;
-}
+  #mostrar:checked+ul{ /* al ser checkeado que el siguiente */
+    left: 0;
+    max-height: 20em;
+  }
 
 
-body>nav>label{
-  cursor:pointer;
-}
-body>nav>#mostrar{
-  cursor:pointer;
-}
+  body>nav>label{
+    cursor:pointer;
+  }
+  body>nav>#mostrar{
+    cursor:pointer;
+  }
 
-body>nav>ul>li>a{
-  font-size: 1.5em;
-  font-weight:bold;
-  color: var(--colorPrueba);
-  text-decoration:none;
-}
-
+    body>nav>ul>li>a{
+      font-size: 1.5em;
+      font-weight:bold;
+      color: var(--colorPrueba);
+      text-decoration:none;
+    }
 
 /*END NAVBAR*/
 
@@ -109,11 +123,10 @@ body>nav>ul>li>a{
 form{
   border: 2.25px solid var(--colorAzulO);
   border-radius: 15px;
-  margin: .5em;
+  margin: 3em;
   padding: .5em;
   background-color: var(--colorAzulN);
   color: var(--colorAzulO);
-
 }
 
   #tituloReg{
@@ -130,7 +143,6 @@ form{
     font-size: 1.15em;
   }
 
-
     form>p>input{
       width: 75%;
       margin: .2em auto;
@@ -143,14 +155,14 @@ form{
       }
 
     form>p>img{
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       margin: .5em auto;
     }
 
     form>button{
-      padding: .5em;
-      width: 30%;
+      padding: .25em;
+      width: 20%;
       height: auto;
       display: block;
       margin: 0 auto;
@@ -161,20 +173,12 @@ form{
 
 /*END BODY*/
 
-
-@media all and (min-width:655px){
-
-  form{
-    max-width: 800px;
-    margin: 0 auto;
-  }
-}
-
-@media all and (min-width:360px){
-
+/*QUERYS*/
+@media all and (min-width:680px){ /*EXCLUSIVO PARA EL NAAVBAR*/
   body>nav>label{
     display:none;
   }
+
   body>nav>#mostrar{
    display:none;
   }
@@ -185,7 +189,18 @@ form{
    left:0;
    max-height:20em;
   }
-  body>nav>ul>li{
-    padding: .5em;
+
+    body>nav>ul>li{
+      padding: .5em;
+    }
+}
+
+
+@media all and (min-width:655px){
+
+  form{
+    max-width: 600px;
+    margin: 0 auto;
   }
+
 }
