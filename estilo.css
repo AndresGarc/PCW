@@ -62,14 +62,17 @@
 /*END CABECERA*/
 
 /*BODY*/
-
 body{
   background-color: #d2f4fa /*var(--colorAzulC)*/;
   min-width: 360px; /* MÍNIMO PANTALLA */
 }
 
-/*NAVBAR*/
+  body>section>h3{
+    text-align: center;
+    font-size: 1.5em;
+  }
 
+/*NAVBAR*/
 body>nav{
   background-color:var(--colorCrema);
   text-align:center;
@@ -99,7 +102,6 @@ body>nav{
     max-height: 20em;
   }
 
-
   body>nav>label{
     cursor:pointer;
   }
@@ -116,11 +118,8 @@ body>nav{
 
 /*END NAVBAR*/
 
-
-
 /*FORMULARIOS*/
-
-form{
+#formu{
   border: 2.25px solid var(--colorAzulO);
   border-radius: 15px;
   margin: 3em;
@@ -130,51 +129,102 @@ form{
 }
 
   #tituloReg{
-    font-size: 1.2em;
     text-align: center;
     border-bottom: 1px solid var(--colorAzulO);
     padding-bottom: .2em;
   }
 
-  form>p{
+  #formu>p{
     display: flex;
     flex-direction: column;
     text-align: center;
     font-size: 1.15em;
   }
 
-    form>p>input{
+    #formu>p>input{
       width: 75%;
       margin: .2em auto;
       padding: .5em;
       border-radius: 15px;
     }
 
-      form>p>input:focus{
+      #formu>p>input:focus{
         background-color: var(--colorCrema);
       }
 
-    form>p>img{
+      #formu>p>input:hover{
+        background-color: var(--colorRosa);
+      }
+
+    #formu>p>img{
       width: 150px;
       height: 150px;
       margin: .5em auto;
     }
 
-    form>button{
+    #formu>button{
       padding: .25em;
       width: 20%;
       height: auto;
       display: block;
       margin: 0 auto;
       border-radius:15px;
+      cursor: pointer;
     }
 
+    #formu>button:hover{
+        background-color: var(--colorRosa);
+    }
+
+    #formu>button:active{
+        background-color: var(--colorRosa);
+    }
+
+#busquedaRapida{
+
+}
+
 /*END FORMULARIOS*/
+
+/*LISTA DE ARTICULOS*/
+.boxProd{
+  margin: 1em;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.boxProd:hover{
+  background-color: var(--colorAzulC);
+  border: 3px solid var(--colorAzulN);
+}
+
+  .boxProd>h4{
+    text-align: center;
+    font-size: 1.25em;
+  }
+
+  .ftoArt{
+    max-width: 150px;
+    height: auto;
+  }
+
+/*END LISTA DE ARTICULOS*/
 
 /*END BODY*/
 
 /*QUERYS*/
-@media all and (min-width:680px){ /*EXCLUSIVO PARA EL NAAVBAR*/
+@media all and (min-width:1300px){ /*EXCLUSIVO PARA EL HEADER*/
+  header,nav{
+    max-width: 1155px;
+    margin: 0 auto;
+  }
+  header{
+    margin-top: 3em;
+  }
+}
+
+@media all and (min-width:680px){
+/*NAVBAR*/
   body>nav>label{
     display:none;
   }
@@ -193,14 +243,41 @@ form{
     body>nav>ul>li{
       padding: .5em;
     }
+/*end NAVBAR*/
+
+#formu{
+  max-width: 600px;
+  margin: 0 auto;
 }
 
+/*FLEX ARTICULOS*/
+body>section>#flex{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /*REPARTE EL ESPACIO DEL FLEX*/
+}
+
+body>section>#flex>article{ /*2 ARTICULOS*/
+  width: 45%;
+  margin: .5em;
+  flex-grow: 1; /*CRECEN TODOS EN 1, SI AUMENTAS ES EL DOBLE O TRIPLE DEL TEMAÑO Y SE REPARTEN EN PARTES IGUALES*/
+}
+/* END FLEX ARTICULOS*/
+}
 
 @media all and (min-width:655px){
 
-  form{
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
 }
+
+/*PARA FLEXEAR ARTICULOS*/
+@media all and (min-width:960px){ /*3 ARTICULOS*/
+  body>section>#flex>article{
+    width: 30%;
+  }
+}
+@media all and (min-width:1190px){ /*4 ARTICULOS*/
+  body>section>#flex>article{
+    width: 20%;
+  }
+}
+/*PARA FLEXEAR ARTICULOS*/
