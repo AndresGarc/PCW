@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre&display=swap');
 
 * {
-  font-family: 'Merriweather Sans', sans-serif; /* le pone sans seriff a todos por defecto ????? */
+  font-family: 'Frank Ruhl Libre', serif; /* le pone sans seriff a todos por defecto ????? */
   box-sizing: border-box; /*Para el ancho de los elementos, tendrá en cuenta el padding que yo he añadido*/
   }
 
@@ -23,7 +23,7 @@
 
   header,nav{
     background-color: white;
-    
+
   }
 
   body>header {
@@ -33,7 +33,6 @@
   }
 
   body>header>h1 {
-    font-family:'MerryWeather Sans';
     text-align:center;
     color: var(--colorCrema);
     padding: 1em;
@@ -57,12 +56,12 @@ h2{
 
 /*NAVBAR*/
 
-body>nav{  
+body>nav{
   background-color:var(--colorCrema);
   text-align:center;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  
+
 }
 
 
@@ -71,12 +70,12 @@ body>nav>ul{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  
+
   position:relative;
   left:-120%;
   margin-top:0;
-  padding-bottom:1em;   
-  max-height: 1em; 
+  padding-bottom:1em;
+  max-height: 1em;
   transition:max-height .5s;
 }
 
@@ -94,11 +93,10 @@ body>nav>#mostrar{
 }
 
 body>nav>ul>li>a{
-  font-family:'MerryWeather Sans';
   font-size: 1.5em;
   font-weight:bold;
   color: var(--colorPrueba);
-  text-decoration:none; 
+  text-decoration:none;
 }
 
 
@@ -173,13 +171,13 @@ form{
 }
 
 @media all and (min-width:360px){
-  
+
   body>nav>label{
     display:none;
-  }   
+  }
   body>nav>#mostrar{
    display:none;
-  }   
+  }
 
   body>nav>ul{
    display:flex;

@@ -24,29 +24,31 @@
     </nav>
     <form method="get">
       <p>
-        <label for="Articulo">Nombre del Articulo(*)</label>
-        <input type="text" name="Articulo" size="20" maxlength="100" required autofocus>
+        <label for="articulo">Nombre del Articulo(*)</label>
+        <input type="text" name="articulo" id="articulo" size="20" maxlength="100" required autofocus>
       </p>
       <p>
-        <label for="descripcion">Descripcion(*)</label> 
-         <textarea id="descripcion" rows=4 cols=20 maxlength="300" required>Descripcion del producto</textarea>
+        <label for="descripcion">Descripcion(*)</label>
+         <textarea name="descripcion" id="descripcion" rows=4 cols=20 maxlength="300" placeholder="Descripción del producto max:300 caracteres" required></textarea>
       </p>
       <p>
         <label for="precio">Precio(*)</label>
-        <input type="number" name="precio" size="20" required>
+        <input type="number" name="precio" id="precio" min="0" step=".01" required>
       </p>
       <p>
-        <label for="Categoria">Categoria(*)</label>
-        <input type="text" name="Categoria" size="20" maxlength="100" required>
+        <label for="categoria">Categoria(*)</label>
+        <input type="text" name="Categoria" id="categoria" size="20" maxlength="100" required>
       </p>
-      <p><button type="submit"></p>
-      <p><input type="reset" value="Reiniciar"></p>
+      <p>
+        <label for="foto">Foto del artículo</label>
+        <input type="file" name="foto" id="foto" accept="image/*">
+        <img src="img/No-image-available.png" alt="foto de perfil">
+      </p>
+
+      <button type="submit" name="Subir">Subir</button>
+      <button type="reset" value="Reiniciar">Reiniciar formulario</button>
       <!--enlazar a datalist-->
 
-      <p>
-        <img>
-        <input type="file" value="foto" accept="image/">
-      </p>
     </form>
 
   </body>
