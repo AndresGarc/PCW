@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
+    <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
     <title>NS - Nuevo producto</title>
   </head>
   <body>
@@ -24,7 +25,7 @@
         <li><a href="index.html">Logout</a></li>
       </ul>
     </nav>
-    <form id="formu" method="get">
+    <form id="formu" action="index.html" enctype="multipart/form-data" method="post">
       <p>
         <label for="articulo">Nombre del Articulo(*)</label>
         <input type="text" name="articulo" id="articulo" size="20" maxlength="100" required autofocus>
