@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre&display=swap');
 
 * {
-  font-family: 'Frank Ruhl Libre', serif; /* le pone sans seriff a todos por defecto ????? */
+  font-family: 'Frank Ruhl Libre', serif; /* le pone sans seriff a todos por defecto ????? */ 
   box-sizing: border-box; /*Para el ancho de los elementos, tendrá en cuenta el padding que yo he añadido*/
   }
 
@@ -73,7 +73,8 @@ body{
   }
 
 /*NAVBAR*/
-body>nav{
+
+  body>nav{
   background-color:var(--colorCrema);
   text-align:center;
   border-bottom: 3px solid var(--colorAzulC);
@@ -100,16 +101,30 @@ body>nav{
 
   body>nav>label{
     cursor:pointer;
+   
   }
   body>nav>#mostrar{
     cursor:pointer;
+    display:none;
   }
-    body>nav>ul>li>a{
+  
+  body>nav>ul>li>a{
       font-size: 1.5em;
       color: var(--colorAzulVO);
     }
 
-    body>nav>ul>li>a, .boxProd>h4>a{
+    body>nav>ul>li>a>p{
+      margin-top:0;
+      margin:0;
+      color: var(--colorAzulVO);
+    }
+
+    body>nav>ul>li>a i:first-child{
+      display:none;
+    }
+    
+
+  body>nav>ul>li>a, .boxProd>h4>a{
       font-weight:bold;
       text-decoration:none;
     }
@@ -224,6 +239,7 @@ section{
   .ftoArt{ /*REVISAR PARA OTRO TIPO DE FOTOS */
     max-width: 150px;
     height: auto;
+
   }
 
   .desc {
@@ -254,10 +270,11 @@ section{
 
 }
 
-@media all and (min-width:680px){
-/*NAVBAR*/
+
+@media all and (min-width:480px){ /* navbar para icons */
+
   body>nav>label{
-    display:none;
+    display:none; 
   }
 
   body>nav>#mostrar{
@@ -274,6 +291,29 @@ section{
     body>nav>ul>li{
       padding: .5em;
     }
+
+    body>nav>ul>li>a{
+      display:flex;
+      flex-direction:row;
+
+    }
+  
+    body>nav>ul>li>a>i:first-child{
+      display:flex;
+      margin:0.3em;
+    }
+    body>nav>ul>li>a>p{
+      display:none;
+    }
+  
+}
+
+@media all and (min-width:680px){
+/*NAVBAR*/
+body>nav>ul>li>a>p{
+  display:flex;
+}
+
 /*end NAVBAR*/
 
   #formu{
