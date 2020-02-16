@@ -224,7 +224,6 @@ section{
   .ftoArt{ /*REVISAR PARA OTRO TIPO DE FOTOS */
     max-width: 150px;
     height: auto;
-    border: 1px solid black;
   }
 
   .desc {
