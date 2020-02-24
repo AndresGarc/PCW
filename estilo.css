@@ -110,6 +110,14 @@ body{
       margin: 0 0 0.5em 0;
     }
 
+    button, #formu>p>a{
+      border: 1.25px solid var(--colorAzulO);
+      font-weight: bold;
+      font-size: .85em;
+      padding: .35em 1.3em;
+      cursor:pointer;
+    }
+
 /*NAVBAR*/
 
   body>nav{
@@ -137,10 +145,10 @@ body{
     max-height: 20em;
   }
 
-  body>nav>label, #busquedaRapida>p>button{
+  body>nav>label{
     cursor:pointer;
-
   }
+
   body>nav>#mostrar{
     cursor:pointer;
     display:none;
@@ -162,7 +170,7 @@ body{
     }
 
 
-  body>nav>ul>li>a, .boxProd>h4>a{
+  body>nav>ul>li>a, .boxProd>h4>a, #formu>p>a{
       font-weight:bold;
       text-decoration:none;
     }
@@ -174,7 +182,7 @@ body{
   border: 2.25px solid var(--colorAzulO);
   border-radius: 15px;
   margin: 3em;
-  padding: .5em;
+  padding: 1.5em;
   background-color: var(--colorAzulN);
   color: var(--colorAzulO);
 }
@@ -199,6 +207,7 @@ body{
       border-radius: 15px;
     }
 
+
       #formu>p>input:focus, #busquedaRapida>p>input:focus{
         background-color: var(--colorCrema);
       }
@@ -214,7 +223,6 @@ body{
     }
 
     #formu>button{
-      padding: .25em;
       width: 20%;
       height: auto;
       display: block;
@@ -223,14 +231,27 @@ body{
       cursor: pointer;
     }
 
-    #formu>button:hover, #busquedaRapida>p>button:hover{
+    #formu>button:hover, #busquedaRapida>p>button:hover,
+    #formu>p>a:hover{
         background-color: var(--colorRosa);
     }
 
-    #formu>button:active, #busquedaRapida>p>button:active{
+    #formu>button:active, #busquedaRapida>p>button:active,
+    #formu>p>a:active{
         background-color: var(--colorRosa);
     }
 
+    #nolog{
+      margin-top: 1.5em;
+    }
+
+    #formu>p>a{
+      max-width: 200px;
+      margin: 0 auto;
+      color:black;
+      background-color: #F0F0F0;
+      border-radius: 15px;
+    }
 
 #busquedaRapida{
   margin: 1.5em auto;
@@ -249,8 +270,11 @@ body{
   }
 
     #busquedaRapida>p>input, #busquedaRapida>p>button{
-      padding: .5em;
       border-radius: 15px;
+    }
+
+    #busquedaRapida>p>input{
+      padding: .5em;
     }
 
 /*END FORMULARIOS*/
@@ -318,7 +342,7 @@ section{
   .boxProd>footer{
     margin: 0 0 1em 10%;
     padding-left: 1em;
-    border-left: 1px solid black;
+    border-left: 4px solid var(--colorAzulVO);
   }
 
     .boxProd>footer>p{
@@ -326,9 +350,110 @@ section{
     }
 /*END LISTA DE ARTICULOS*/
 
+/*PAGINACION*/
+.paginacion{
+  text-align: center;
+}
+
+  .paginacion>p>a{
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      font-size: 1.5em;
+      margin: 0 .5em;
+  }
+
+    .paginacion>p>a>i{
+      color: var(--colorAzulVC);
+    }
+
+    .paginacion>p>a:hover{
+      text-decoration: underline;
+    }
+
+    .estoy{
+        text-decoration: underline !important;
+        color: var(--colorAzulVC) !important;
+    }
+/*END PAGINACION*/
+
+/*ARTICULO*/
+
+#prod{
+  max-width: 80%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 10px;
+}
+
+  #prod>h2{
+    margin-bottom: 0;
+    padding: .75em 0 .75em 10%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 8px solid var(--colorAzulVC);
+    font-size: 1.75em;
+    color: var(--colorCrema);
+    background-color: var(--colorAzulVO);
+  }
+
+  #flex-prod{
+      display: flex;
+      flex-direction: column;
+      padding: 1.5em;
+  }
+
+    .carrusel{
+      text-align: center;
+    }
+
+      .foto{
+        height: auto;
+        max-width: 250px;
+      }
+
+      .moveFoto{
+        margin: 0 1em;
+        padding: 0;
+        border: none;
+        font-size: 2.5em;
+        background-color: white;
+        color: var(--colorAzulVO);
+      }
+
+      .moveFoto:hover{
+        color: var(--colorAzulN);
+      }
+
+      #flex-prod>aside>p>span{
+        color: var(--colorAzulVC);
+      }
+
+    .attbprod{
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+      .attbprod>a{
+        text-decoration: none;
+        color: black;
+      }
+
+      .attbprod>i, .attbprod>a>i{
+        color: var(--colorAzulVO);
+      }
+
+      .attbprod>a>i:hover, .attbprod>a:hover{
+        color: var(--colorAzulVC);
+        text-decoration: underline;
+      }
+
+    .descLong{
+      margin: 1em 2em;
+    }
+/*END ARTICULO*/
+
 /*ACERCA*/
-
-
   .acerca{
     text-align:center;
   }
@@ -349,17 +474,13 @@ section{
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
   }
-
   .texto{
-
- background-color:white;
+    background-color:white;
     margin:0 auto 2em;
     padding: 1em 1em;
     color:var(--colorAzulVO);
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
-
-
   }
 /*END ACERCA */
 
@@ -372,8 +493,10 @@ section{
     margin: 0 auto;
   }
 
+  #prod{
+    max-width: 1000px;
+  }
 }
-
 
 @media all and (min-width:480px){ /* navbar para icons */
 
@@ -410,16 +533,19 @@ section{
       display:none;
     }
 
+    #flex-prod>aside>p>span{
+      font-size: 1.25em;
+    }
+
+
 }
 
 @media all and (min-width:680px){
-/*NAVBAR*/
-body>nav>ul>li>a>p{
-  display:flex;
-}
-
-
-/*end NAVBAR*/
+  /*NAVBAR*/
+  body>nav>ul>li>a>p{
+    display:flex;
+  }
+  /*end NAVBAR*/
 
   #formu{
     max-width: 600px;
@@ -447,14 +573,43 @@ body>nav>ul>li>a>p{
     width: 40%;
     min-width: 175px;
   }
+
+/*ARTICULO*/
+#flex-prod{
+  flex-direction: row;
+}
+  .carrusel>p{
+    text-align: center;
+  }
+    .foto{
+      max-width: 300px;
+    }
+
+  .descLong{
+      margin-bottom: 3em;
+  }
+
+  .attbprod{
+    margin: .5em 1em;
+    max-width: 1000px;
+  }
+/*END ARTICULO*/
 }
 
-/*PARA FLEXEAR ARTICULOS*/
+
+/*FLEX ARTICULOS*/
 @media all and (min-width:960px){ /*3 ARTICULOS*/
   body>section>#flex>article{
     width: 30%;
   }
 
+  .carrusel{ /*dar margenes*/
+    text-align: left;
+  }
+
+  .attbprod{
+    margin: .5em 3em;
+  }
 
 }
 @media all and (min-width:1190px){ /*4 ARTICULOS*/

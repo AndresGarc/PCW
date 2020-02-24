@@ -32,15 +32,15 @@
       <p id="tituloReg"><b>Campo obligatorio (*)</b></p>
       <p>
         <label for="login">Nombre usuario (*)</label>
-        <input type="text" name="login" id="login" autofocus minlength="4" maxlength="20" pattern="^\d|[^a-zA-Z0-9]+" required>
+        <input type="text" name="login" id="login" autofocus minlength="4" maxlength="20" pattern="^[a-zA-Z][a-zA-Z0-9]+" placeholder="Ni espacios ni caracteres especiales y no comenzar en número" required>
       </p>
       <p>
         <label for="pwd">Contraseña (*)</label>
-        <input type="password" name="pwd" id="pwd" minlength="6" maxlength="20" pattern="[^a-zA-Z0-9_-]+" required>
+        <input type="password" name="pwd" id="pwd" minlength="6" maxlength="20" pattern="[a-zA-Z0-9_-]+" required>
       </p>
       <p>
         <label for="pwd2">Confirmar contraseña (*)</label>
-        <input type="password" name="pwd2" id="pwd2" minlength="6" maxlength="20" pattern="[^a-zA-Z0-9_-]+" required>
+        <input type="password" name="pwd2" id="pwd2" minlength="6" maxlength="20" pattern="[a-zA-Z0-9_-]+" required>
       </p>
       <p>
         <label for="nombre">Nombre (*)</label>
@@ -48,11 +48,11 @@
       </p>
       <p>
         <label for="email">Email (*)</label>
-        <input type="text" name="email" id="email" required>
+        <input type="email" name="email" id="email" required>
       </p>
       <p>
         <label for="foto">Foto de perfil</label>
-        <input type="file" name="foto" id="foto" accept="image/*">
+        <input type="file" name="foto" id="foto" accept="image/*" id="selFoto">
         <img src="img/No-image-available.png" alt="foto de perfil">
       </p>
       <button type="submit" name="submit">Registrar</button>
