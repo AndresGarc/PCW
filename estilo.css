@@ -485,32 +485,46 @@ section{
 /*ACERCA*/
   .acerca{
     text-align:center;
+    margin:1em;
+  }
+
+  .contenedor{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    
+   
   }
   .nombre{
     text-align:center;
     background-color:var(--colorAzulVO);
     color:var(--colorCrema);
     border-radius:1em;
-
-
+    padding:1.5em;
+    margin:1em;
   }
+
   .subapartado{
     background-color:var(--colorAzulVC);
     padding: 0.4em 0 0.4em 1em;
-    margin: 0 auto;
+    margin: 1em 1em 0;
     color:white;
     font-size: 1.2em;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
+
   }
+
   .texto{
-    margin:0 auto 2em;
+    margin:0 1em;
     background-color:white;
     padding: 1em 1em;
     color:var(--colorAzulVO);
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
+   
   }
+
 /*END ACERCA */
 
 /*END BODY*/
@@ -572,6 +586,20 @@ section{
 @media all and (min-width:900px){
   body>nav>ul>li>a>p{
     display:flex;
+  }
+
+  .contenedor{
+    display:flex;
+    flex-direction:row;
+  }
+
+  .nombre{
+    padding: 2em;
+    font-size:1.5em;
+  }
+
+  .artacerca{
+    margin:2em 5em;
   }
 }
 
