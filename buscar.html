@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
+    <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+    <title>NS - Busqueda</title>
+  </head>
+  <body>
+    <header>
+      <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
+      <h2>Tu página de compra-venta de segunda mano de confianza</h2>
+    </header>
+
+    <nav id="navbar">
+      <label for="mostrar"><i class="fas fa-sort-down"></i></label>
+      <input type="checkbox" id="mostrar">
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i><p>Home</p></a></li>
+        <li><a href="buscar.html"><i class="fas fa-search"></i><p>Buscar</p></a></li>
+        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
+        <li><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
+        <li><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
+        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><p>Logout</p></a></li>
+      </ul>
+    </nav>
+
+
+    <h2>Busqueda</h2>
+   <form id="formu" method="get">
+    <p>
+      <label for="vendedor">vendedor</label>
+      <input type="text" name="vendedor" id="vendedor" size="20" maxlength="100" required>
+    </p>
+    <p>
+      <label for="precio">Precio min</label>
+      <input type="number" name="precio" id="precio" size="20" required>
+    </p>
+    <p>
+      <label for="precio max">Precio max</label>
+      <input type="number" name="precio max" id="precio max" size="20" required>
+    </p>
+    <!--preguntar sobre busqueda+como mostrar-->
+   </form>
+
+   <section>
+     <h3>Resultado de búsqueda</h3>
+      <div id="flex">
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+        <article class="boxProd">
+          <h4><a href="articulo.html">Nombre Artículo</a></h4>
+          <a href="articulo.html"><img class="ftoArt" src="img/secador.jpg" alt="imagen articulo"></a>
+          <p class="desc">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
+            <footer>
+              <p><i class="far fa-images"></i> <b>Nº Fotos:</b> 5</p>
+              <p><i class="fas fa-coins"></i> <b>Precio:</b> 15,00€</p>
+
+              <p><i class="far fa-eye"></i> <b>Visitas:</b> 216548</p>
+              <p><i class="fas fa-users"></i> <b>Seguidores:</b> 4568</p>
+            </footer>
+        </article>
+      </div>
+   </section>
+
+   <footer>
+    <h3><a href="acerca.html">Acerca</a></h3>
+    <p>
+        Copyright &copy; PCW <time datetime="2020">2020</time>
+    </p>
+</footer>
+  </body>
+</html>
