@@ -387,7 +387,6 @@ section{
       color: black;
       font-weight: bold;
       font-size: 1.5em;
-      margin: 0 .5em;
   }
 
 
@@ -431,8 +430,9 @@ section{
       padding: 1.5em;
   }
 
+      
     .carrusel{
-        text-align: center;
+      text-align: center;
     }
 
       .foto{
@@ -456,18 +456,18 @@ section{
       #flex-prod>aside>p>span{
         color: var(--colorAzulVC);
       }
-    .attbprod{
 
+    .attbprod{
       margin: 0 auto;
       max-width: 200px;
     }
-
-      .attbprod>a{
         text-decoration: none;
+      .attbprod>a{
+        
         color: black;
       }
 
-
+        
       .attbprod>i, .attbprod>a>i{
         color: var(--colorAzulVO);
       }
@@ -569,7 +569,7 @@ section{
 
 }
 
-@media all and (min-width:900px){
+@media all and (min-width:920px){
   body>nav>ul>li>a>p{
     display:flex;
   }
@@ -577,6 +577,7 @@ section{
 
 @media all and (min-width:680px){
 /*NAVBAR*/
+
 
   #formu{
     max-width: 600px;
