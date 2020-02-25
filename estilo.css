@@ -65,7 +65,7 @@
 body{
   background-color: #d2f4fa /*var(--colorAzulC)*/;
   min-width: 360px; /* MÍNIMO PANTALLA */
-
+  margin: 0;
 }
 
   body>section>h3{
@@ -77,10 +77,8 @@ body{
     text-align: center;
     font-size: 1.5em;
   }
+
   body>footer{
-   /* position:;
-    width:100%;
-    bottom:0; */
     background-color:var(--colorAzulVO);
     font-size:1.1em;
     text-align:center;
@@ -143,6 +141,7 @@ body{
   }
   body>nav>ul>li>a:hover{
     font-size:1.7em;
+    color: var(--colorAzulVC);
   }
 
   #mostrar:checked+ul{ /* al ser checkeado que el siguiente */
@@ -354,7 +353,7 @@ section{
       margin: 0;
     }
 /*END LISTA DE ARTICULOS*/
-/* Boton arriba */ 
+/* Boton arriba */
 #arriba {
   position: fixed;
   bottom: 1em;
@@ -376,7 +375,7 @@ section{
   padding-right:1em;
   padding-top:0.55em;
   padding-bottom:0.55em;
-  
+
 }
 /*PAGINACION*/
 .paginacion{
@@ -388,8 +387,9 @@ section{
       color: black;
       font-weight: bold;
       font-size: 1.5em;
-  }
       margin: 0 .5em;
+  }
+
 
     .paginacion>p>a>i{
       color: var(--colorAzulVC);
@@ -431,8 +431,8 @@ section{
       padding: 1.5em;
   }
 
-      text-align: center;
     .carrusel{
+        text-align: center;
     }
 
       .foto{
@@ -461,14 +461,15 @@ section{
       margin: 0 auto;
       max-width: 200px;
     }
-        text-decoration: none;
-      .attbprod>a{
 
+      .attbprod>a{
+        text-decoration: none;
         color: black;
       }
 
-        color: var(--colorAzulVO);
+
       .attbprod>i, .attbprod>a>i{
+        color: var(--colorAzulVO);
       }
 
       .attbprod>a>i:hover, .attbprod>a:hover{
@@ -576,9 +577,6 @@ section{
 
 @media all and (min-width:680px){
 /*NAVBAR*/
-body>nav>ul>li>a>p{
-  display:flex;
-}
 
   #formu{
     max-width: 600px;
