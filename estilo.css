@@ -63,6 +63,8 @@
 
 /*BODY*/
 body{
+  height: 100%;
+  position: relative;
   background-color: #d2f4fa /*var(--colorAzulC)*/;
   min-width: 360px; /* MÍNIMO PANTALLA */
   margin: 0;
@@ -78,7 +80,8 @@ body{
     font-size: 1.5em;
   }
 
-  body>footer{
+  body>footer{ 
+     width: 100%;
     background-color:var(--colorAzulVO);
     font-size:1.1em;
     text-align:center;
@@ -86,8 +89,13 @@ body{
     color:var(--colorCrema);
     font-weight:bold;
     margin-top: 3em;
-}
 
+}
+.especialito {
+  position: absolute;
+    
+  bottom: -12.5em; 
+}
     body>footer>h3{
       margin:0;
     }
@@ -233,6 +241,7 @@ body{
       margin: 0 auto;
       border-radius:15px;
       cursor: pointer;
+      min-width:7em;
     }
 
     #formu>button:hover, #busquedaRapida>p>button:hover,
@@ -480,6 +489,57 @@ section{
     .descLong{
       margin: 1em 2em;
     }
+
+    .preguntas {
+     max-width: 1200px;
+      
+    }
+
+    .estoycansado {
+     
+      text-align:center;
+    }
+    .mainpre{
+      padding:0.5em;
+      border-radius:1em;
+      border: 1px solid black;
+    
+      background-color:var(--colorAzulN);
+    }
+
+    .mainpreconres {
+      padding:0.5em;
+      border-radius:1em;
+      border-bottom-right-radius: 0px;
+      border-top: 1px solid black;
+      border-left:1px solid black;
+      border-right:1px solid black;
+    
+      background-color:var(--colorAzulN);
+    }
+
+    .respuesta {
+      border-radius:1em;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      background-color:var(--colorAzulC);
+      margin: 0 0 1em 1em;
+      border-bottom: 1px solid black;
+      border-left:1px solid black;
+      border-right:1px solid black;
+      padding: 3px;
+    }
+    .titpre {
+      color:White;
+      font-size:1.5em;
+    }
+    .text{
+      font-size: 1.1em;
+      color:white;
+      margin-bottom:0px;
+      padding-bottom:1em;
+    }
+
 /*END ARTICULO*/
 
 /*ACERCA*/
