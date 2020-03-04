@@ -31,17 +31,29 @@
    <form id="formu" method="get">
     <p>
       <label for="vendedor">vendedor</label>
-      <input type="text" name="vendedor" id="vendedor" size="20" maxlength="100" autofocus>
+      <input type="text" name="vendedor" id="vendedor" size="20" maxlength="100" placeholder="nombre vendedor" autofocus>
     </p>
     <p>
       <label for="precio">Precio min</label>
-      <input type="number" name="precio" id="precio" size="20" >
+      <input type="number" name="precio" id="precio" size="20" placeholder="ejemplo: 0,00">
     </p>
     <p>
       <label for="precio max">Precio max</label>
-      <input type="number" name="precio max" id="precio max" size="20">
+      <input type="number" name="precio max" id="precio max" size="20" placeholder="ejemplo: 420,00">
     </p>
-    
+    <p>
+      <label for="categoria">Categoría</label>
+      <input type="select" name="categoria" placeholder="Selecciona una categoria">
+    </p>
+    <p class="radios">
+      <label for="seguidos">Articulos que sigues</label>
+      <input type="checkbox" name="seguidos">
+    </p>
+    <p class="radios">
+      <label for="venta">Articulos que vendes</label>
+      <input type="checkbox" name="venta">
+    </p>
+
     <button type="submit" name="busqueda">Buscar</button>
    </form>
 
@@ -193,8 +205,8 @@
         </article>
       </div>
    </section>
-
-   <footer >
+   <a href="#header" id="arriba"><i class="fas fa-sort-up"></i></a>
+   <footer>
     <h3><a href="acerca.html">Acerca</a></h3>
     <p>
         Copyright &copy; PCW <time datetime="2020">2020</time>

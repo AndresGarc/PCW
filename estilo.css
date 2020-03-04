@@ -40,7 +40,7 @@
     border-right: 3px solid var(--colorAzulC);
   }
 
-  body>nav, .boxProd, .boxProd{
+  body>nav, .boxProd{
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
   }
@@ -147,8 +147,8 @@ body{
     max-height: 1em;
     transition:max-height .5s;
   }
-  body>nav>ul>li>a:hover{
-    font-size:1.7em;
+  body>nav>ul>li:hover{
+    font-size:1.3em;
     color: var(--colorAzulVC);
   }
 
@@ -290,6 +290,20 @@ body{
       padding: .5em;
     }
 
+    #descripcion:focus {
+      background-color:var(--colorCrema);
+    }
+    #descripcion:hover{
+      background-color:var(--colorRosa);
+    }
+    .radios{
+     max-width: 100px;
+     margin: 0 auto;
+     display:flex;
+     flex-direction:row;
+     margin-bottom:0.2em;
+    }
+
 /*END FORMULARIOS*/
 
 /*LISTA DE ARTICULOS*/
@@ -361,6 +375,8 @@ section{
     .boxProd>footer>p{
       margin: 0;
     }
+
+
 /*END LISTA DE ARTICULOS*/
 /* Boton arriba */
 #arriba {
@@ -438,6 +454,7 @@ section{
       display: flex;
       flex-direction: column;
       padding: 1.5em;
+      margin-bottom:1em;  
   }
 
     .carrusel{
@@ -492,11 +509,11 @@ section{
 
     .preguntas {
      max-width: 1200px;
+     margin: 0 auto;
       
     }
 
     .estoycansado {
-     
       text-align:center;
     }
     .mainpre{

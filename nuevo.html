@@ -38,7 +38,7 @@
     <form id="formu" action="index.html" enctype="multipart/form-data" method="post">
       <p>
         <label for="articulo">Nombre del Articulo(*)</label>
-        <input type="text" name="articulo" id="articulo" size="20" maxlength="100" required autofocus>
+        <input type="text" name="articulo" id="articulo" size="20" maxlength="100" placeholder="Nombre del producto max:100 caracteres" required autofocus>
       </p>
       <p>
         <label for="descripcion">Descripcion(*)</label>
@@ -46,11 +46,11 @@
       </p>
       <p>
         <label for="precio">Precio(*)</label>
-        <input type="number" name="precio" id="precio" min="0" step=".01" required>
+        <input type="number" name="precio" id="precio" min="0" step=".01" placeholder="Ejemplo: 420,00" required>
       </p>
       <p>
         <label for="categoria">Categoria(*)</label>
-        <input type="text" name="Categoria" id="categoria" size="20" maxlength="100" list="opciones" required>
+        <input type="text" name="Categoria" id="categoria" size="20" maxlength="100" list="opciones" placeholder="elige de la lista o asigna tu una" required>
       </p>
       <p>
         <label for="foto">Foto del artículo</label>
@@ -58,14 +58,14 @@
         <label for="foto"><img src="img/No-image-available.png" alt="foto de perfil"></label>
         
       </p>
-      <button id="reset">Reiniciar foto</button>
+      <button id="resetfoto">Eliminar foto</button>
       <button type="submit" name="Subir">Subir</button>
       <button type="reset" value="Reiniciar">Reiniciar formulario</button>
       <!--enlazar a datalist-->
 
     </form>
 
-   
+    <a href="#header" id="arriba"><i class="fas fa-sort-up"></i></a>
     <footer>
 
       <p>
