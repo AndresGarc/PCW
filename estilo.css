@@ -80,7 +80,7 @@ body{
     font-size: 1.5em;
   }
 
-  body>footer{ 
+  body>footer{
      width: 100%;
     background-color:var(--colorAzulVO);
     font-size:1.1em;
@@ -93,8 +93,8 @@ body{
 }
 .especialito {
   position: absolute;
-    
-  bottom: -12.5em; 
+
+  bottom: -12.5em;
 }
     body>footer>h3{
       margin:0;
@@ -454,7 +454,7 @@ section{
       display: flex;
       flex-direction: column;
       padding: 1.5em;
-      margin-bottom:1em;  
+      margin-bottom:1em;
   }
 
     .carrusel{
@@ -508,9 +508,9 @@ section{
     }
 
     .preguntas {
-     max-width: 1200px;
-     margin: 0 auto;
-      
+  /*   max-width: 1200px;
+     margin: 0 auto; */
+     margin: 3em;
     }
 
     .estoycansado {
@@ -520,7 +520,7 @@ section{
       padding:0.5em;
       border-radius:1em;
       border: 1px solid black;
-    
+
       background-color:var(--colorAzulN);
     }
 
@@ -531,7 +531,7 @@ section{
       border-top: 1px solid black;
       border-left:1px solid black;
       border-right:1px solid black;
-    
+
       background-color:var(--colorAzulN);
     }
 
@@ -569,8 +569,8 @@ section{
     display:flex;
     flex-direction:column;
     align-items:center;
-    
-   
+
+
   }
   .nombre{
     text-align:center;
@@ -599,7 +599,7 @@ section{
     color:var(--colorAzulVO);
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
-   
+
   }
 
 /*END ACERCA */
@@ -751,6 +751,12 @@ section{
 @media all and (min-width:1190px){ /*4 ARTICULOS*/
   body>section>#flex>article{
     width: 20%;
+  }
+
+  .preguntas {
+   max-width: 1200px;
+   margin: 0 auto;
+
   }
 }
 /*PARA FLEXEAR ARTICULOS*/
