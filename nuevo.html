@@ -1,77 +1,76 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
-    <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
-    <title>NS - Nuevo producto</title>
-  </head>
-  <body>
-    <header>
-      <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
-      <h2>Tu página de compra-venta de segunda mano de confianza</h2>
-    </header>
+  <!DOCTYPE html>
+  <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
+      <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+      <title>NS - Nuevo producto</title>
+    </head>
+    <body>
+      <header>
+        <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
+        <h2>Tu página de compra-venta de segunda mano de confianza</h2>
+      </header>
 
-    <nav id="navbar">
-      <label for="mostrar"><i class="fas fa-sort-down"></i></label>
-      <input type="checkbox" id="mostrar">
-      <ul>
-        <li><a href="index.html"><i class="fas fa-home"></i><p>Home</p></a></li>
-        <li><a href="buscar.html"><i class="fas fa-search"></i><p>Buscar</p></a></li>
-        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
-        <li><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
-        <li><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
-        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><p>Logout</p></a></li>
-      </ul>
-    </nav>
+      <nav id="navbar">
+        <label for="mostrar"><i class="fas fa-sort-down"></i></label>
+        <input type="checkbox" id="mostrar">
+        <ul>
+          <li><a href="index.html"><i class="fas fa-home"></i><p>Home</p></a></li>
+          <li><a href="buscar.html"><i class="fas fa-search"></i><p>Buscar</p></a></li>
+          <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
+          <li><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
+          <li><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
+          <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><p>Logout</p></a></li>
+        </ul>
+      </nav>
 
-    <datalist id="opciones">
-      <option>Categoria 1</option>
-      <option>Categoria 2</option>
-      <option>Categoria 3</option>
-      <option>Categoria 4</option>
-       <!--tambien se puede hacer option value=""-->
-  </datalist>
+      <datalist id="opciones">
+        <option>Categoria 1</option>
+        <option>Categoria 2</option>
+        <option>Categoria 3</option>
+        <option>Categoria 4</option>
+        <!--tambien se puede hacer option value=""-->
+    </datalist>
 
-    <h2>Crea tu nuevo producto</h2>
-    <form id="formu" action="index.html" enctype="multipart/form-data" method="post">
-      <p>
-        <label for="articulo">Nombre del Articulo(*)</label>
-        <input type="text" name="articulo" id="articulo" size="20" maxlength="100" placeholder="Nombre del producto max:100 caracteres" required autofocus>
-      </p>
-      <p>
-        <label for="descripcion">Descripcion(*)</label>
-         <textarea name="descripcion" id="descripcion" rows=4 cols=20 maxlength="300" placeholder="Descripción del producto max:300 caracteres" required></textarea>
-      </p>
-      <p>
-        <label for="precio">Precio(*)</label>
-        <input type="number" name="precio" id="precio" min="0" step=".01" placeholder="Ejemplo: 420,00" required>
-      </p>
-      <p>
-        <label for="categoria">Categoria(*)</label>
-        <input type="text" name="Categoria" id="categoria" size="20" maxlength="100" list="opciones" placeholder="elige de la lista o asigna tu una" required>
-      </p>
-      <p>
-        <label for="foto">Foto del artículo</label>
-        <input type="file" name="foto" id="foto" accept="image/*" id="selFoto">
-        <label for="foto"><img src="img/No-image-available.png" alt="foto de perfil"></label>
-        
-      </p>
-      <button id="resetfoto">Eliminar foto</button>
-      <button type="submit" name="Subir">Subir</button>
-      <button type="reset" value="Reiniciar">Reiniciar formulario</button>
-      <!--enlazar a datalist-->
+      <h2>Crea tu nuevo producto</h2>
+      <form id="formu" action="index.html" enctype="multipart/form-data" method="post">
+        <p>
+          <label for="articulo">Nombre del Articulo(*)</label>
+          <input type="text" name="articulo" id="articulo" size="20" maxlength="100" placeholder="Nombre del producto max:100 caracteres" required autofocus>
+        </p>
+        <p>
+          <label for="descripcion">Descripcion(*)</label>
+          <textarea name="descripcion" id="descripcion" rows=4 cols=20 maxlength="300" placeholder="Descripción del producto max:300 caracteres" required></textarea>
+        </p>
+        <p>
+          <label for="precio">Precio(*)</label>
+          <input type="number" name="precio" id="precio" min="0" step=".01" placeholder="Ejemplo: 420,00" required>
+        </p>
+        <p>
+          <label for="categoria">Categoria(*)</label>
+          <input type="text" name="Categoria" id="categoria" size="20" maxlength="100" list="opciones" placeholder="elige de la lista o asigna tu una" required>
+        </p>
+        <p>
+          <label for="foto">Foto del artículo</label>
+          <input type="file" name="foto" id="foto" accept="image/*">
+          <label for="foto"><img src="img/No-image-available.png" alt="foto de perfil"></label>
+          
+        </p>
+        <button id="resetfoto">Eliminar foto</button>
+        <button type="submit" name="Subir">Subir</button>
+        <button type="reset" value="Reiniciar">Reiniciar formulario</button>
+        <!--enlazar a datalist-->
 
-    </form>
+      </form>
 
-    <a href="#header" id="arriba"><i class="fas fa-sort-up"></i></a>
-    <footer>
-
-      <p>
-      <h3><a href="acerca.html">Acerca</a></h3>
-          Copyright &copy; PCW <time datetime="2020">2020</time>
-      </p>
-  </footer>
-  </body>
-</html>
+      <a href="#header" id="arriba"><i class="fas fa-sort-up"></i></a>
+      <footer>
+        <h3><a href="acerca.html">Acerca</a></h3>
+        <p>
+            Copyright &copy; PCW <time datetime="2020">2020</time>
+        </p>
+        </footer>
+    </body>
+  </html>
