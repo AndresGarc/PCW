@@ -296,6 +296,17 @@ body{
     #descripcion:hover{
       background-color:var(--colorRosa);
     }
+
+    .selectcat{
+      min-width:150px;
+      max-width: 250px;
+      margin: 0 auto;
+      display:flex;
+      flex-direction:row;
+      margin-bottom:0.2em;
+      border-radius:3em;
+    }
+
     .radios{
      max-width: 100px;
      margin: 0 auto;

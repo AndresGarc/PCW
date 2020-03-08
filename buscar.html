@@ -26,13 +26,7 @@
       </ul>
     </nav>
 
-    <datalist id="opciones">
-      <option>Categoria 1</option>
-      <option>Categoria 2</option>
-      <option>Categoria 3</option>
-      <option>Categoria 4</option>
-       <!--tambien se puede hacer option value=""-->
-  </datalist>
+  
 
 
     <h2>Busqueda</h2>
@@ -50,8 +44,11 @@
       <input type="number" name="preciomax" id="preciomax" min="0" step=".01" placeholder="ejemplo: 420,00">
     </p>
     <p>
-      <label for="categoria">Categoría</label>
-        <input type="text" name="Categoria" id="categoria" list="opciones" placeholder="elige de la lista o asigna tu una" required>
+      <select name="categoria" class="selectcat">
+        <option value="Cat 1" selected>Categoria 1</option> 
+        <option value="Cat 2">Categoria 2</option>
+        <option value="Cat 3">Categoria 3</option>
+      </select>
     </p>
     <p class="radios">
       <label for="seguidos">Articulos que sigues</label>
