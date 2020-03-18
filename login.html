@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang="es" dir="ltr" >
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
     <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script>
+    <script src="codigoY.js">window.onload = enviarindex;</script>
+    
     <title>NS - Login</title>
   </head>
 
@@ -23,15 +25,15 @@
         <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
         <li><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
         <li><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
-        <li><a href="index.html"><i class="fas fa-sign-out-alt"></i><p>Logout</p></a></li>
+        <li onclick="cerrarSesion()"><a href="index.html"><i class="fas fa-sign-out-alt"></i><p>Logout</p></a></li>
       </ul>
     </nav>
 
     <h2>Login</h2>
-    <form id="formu" action="index.html" method="get">
+    <form id="formu" action="index.html" method="get" onsubmit="return loginn(this);">
       <p>
-        <label for="nomUsu">Nombre usuario</label>
-        <input type="text" name="nomUsu" id="nomUsu" autofocus required>
+        <label for="login">Nombre usuario</label>
+        <input type="text" name="login" id="login" autofocus required>
       </p>
       <p>
         <label for="pwd">Contraseña</label>
