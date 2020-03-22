@@ -9,7 +9,7 @@ function loginn(form) {
                 console.log(datos);
                 console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
-                location.href ="index.html";
+                
             });
         }
         else {
@@ -27,12 +27,15 @@ function mostrarsesion() {
     }   
 }
 
-function enviarindex() { // pa esto usar un onload o algo asi en el login
+function logueadoIndex() { // te envia a index si estas logueado
     if (sessionStorage.usuario != undefined) {
         location.href ="index.html";
     }
-    else {
-        window.alert("Esta linea no hace nada porque te debe dejar entrar a login si no hs abierto sesion");
+}
+
+function noLogueadoIndex() { // lo contrario de arriba vaya
+    if (sessionStorage.usuario == undefined) {
+        location.href ="index.html";
     }
 }
 
@@ -44,4 +47,23 @@ function cerrarSesion() {
     else {
         window.alert("No has abierto sesion");
     }
+}
+
+function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras eso comprobamos si esta logeado o no para borrar cosis
+    //ejemplo
+    var local = document.getElementById(borraesto);
+        local.parentNode.removeChild(local); //esto es una marranada pero era como estaba en muchos sitios???
+
+    if((sessionStorage.usuario !=undefined)) { //si esta logueado, quitamos login y registro
+        var element = document.getElementById('login');
+        element.parentNode.removeChild(element);
+        var element2 = document.getElementById('registro');
+        element2.parentNode.removeChild(element2);
+    }
+    else { //si no esta logueado quitamos logout y nuevo producto
+        var element = document.getElementById('logout');
+        element.parentNode.removeChild(element);
+        var element2 = document.getElementById('nuevo');
+        element2.parentNode.removeChild(element2);
+    } 
 }
