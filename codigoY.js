@@ -9,6 +9,7 @@ function loginn(form) {
                 console.log(datos);
                 console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
+                location.href ="index.html";
             });
         }
         else {
