@@ -9,7 +9,6 @@ function loginn(form) {
                 console.log(datos);
                 console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
-                
             });
         }
         else {
@@ -19,13 +18,6 @@ function loginn(form) {
     return false;
 }
 
-function mostrarsesion() {
-    if ((sessionStorage.name != undefined) && (sessionStorage.password != undefined)) {
-        window.alert("Nombre: " + sessionStorage.name + " Password: " + sessionStorage.password);
-    } else {
-        window.alert("no has abierto sesion");
-    }   
-}
 
 function logueadoIndex() { // te envia a index si estas logueado
     if (sessionStorage.usuario != undefined) {
@@ -59,6 +51,10 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
         element.parentNode.removeChild(element);
         var element2 = document.getElementById('registro');
         element2.parentNode.removeChild(element2);
+
+        let usu =   JSON.parse(sessionStorage['usuario']);
+        document.getElementById("logname").innerHTML ="Logout (" + usu.login + ")";
+        // window.alert(usu.login);
     }
     else { //si no esta logueado quitamos logout y nuevo producto
         var element = document.getElementById('logout');
@@ -66,4 +62,26 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
         var element2 = document.getElementById('nuevo');
         element2.parentNode.removeChild(element2);
     } 
+}
+
+
+
+function infoArticulo(){
+    var comprobar = false;
+
+    let xhr = new XMLHttpRequest(),
+    url= 'api/articulos/1',
+    autorizacion = 'usuario:token'; //tomando la info del sessionstorage
+
+    xhr.open('GET',url,true);
+
+    xhr.onload = function(){
+        console.log(xhr.responseText);
+        let r = JSON.parse(xhr.responseText);
+        console.log(r);
+    }
+
+    xhr.setRequestHeader('Authorization',autorizacion);
+    xhr.send();
+    return comprobar;
 }
