@@ -95,7 +95,14 @@ function loadArt(){
 //BUSQUEDA ------------------------------------------------------------------------------------
 
 //FUNCION SI ESTAS LOGEADO PARA CARGAR LOS CHECKBOX PARA LA BUSQUEDA DE ARTICULOS QUE SIGUES O VENDES
+function checkLogin(){
+  if(sessionStorage.usuario !=undefined){ //si existe usuario
+      crearCB();
+  }
+}
+
 function crearCB(){
+
   let labS = document.createElement('label');
   let labV = document.createElement('label');
   let inpS = document.createElement('input');
@@ -110,11 +117,6 @@ function crearCB(){
   document.getElementById('av').appendChild(labV); document.getElementById('av').appendChild(inpV);
 
 }
-function checkLogin(){
-  if(sessionStorage.usuario !=undefined){ //si existe usuario
-      crearCB();
-  }
-}
 function deleteHijosBusq(){
   let doc = document.getElementById('flex');
   if(doc.firstChild){
@@ -123,7 +125,6 @@ function deleteHijosBusq(){
     }
   }
 }
-
 function imprimirDatoUrl(){
   let url = window.location.search;
 
