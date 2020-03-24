@@ -53,9 +53,25 @@ function crearArticulo(e){
 
   document.getElementById('flex').appendChild(art);
 };
+function cargarCats(){
+  let xhr = new XMLHttpRequest(),
+      url = 'api/categorias';
+  xhr.open('GET', url, true);
+  xhr.onload = function(){
+    let r = JSON.parse(xhr.responseText);
+    r.FILAS.forEach(function(e){
+      let op =document.createElement('option');
+      op.value=e.id;
+      op.innerHTML = e.nombre;
+      document.getElementById('categoria').appendChild(op);
+    });
+
+  };
+  xhr.send();
+}
 
 
-//INDEX
+//INDEX-----------------------------------------------------------------------------------------
 function loadArt(){
   let xhr = new XMLHttpRequest(),
       url = 'api/articulos';
@@ -66,7 +82,6 @@ function loadArt(){
   xhr.onload = function(){ //CUADNO NOSOTROS RECIBAMOS LA RESPUESTA CORRECTAMENTE SE DISPARA ESTE ELEMENTO
     //console.log(xhr.responseText);
     let r = JSON.parse(xhr.responseText);
-    console.log(r);
     r.FILAS.forEach(function(e){
       crearArticulo(e);
     });
@@ -75,20 +90,89 @@ function loadArt(){
   xhr.send();
 };
 
-//BUSQUEDA
-function imprimirDatoUrl(){
+//-------------------------------------------------------------------------------------
+
+//BUSQUEDA ------------------------------------------------------------------------------------
+
+//FUNCION SI ESTAS LOGEADO PARA CARGAR LOS CHECKBOX PARA LA BUSQUEDA DE ARTICULOS QUE SIGUES O VENDES
+function crearCB(){
+  let labS = document.createElement('label');
+  let labV = document.createElement('label');
+  let inpS = document.createElement('input');
+  let inpV = document.createElement('input');
+
+  labS.for = "seguidos"; labS.innerHTML="Articulos que sigues";
+  labV.for="venta"; labV.innerHTML="Articulos que vendes";
+  inpS.type="checkbox"; inpS.name="seguidos"; inpS.id="seguidos";
+  inpV.type="checkbox"; inpV.name="venta"; inpV.id="venta";
+
+  document.getElementById('as').appendChild(labS); document.getElementById('as').appendChild(inpS);
+  document.getElementById('av').appendChild(labV); document.getElementById('av').appendChild(inpV);
 
 }
+function checkLogin(){
+  if(sessionStorage.usuario !=undefined){ //si existe usuario
+      crearCB();
+  }
+}
+function deleteHijosBusq(){
+  let doc = document.getElementById('flex');
+  if(doc.firstChild){
+    while (doc.firstChild) {
+        doc.removeChild(doc.firstChild);
+    }
+  }
+}
 
-function buscar(){
+function imprimirDatoUrl(){
+  let url = window.location.search;
+
+  const urlParams = new URLSearchParams(url);
+  let param = urlParams.get('busqR');
+  document.getElementById('nombre').value = param;
+
+  if(param){
+    param = "?t=" + param;
+    buscar(param);
+  }
+}
+function urlBusq(){
+
+  deleteHijosBusq();
+  let param="?";
 
   let nom = document.getElementById('nombre').value;
   let ven = document.getElementById('vendedor').value;
   let prMx = document.getElementById('preciomax').value;
   let prMn = document.getElementById('precio').value;
+  let cat = document.getElementById('categoria').value;
 
-  if(!nom){
-    console.log("Nombre vacio");
-  }
+  if(nom){ param+="t="+nom+"&"; }
+  if(ven){ param+="v="+ven+"&"; }
+  if(prMx){ param+="ph="+prMx+"&"; }
+  if(prMn){ param+="pd="+prMn+"&";}
+  if(cat){ param+="c="+cat; }
 
+  buscar(param);
 }
+function buscar(paramBus){
+  let url = 'api/articulos'+paramBus;
+
+  if(paramBus!="?"){
+    fetch(url).then(function(response){
+      if(!response.ok){
+           return false;
+           console.log('Error en la respuesta');
+      }
+      response.json().then(function(datos){
+
+        datos.FILAS.forEach(function(e){
+          crearArticulo(e);
+        });
+
+
+      });
+    }, function(error){ console.log('ERROR CON EL FETCH') });
+  }
+}
+// -------------------------------------------------------------------------------

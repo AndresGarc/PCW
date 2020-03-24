@@ -8,7 +8,7 @@
     <script src="codigoY.js"></script>
     <title>NS - Busqueda</title>
   </head>
-  <body onload="borraNavbar('buscar')">
+  <body onload="borraNavbar('buscar'),checkLogin(),imprimirDatoUrl(),cargarCats()">
     <header>
       <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
       <h2>Tu página de compra-venta de segunda mano de confianza</h2>
@@ -49,22 +49,13 @@
       <input type="number" name="preciomax" id="preciomax" min="0" step=".01" placeholder="ejemplo: 420,00">
     </p>
     <p>
-      <select name="categoria" class="selectcat">
-        <option value="Cat 1" selected>Categoria 1</option>
-        <option value="Cat 2">Categoria 2</option>
-        <option value="Cat 3">Categoria 3</option>
-      </select>
+      <select name="categoria" id="categoria" class="selectcat">
+        <option value="" selected>-</option>
     </p>
-    <p class="radios">
-      <label for="seguidos">Articulos que sigues</label>
-      <input type="checkbox" name="seguidos" id="seguidos">
-    </p>
-    <p class="radios">
-      <label for="venta">Articulos que vendes</label>
-      <input type="checkbox" name="venta" id="venta">
-    </p>
+    <p class="radios" id="as"></p>
+    <p class="radios" id="av"></p>
 
-    <button type="submit" name="busqueda">Buscar</button>
+    <input type="button" name="busqueda" value="Buscar" onclick="urlBusq()">
    </form>
 
    <section>
