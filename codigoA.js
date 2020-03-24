@@ -148,11 +148,21 @@ function urlBusq(){
   let prMn = document.getElementById('precio').value;
   let cat = document.getElementById('categoria').value;
 
+
+
   if(nom){ param+="t="+nom+"&"; }
   if(ven){ param+="v="+ven+"&"; }
   if(prMx){ param+="ph="+prMx+"&"; }
   if(prMn){ param+="pd="+prMn+"&";}
-  if(cat){ param+="c="+cat; }
+  if(cat){ param+="c="+cat+"&"; }
+  if(sessionStorage.usuario !=undefined){
+    if(document.getElementById('seguidos').checked){
+      param+="siguiendo&";
+    }
+    if(document.getElementById('venta').checked){
+      param+="mios"
+    }
+  }
 
   buscar(param);
 }
@@ -160,20 +170,47 @@ function buscar(paramBus){
   let url = 'api/articulos'+paramBus;
 
   if(paramBus!="?"){
-    fetch(url).then(function(response){
-      if(!response.ok){
-           return false;
-           console.log('Error en la respuesta');
-      }
-      response.json().then(function(datos){
-
-        datos.FILAS.forEach(function(e){
-          crearArticulo(e);
-        });
-
-
-      });
-    }, function(error){ console.log('ERROR CON EL FETCH') });
+    if(sessionStorage.usuario !=undefined){
+      busquedaR(url);
+    } else{
+      busquedaNR(url);
+    }
   }
+}
+
+function busquedaR(url){
+  let usu = JSON.parse(sessionStorage['usuario']);
+  let header = { method:'get', headers:{'Authorization':`${usu.login}:${usu.token}`} };
+  fetch(url, header).then(function(response){
+    if(!response.ok){
+         return false;
+         console.log('Error en la respuesta');
+    }
+    response.json().then(function(datos){
+
+      datos.FILAS.forEach(function(e){
+        crearArticulo(e);
+      });
+
+
+    });
+  }, function(error){ console.log('ERROR CON EL FETCH') });
+}
+
+function busquedaNR(url){
+  fetch(url).then(function(response){
+    if(!response.ok){
+         return false;
+         console.log('Error en la respuesta');
+    }
+    response.json().then(function(datos){
+
+      datos.FILAS.forEach(function(e){
+        crearArticulo(e);
+      });
+
+
+    });
+  }, function(error){ console.log('ERROR CON EL FETCH') });
 }
 // -------------------------------------------------------------------------------

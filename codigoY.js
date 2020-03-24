@@ -1,4 +1,4 @@
-function loginn(form) {
+                   function loginn(form) {
     let url = 'api/usuarios/login',
     fd = new FormData(form);
 
@@ -61,7 +61,7 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
         element.parentNode.removeChild(element);
         var element2 = document.getElementById('nuevo');
         element2.parentNode.removeChild(element2);
-    } 
+    }
 }
 
 
