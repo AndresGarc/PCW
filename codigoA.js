@@ -17,6 +17,7 @@ function crearArticulo(e){
   //enlace titulo
   at.innerHTML = `${e.nombre}`;
   at.href="articulo.html";
+  at.id = `${e.id}`;
 
   //enlace foto
   img.className = "ftoArt";
@@ -32,6 +33,7 @@ function crearArticulo(e){
   //creacion
   af.appendChild(img);
   af.href="articulo.html";
+  af.id = `${e.id}`;
   titulo.appendChild(at);
   art.className="boxProd";
   desc.className = "desc";
@@ -100,7 +102,6 @@ function checkLogin(){
       crearCB();
   }
 }
-
 function crearCB(){
 
   let labS = document.createElement('label');
@@ -125,6 +126,7 @@ function deleteHijosBusq(){
     }
   }
 }
+
 function imprimirDatoUrl(){
   let url = window.location.search;
 
@@ -137,6 +139,7 @@ function imprimirDatoUrl(){
     buscar(param);
   }
 }
+
 function urlBusq(){
 
   deleteHijosBusq();
@@ -177,7 +180,6 @@ function buscar(paramBus){
     }
   }
 }
-
 function busquedaR(url){
   let usu = JSON.parse(sessionStorage['usuario']);
   let header = { method:'get', headers:{'Authorization':`${usu.login}:${usu.token}`} };
@@ -196,7 +198,6 @@ function busquedaR(url){
     });
   }, function(error){ console.log('ERROR CON EL FETCH') });
 }
-
 function busquedaNR(url){
   fetch(url).then(function(response){
     if(!response.ok){
@@ -214,3 +215,86 @@ function busquedaNR(url){
   }, function(error){ console.log('ERROR CON EL FETCH') });
 }
 // -------------------------------------------------------------------------------
+
+//REGISTRO---------------------------------------------------------------------------------------------------
+
+function checkLgNm(){
+  let log = document.getElementById('loginR').value;
+  let spn = document.getElementById('mensj');
+  if(log!=""){
+    let xhr = new XMLHttpRequest(),
+        url = `api/usuarios/${log}`;
+
+    xhr.open('GET',url,true);
+    xhr.onload= function(){
+        let inf = JSON.parse(xhr.responseText);
+        if(inf.DISPONIBLE==true){
+          spn.className="mensjLog mensjLogok";
+          spn.innerHTML="Sin coincidencias, usuario correcto";
+        } else {
+          spn.className="mensjLog mensjLogno";
+          spn.innerHTML="Nombre de usuario incorrecto";
+        }
+    }
+    xhr.send();
+  } else {
+    spn.innerHTML="";
+  }
+}
+
+function loginBien(){
+  let good = false;
+  let span = document.getElementById('mensj').className;
+  if(span=="mensjLog mensjLogok"){
+    good = true;
+  }
+  return good;
+}
+
+function pwdcheck(){
+  let p1 = document.getElementById('pwd').value;
+  let p2 = document.getElementById('pwd2').value;
+  let spn = document.getElementById('mensjPW');
+  let good = false;
+  if(p1==p2){
+    spn.className="mensjLog mensjLogok";
+    spn.innerHTML="Las dos contraseñas son iguales";
+    good = true;
+  } else {
+    spn.className="mensjLog mensjLogno";
+    spn.innerHTML="No coinciden las contraseñas";
+  }
+  return good;
+}
+
+function registrar(form){
+    if(loginBien() && pwdcheck()){ //todo ok
+
+      let url = "api/usuarios/registro",
+          fd = new FormData(form),
+          init = {method: 'post', body:fd};
+
+      fetch(url, init).then(function(response){
+        if(!response.ok){
+          console.log("Error con la subida");
+          response.json().then(function(datos){
+              console.log(datos);
+          });
+        } else {
+          console.log("Registro completado");
+          document.getElementById("formu").reset();
+        }
+      });
+
+    } else {//si no ok
+      console.log("no epico");
+    }
+    return false;
+}
+
+
+
+
+
+
+//----------------------------------------------------------------------------------------------

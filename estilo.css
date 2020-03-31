@@ -232,7 +232,18 @@ body{
       border-radius: 15px;
     }
 
+    .mensjLog{
+      font-size: .75em;
+    }
 
+    .mensjLogok{
+      color: green;
+    }
+
+    .mensjLogno{
+      color: red;
+    }
+    
       #formu>p>input:focus, #busquedaRapida>p>input:focus{
         background-color: var(--colorCrema);
       }
