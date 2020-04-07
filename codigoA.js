@@ -285,6 +285,7 @@ function registrar(form){
         } else {
           console.log("Registro completado");
           document.getElementById("formu").reset();
+          mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!");
         }
       });
 

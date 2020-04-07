@@ -1,5 +1,5 @@
- // Relacionado con login 
- 
+ // Relacionado con login
+
  function loginn(form) {
     let url = 'api/usuarios/login',
     fd = new FormData(form);
@@ -72,11 +72,11 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
 // Relacionado con login END
 
 
-// Relacionado con Articulo 
+// Relacionado con Articulo
 
 
 function creaArticulo(e) {
-    
+
     let art = document.createElement('article');
     let titulo = document.createElement('h2');
     let divv = document.createElement('div');
@@ -87,20 +87,20 @@ function creaArticulo(e) {
     let span = document.createElement('span');
     let btndelante = document.createElement('button'); let icondelante = document.createElement('i');
     let foot = document.createElement('footer');
-    let desc = document.createElement('p'); 
+    let desc = document.createElement('p');
     let vend = document.createElement('p'); let iVe = document.createElement('i'); let bVe = document.createElement('b'); let url = document.createElement('a');
     let prc = document.createElement('p'); let iP = document.createElement('i'); let bP = document.createElement('b');
     let nFot = document.createElement('p'); let iF = document.createElement('i'); let bF = document.createElement('b');
     let vis = document.createElement('p') ; let iV = document.createElement('i'); let bV = document.createElement('b');
     let seg  = document.createElement('p'); let iS = document.createElement('i'); let bS = document.createElement('b');
     let preg  = document.createElement('p'); let pregred = document.createElement('a'); let icpreg = document.createElement('i'); let bPre = document.createElement('b');
-   
-  
+
+
     //titulo
     art.id="prod";
     titulo.innerHTML = `${e.nombre}`;
     divv.id="flex-prod";
-  
+
     //foto
     carousel.className="carrusel";
     img.className = "foto";
@@ -109,7 +109,7 @@ function creaArticulo(e) {
     btnatras.className = "moveFoto";btnatras.name="prevFoto";
         btndelante.className = "moveFoto";btnatras.name="nextFoto"; //tipo button?
     iconatras.className="fas fa-arrow-alt-circle-left";icondelante.className="fas fa-arrow-alt-circle-right";
-  
+
     //cosas footer
    vend.className="attbprod"; iVe.className = "fas fa-user"; bVe.innerHTML = "Vendedor/a:"; url.href="buscar.html?vendedor="+`${e.vendedor}`;
    prc.className="attbprod"; iF.className = "far fa-images"; bF.innerHTML = "Nº Fotos:";
@@ -118,11 +118,11 @@ function creaArticulo(e) {
    seg.className="attbprod"; iS.className= "fas fa-users"; bS.innerHTML= "Seguidores:";
    preg.className="attbprod"; pregred.href= "#preguntas"; pregred.title="Enlace a las preguntas"; //no dirige bien???
         icpreg.className="fas fa-question-circle"; bPre.innerHTML="Preguntas realizadas:";
-  
+
     //creacion
     desc.className = "descLong";
     desc.innerHTML = `${e.descripcion}`;
-    
+
     //carrusel (dentro de div)
     btnatras.appendChild(iconatras); btndelante.appendChild(icondelante);
     span.innerHTML+='1 de' + ` ${e.nfotos}`; //como saber que foto es
@@ -140,7 +140,7 @@ function creaArticulo(e) {
     vis.appendChild(iV); vis.appendChild(bV); vis.innerHTML+= ` ${e.veces_visto}`;
     foot.appendChild(vis);
     seg.appendChild(iS); seg.appendChild(bS); seg.innerHTML+= ` ${e.nsiguiendo}`;
-    foot.appendChild(seg);  
+    foot.appendChild(seg);
     preg.appendChild(pregred);preg.appendChild(icpreg);preg.appendChild(bPre); preg.innerHTML+=` ${e.npreguntas}`;
     foot.appendChild(preg);
 
@@ -149,10 +149,10 @@ function creaArticulo(e) {
         if (usu) {}
         let botones  = document.createElement('p'); let follow = document.createElement('button'); let unf = document.createElement('button');
         botones.className="attbprod"; follow.innerHTML = "seguir"; follow.onclick="seguir();"; unf.innerHTML = "dejar de seguir";
-        botones.appendChild(follow);botones.appendChild(unf); 
+        botones.appendChild(follow);botones.appendChild(unf);
         foot.appendChild(botones);
     }
-  
+
     //insercion en divv
     divv.appendChild(carousel);
     divv.appendChild(foot);
@@ -164,7 +164,7 @@ function creaArticulo(e) {
     document.getElementById('flex').appendChild(art);
 }
 
-function infoArticulo(){  
+function infoArticulo(){
     const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
     const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
     const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
@@ -213,9 +213,9 @@ function infoArticulo(){
         }
     });
     return false;
-} */ //Tras esto se debe hacer peticion, recargar, y mostrar otra vez las preguntas 1:19 en el video  
+} */ //Tras esto se debe hacer peticion, recargar, y mostrar otra vez las preguntas 1:19 en el video
 //para las respuestas es IGUAL pero con let url ID/pregunta/IDPREGUNTA/respuesta
-//seguir y dejar de seguir igual pero con true y false y sin body 1:20 en video 
+//seguir y dejar de seguir igual pero con true y false y sin body 1:20 en video
 function botonSeguir() {
 
 
@@ -273,7 +273,7 @@ function unfollow(){
 
 
 //END ARTICULO
- 
+
 function cerrarmodal(){ //a donde redirige tras cerrar
     document.querySelector('#capafondo').remove();
     location.href= "index.html";
@@ -281,8 +281,8 @@ function cerrarmodal(){ //a donde redirige tras cerrar
 
 function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecera y titulos
     let div = document.createElement('div'); //aqui un div o que lo que
-    
-     // div.id = 'fondo'; //se puede hacer asi para asignar atributos o 
+
+     // div.id = 'fondo'; //se puede hacer asi para asignar atributos o
     div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
     //ejemplo de un html que le pasamos, hablar con bebé guapo si lo generamos aqui siempre o qué
     let html = '';
@@ -291,7 +291,7 @@ function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecer
     html += '<p>'+mensaje+'</p>';
     html += '<footer><button onclick="cerrarmodal();"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
     html += '</article>';
-   
+
 
     div.innerHTML = html;
     document.body.appendChild(div);
@@ -304,27 +304,30 @@ function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecer
 
 // foto
 
-function cargarFoto(foto){
-    if(foto.files[0].size/1024 > 300) {
-        mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB");
-        return false;
+function cargarFoto(foto){  
+    if(foto.className!="reg"){
+      if(foto.files[0].size/1024 > 300) {
+          mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB");
+          return false;
+      }
     }
+
     let fr = new FileReader();
-    fr.onload = function(){ 
-        foto.parentNode.querySelector('img').src = fr.result; //hay que cambiar esto para que se meta en el IMG 
+    fr.onload = function(){
+        foto.parentNode.querySelector('img').src = fr.result; //hay que cambiar esto para que se meta en el IMG
         //fr.result //donde esta la img
     };
 
     fr.readAsDataURL(foto.files[0]); //comprobar que no esta vacio
 }
 
-function enviarFoto(button){ // 1:50 del video 
+function enviarFoto(button){ // 1:50 del video
     //peticion tipo fetch
     function loginn(form) {
         let url = 'api/articulos/IDARTICULO/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
         usu = JSON.parse(sessionStorage['usuario']), //al estar en nuevo.html, solo va a entrar al estar logueado
         fd = new FormData(form);
-    
+
         fetch(url, {method:'POST',
                  body:fd,
                 headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
@@ -338,7 +341,7 @@ function enviarFoto(button){ // 1:50 del video
             }
         });
         return false;
-    
+
     }
 }
 
