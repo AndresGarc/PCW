@@ -16,7 +16,7 @@ function crearArticulo(e){
 
   //enlace titulo
   at.innerHTML = `${e.nombre}`;
-  at.href="articulo.html?id=" + `${e.id}`;
+  at.href="articulo.html";
   at.id = `${e.id}`;
 
   //enlace foto
@@ -32,7 +32,7 @@ function crearArticulo(e){
 
   //creacion
   af.appendChild(img);
-  af.href="articulo.html?id=" + `${e.id}`;
+  af.href="articulo.html";
   af.id = `${e.id}`;
   titulo.appendChild(at);
   art.className="boxProd";
@@ -84,7 +84,6 @@ function loadArt(){
   xhr.onload = function(){ //CUADNO NOSOTROS RECIBAMOS LA RESPUESTA CORRECTAMENTE SE DISPARA ESTE ELEMENTO
     //console.log(xhr.responseText);
     let r = JSON.parse(xhr.responseText);
-    console.log(r);
     r.FILAS.forEach(function(e){
       crearArticulo(e);
     });
@@ -270,6 +269,8 @@ function pwdcheck(){
 
 function registrar(form){
     if(loginBien() && pwdcheck()){ //todo ok
+
+
 
       let url = "api/usuarios/registro",
           fd = new FormData(form),
