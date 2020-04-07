@@ -16,7 +16,7 @@ function crearArticulo(e){
 
   //enlace titulo
   at.innerHTML = `${e.nombre}`;
-  at.href="articulo.html";
+  at.href=`articulo.html?id=${e.id}`;
   at.id = `${e.id}`;
 
   //enlace foto
@@ -32,7 +32,7 @@ function crearArticulo(e){
 
   //creacion
   af.appendChild(img);
-  af.href="articulo.html";
+  af.href=`articulo.html?id=${e.id}`;
   af.id = `${e.id}`;
   titulo.appendChild(at);
   art.className="boxProd";
