@@ -9,7 +9,7 @@
     <script src="codigoY.js"></script>
     <title>NS - Acerca</title>
   </head>
-  <body class="cuerpoacerca">
+  <body class="cuerpoacerca" onload="borraNavbar('')">
     <header>
       <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
       <h2>Tu página de compra-venta de segunda mano de confianza</h2>
@@ -19,12 +19,12 @@
       <label for="mostrar">mostrar</label>
       <input type="checkbox" id="mostrar">
       <ul>
-        <li><a href="index.html"><i class="fas fa-home"></i><p>Home</p></a></li>
-        <li><a href="buscar.html"><i class="fas fa-search"></i><p>Buscar</p></a></li>
-        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
-        <li><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
-        <li><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
-        <li onclick="cerrarSesion()"><a href="index.html"><i class="fas fa-sign-out-alt"></i><p id="logname">Logout</p></a></li>
+        <li id="index"><a href="index.html"><i class="fas fa-home"></i><p>Home</p></a></li>
+        <li id="buscar"><a href="buscar.html"><i class="fas fa-search"></i><p>Buscar</p></a></li>
+        <li id="login"><a href="login.html"><i class="fas fa-sign-in-alt"></i><p>Login</p></a></li>
+        <li id="registro"><a href="registro.html"><i class="fas fa-address-card"></i><p>Registrate</p></a></li>
+        <li id="nuevo"><a href="nuevo.html"><i class="fas fa-plus"></i><p>Nuevo Producto</p></a></li>
+        <li id="logout" onclick="cerrarSesion()"><a href="index.html"><i class="fas fa-sign-out-alt"></i><p id="logname">Logout</p></a></li>
       </ul>
     </nav>
     <h2 class="acerca"> Práctica 1 de Programación del cliente Web, 2º curso de ingeniería multimedia</h2>

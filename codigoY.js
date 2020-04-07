@@ -11,11 +11,11 @@
                 console.log(datos);
                 console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
-                location.href = "index.html";
+                mensajeemergente("Login correcto","");
             });
         }
         else {
-            console.log('ERROR');
+            mensajeemergente("Login incorrecto","Alguno de los datos introducidos no es correcto");
         }
     });
     return false;
@@ -37,10 +37,10 @@ function noLogueadoIndex() { // lo contrario de arriba vaya
 function cerrarSesion() {
     if ((sessionStorage.usuario !=undefined)) {
         sessionStorage.clear();
-        window.alert("Borramos sesion. Has cerrado sesion");
+        mensajeemergente("Has cerrado sesion","");
     }
     else {
-        window.alert("No has abierto sesion");
+        mensajeemergente("No habias iniciado sesion","No sé ni como has llegado aquí");
     }
 }
 
@@ -74,6 +74,7 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
 
 // Relacionado con Articulo 
 
+
 function creaArticulo(e) {
     
     let art = document.createElement('article');
@@ -93,7 +94,7 @@ function creaArticulo(e) {
     let vis = document.createElement('p') ; let iV = document.createElement('i'); let bV = document.createElement('b');
     let seg  = document.createElement('p'); let iS = document.createElement('i'); let bS = document.createElement('b');
     let preg  = document.createElement('p'); let pregred = document.createElement('a'); let icpreg = document.createElement('i'); let bPre = document.createElement('b');
-    let botones  = document.createElement('p'); let follow = document.createElement('button'); let unf = document.createElement('button');
+   
   
     //titulo
     art.id="prod";
@@ -110,14 +111,13 @@ function creaArticulo(e) {
     iconatras.className="fas fa-arrow-alt-circle-left";icondelante.className="fas fa-arrow-alt-circle-right";
   
     //cosas footer
-   vend.className="attbprod"; iVe.className = "fas fa-user"; bVe.innerHTML = "Vendedor/a:"; url.href="buscar.html";
+   vend.className="attbprod"; iVe.className = "fas fa-user"; bVe.innerHTML = "Vendedor/a:"; url.href="buscar.html?vendedor="+`${e.vendedor}`;
    prc.className="attbprod"; iF.className = "far fa-images"; bF.innerHTML = "Nº Fotos:";
    nFot.className="attbprod"; iP.className = "fas fa-coins"; bP.innerHTML = "Precio:";
    vis.className="attbprod"; iV.className = "far fa-eye"; bV.innerHTML= "Visitas:";
    seg.className="attbprod"; iS.className= "fas fa-users"; bS.innerHTML= "Seguidores:";
-   preg.className="attbprod";   pregred.href= "#preguntas"; pregred.title="Enlace a las preguntas"; //no dirige bien???
+   preg.className="attbprod"; pregred.href= "#preguntas"; pregred.title="Enlace a las preguntas"; //no dirige bien???
         icpreg.className="fas fa-question-circle"; bPre.innerHTML="Preguntas realizadas:";
-   botones.className="attbprod"; follow.innerHTML = "seguir"; unf.innerHTML = "dejar de seguir";
   
     //creacion
     desc.className = "descLong";
@@ -143,8 +143,15 @@ function creaArticulo(e) {
     foot.appendChild(seg);  
     preg.appendChild(pregred);preg.appendChild(icpreg);preg.appendChild(bPre); preg.innerHTML+=` ${e.npreguntas}`;
     foot.appendChild(preg);
-    botones.appendChild(follow);botones.appendChild(unf);
-    foot.appendChild(botones);
+
+    if(sessionStorage.usuario !=undefined){
+        usu =   JSON.parse(sessionStorage['usuario']);
+        if (usu) {}
+        let botones  = document.createElement('p'); let follow = document.createElement('button'); let unf = document.createElement('button');
+        botones.className="attbprod"; follow.innerHTML = "seguir"; follow.onclick="seguir();"; unf.innerHTML = "dejar de seguir";
+        botones.appendChild(follow);botones.appendChild(unf); 
+        foot.appendChild(botones);
+    }
   
     //insercion en divv
     divv.appendChild(carousel);
@@ -161,13 +168,7 @@ function infoArticulo(){
     const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
     const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
     const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
-
     var comprobar = false;
-    let autorizacion = 'usuario:token';
-    if(sessionStorage.usuario != undefined) {
-         let usu =   JSON.parse(sessionStorage['usuario']);
-            autorizacion = usu.login + ":" + usu.token  ;
-    }
 
     let xhr = new XMLHttpRequest(),
     url= 'api/articulos/'+id; //tomando la info del sessionstorage
@@ -180,9 +181,17 @@ function infoArticulo(){
         console.log(r.FILAS[0] );
         creaArticulo(r.FILAS[0]);
     }
-
-    xhr.setRequestHeader('Authorization',autorizacion);
+    if(sessionStorage.usuario != undefined) {
+        let autorizacion = 'usuario:token';
+         let usu =   JSON.parse(sessionStorage['usuario']);
+            autorizacion = usu.login + ":" + usu.token  ;
+        comprobar=true;
+        xhr.setRequestHeader('Authorization',autorizacion);
+    }
     xhr.send();
+
+
+
     return comprobar;
 }
 
@@ -207,27 +216,82 @@ function infoArticulo(){
 } */ //Tras esto se debe hacer peticion, recargar, y mostrar otra vez las preguntas 1:19 en el video  
 //para las respuestas es IGUAL pero con let url ID/pregunta/IDPREGUNTA/respuesta
 //seguir y dejar de seguir igual pero con true y false y sin body 1:20 en video 
+function botonSeguir() {
 
 
-function cerrarmodal(HREF){ //a donde redirige tras cerrar
-    document.querySelector('#capafondo').remove();
-    //location href
 }
 
-function mensajeemergente(TITULO, MENSAJE){ // mensaje(mensaje)? pasarle cabecera y titulos
+function follow(){
+    window.alert("entro");
+    const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
+    const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
+    const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
+
+    let url = 'api/articulos/'+id+'/seguir/true', //true porque sigue
+    usu =   JSON.parse(sessionStorage['usuario']);
+
+     fetch(url, {method:'POST',
+             headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
+        if( respuesta.ok){
+            respuesta.json().then(function(datos){
+                console.log(datos);
+            });
+        }
+        else {
+            console.log('error en peticion fetch de seguir');
+            mensajeemergente("Error desconocido al seguir","");
+        }
+    });
+    return false;
+    document.getElementById
+}
+
+function unfollow(){
+    window.alert("entro");
+    const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
+    const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
+    const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
+
+    let url = 'api/articulos/'+id+'/seguir/false', //true porque sigue
+    usu =   JSON.parse(sessionStorage['usuario']);
+
+     fetch(url, {method:'POST',
+             headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
+        if( respuesta.ok){
+            respuesta.json().then(function(datos){
+                console.log(datos);
+            });
+        }
+        else {
+            console.log('error en peticion fetch de dejar de seguir');
+            mensajeemergente("Error desconocido al dejar de seguir","");
+        }
+    });
+    return false;
+
+}
+
+
+//END ARTICULO
+ 
+function cerrarmodal(){ //a donde redirige tras cerrar
+    document.querySelector('#capafondo').remove();
+    location.href= "index.html";
+}
+
+function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecera y titulos
     let div = document.createElement('div'); //aqui un div o que lo que
     
      // div.id = 'fondo'; //se puede hacer asi para asignar atributos o 
-    div.setAttribute('id','capafondo') //diapositiva 17 tema 5
-
-
+    div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
     //ejemplo de un html que le pasamos, hablar con bebé guapo si lo generamos aqui siempre o qué
     let html = '';
     html += '<article>';
-    html += '<h2>EJEMPLO  login correcto<h2>';
-    html += '<p>mensaje texto etc etc etc etc</p>'
+    html += '<h2>'+titulo+'</h2>';
+    html += '<p>'+mensaje+'</p>';
+    html += '<footer><button onclick="cerrarmodal();"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
     html += '</article>';
-    html += '<footer><button onclick="cerrarmodal();"> Textoboton </button> </footer>'  //para el css ejemplo min 53 video semana 23-29
+   
 
     div.innerHTML = html;
     document.body.appendChild(div);
@@ -241,6 +305,10 @@ function mensajeemergente(TITULO, MENSAJE){ // mensaje(mensaje)? pasarle cabecer
 // foto
 
 function cargarFoto(foto){
+    if(foto.files[0].size/1024 > 300) {
+        mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB");
+        return false;
+    }
     let fr = new FileReader();
     fr.onload = function(){ 
         foto.parentNode.querySelector('img').src = fr.result; //hay que cambiar esto para que se meta en el IMG 
