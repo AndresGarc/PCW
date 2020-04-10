@@ -339,13 +339,16 @@ function crearPreguntas(p){
   }
   art.id=`${p.id}`;
   let tiempo = p.fecha_hora.split(" ");
-  h3.className = "titpre"; h3.innerHTML =`${p.login} `
-  anyo.datetime = `${tiempo[0]}`; anyo.innerHTML = `${tiempo[0]}  / `;
-  hora.datetime =  `${tiempo[1]}`; hora.innerHTML = `${tiempo[1]}`;
+  h3.className = "titpre";
+  h3.innerHTML =`${p.login} `; h3.innerHTML+=`<time datetime="${tiempo[0]}">${tiempo[0]}</time> / <time datetime"=${tiempo[1]}">${tiempo[1]}</time>`;
+//  h3.innerHTML+=`<time datetime"=${tiempo[1]}">`; h3.innerHTML+=`${tiempo[1]}</time>`;
+
+//  anyo.datetime = `${tiempo[0]}`; anyo.innerHTML = `${tiempo[0]}  / `;
+//  hora.datetime =  `${tiempo[1]}`; hora.innerHTML = `${tiempo[1]}`;
   preg.className = "text";
   preg.innerHTML = `${p.pregunta}`;
 
-  h3.appendChild(anyo); h3.appendChild(hora);
+  //h3.appendChild(anyo); h3.appendChild(hora);
   art.appendChild(h3);
   art.appendChild(preg);
 
