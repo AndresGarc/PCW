@@ -55,6 +55,7 @@ function crearArticulo(e){
 
   document.getElementById('flex').appendChild(art);
 };
+
 function cargarCats(){
   let xhr = new XMLHttpRequest(),
       url = 'api/categorias';
@@ -65,7 +66,7 @@ function cargarCats(){
       let op =document.createElement('option');
       op.value=e.id;
       op.innerHTML = e.nombre;
-      document.getElementById('categoria').appendChild(op);
+      document.getElementById('opciones').appendChild(op);
     });
 
   };
@@ -132,12 +133,16 @@ function imprimirDatoUrl(){
 
   const urlParams = new URLSearchParams(url);
   let param = urlParams.get('busqR');
+  let paramV = urlParams.get('vendedor');
   document.getElementById('nombre').value = param;
-
+  document.getElementById('vendedor').value=paramV;
+  let paramBusqueda;
   if(param){
-    param = "?t=" + param;
-    buscar(param);
+    paramBusqueda = "?t=" + param;
+  } else {
+    paramBusqueda = "?v=" + paramV;
   }
+  buscar(paramBusqueda);
 }
 
 function urlBusq(){
@@ -149,7 +154,7 @@ function urlBusq(){
   let ven = document.getElementById('vendedor').value;
   let prMx = document.getElementById('preciomax').value;
   let prMn = document.getElementById('precio').value;
-  let cat = document.getElementById('categoria').value;
+  let cat = document.getElementById('categoria').option;
 
 
 
@@ -295,9 +300,92 @@ function registrar(form){
     return false;
 }
 
-
-
-
-
-
 //----------------------------------------------------------------------------------------------
+// ARTICULO --- PREGUNTAS
+
+function cargarPreguntas(){
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
+
+  let xhr = new XMLHttpRequest(),
+      url = `api/articulos/${id}/preguntas`;
+
+  xhr.open("GET", url, true);
+  xhr.onload= function(){
+    let inf = JSON.parse(xhr.responseText);
+    console.log(inf);
+    inf.FILAS.forEach(function(e){
+      crearPreguntas(e);
+    });
+  };
+  xhr.send();
+
+}
+
+function crearPreguntas(p){
+  let art = document.createElement("article"),
+      h3 = document.createElement("h3"),
+      anyo = document.createElement("time"),
+      hora = document.createElement("time"),
+      preg = document.createElement("p"),
+      tieneRes = 0;
+
+  if(p.respuesta){
+    art.className = "mainpreconres";
+    tieneRes=1;
+  } else {
+    art.className = "mainpre";
+  }
+  art.id=`${p.id}`;
+  let tiempo = p.fecha_hora.split(" ");
+  h3.className = "titpre"; h3.innerHTML =`${p.login} `
+  anyo.datetime = `${tiempo[0]}`; anyo.innerHTML = `${tiempo[0]}  / `;
+  hora.datetime =  `${tiempo[1]}`; hora.innerHTML = `${tiempo[1]}`;
+  preg.className = "text";
+  preg.innerHTML = `${p.pregunta}`;
+
+  h3.appendChild(anyo); h3.appendChild(hora);
+  art.appendChild(h3);
+  art.appendChild(preg);
+
+  if(sessionStorage.usuario!=undefined){
+    let usu = JSON.parse(sessionStorage['usuario']);
+    let xhr2 = new XMLHttpRequest(),
+        url = `api/articulos/${p.id_articulo}`;
+
+    xhr2.open('GET', url, true);
+    xhr2.onload = function(e){
+
+      let resp = JSON.parse(xhr2.responseText);
+      if(usu.login==resp.FILAS[0].vendedor){
+        let botonHTML = '<button onclick="responderPregunta()">Responder</button>';
+        let boton = document.createElement('p'); boton.innerHTML = botonHTML;
+        art.appendChild(boton);
+      }
+    };
+    xhr2.send();
+  }
+  document.getElementById('preguntas').appendChild(art);
+  if(tieneRes==1){ crearRespuesta(`${p.respuesta}`); }
+
+
+}
+
+function crearRespuesta(r){
+  let art = document.createElement("article"),
+      res = document.createElement("p"),
+      h4 = document.createElement("h4");
+
+  h4.className="titRes"; h4.innerHTML= "Respuesta del vendedor: ";
+  res.className = "text"; res.innerHTML = `${r}`;
+  art.className = "respuesta";
+  art.appendChild(h4);
+  art.appendChild(res);
+  document.getElementById("preguntas").appendChild(art);
+
+}
+
+function responderPregunta(){
+  console.log("ESTOY RESPONDIENDO A UNA PREGUNTA");
+}

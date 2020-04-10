@@ -26,7 +26,7 @@
   bottom:0;
   right:0;
   background-color: rgba(255,255,255,.5);
-  
+
 }
 #capafondo > article {
   border: 3px solid black;
@@ -262,7 +262,7 @@ body{
     .mensjLogno{
       color: red;
     }
-    
+
       #formu>p>input:focus, #busquedaRapida>p>input:focus{
         background-color: var(--colorCrema);
       }
@@ -605,6 +605,12 @@ section{
       color:White;
       font-size:1.5em;
     }
+
+    .titRes {
+      color: White;
+      font-size: 1.15em;
+    }
+
     .text{
       font-size: 1.1em;
       color:white;
