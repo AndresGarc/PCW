@@ -290,7 +290,7 @@ function registrar(form){
         } else {
           console.log("Registro completado");
           document.getElementById("formu").reset();
-          mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!");
+          mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!",1);
         }
       });
 
@@ -382,11 +382,12 @@ function enviarPregunta(frm){
 
   fetch(url, init).then(function(response){
     if(!response.ok){
-
+      document.getElementById('descripcion').focus();
+      mensajeemergente("Pregunta enviada correctamente","Haz click en el botón para volver al artículo!", 5);
     } else { //si se sube bien la pregunta
       console.log("Pregunta enviada");
       document.getElementById("formu").reset();
-      mensajeemergente("Pregunta correcto","Haz click en el botón para poder loggearte y empezar a comprar!");
+      mensajeemergente("Pregunta enviada correctamente","Haz click en el botón para volver al artículo!", 5);
     }
   });
 
@@ -465,11 +466,12 @@ function importarPregunta(){
       let resp = JSON.parse(xhr2.responseText);
       if(usu.login!=resp.FILAS[0].vendedor){
         let xhr = new XMLHttpRequest(),
-            url = "formPregunta.html";
+            url = "formulario.html";
 
         xhr.open('GET', url, true);
         xhr.onload = function(){
           secP.innerHTML = `${xhr.responseText}`;
+          console.log(xhr.responseText);
         };
         xhr.send();
       }

@@ -147,7 +147,7 @@ function creaArticulo(e) {
     if(sessionStorage.usuario !=undefined){
         usu =   JSON.parse(sessionStorage['usuario']);
         console.log(usu);
-        let botones  = document.createElement('p'); let follow = document.createElement('button'); 
+        let botones  = document.createElement('p'); let follow = document.createElement('button');
         botones.className="attbprod"; follow.id="btnfollow";
         if(`${e.estoy_siguiendo}`==1) {follow.innerHTML = "dejar de seguir";} else {follow.innerHTML = "seguir";}
         follow.onclick= function() {botonSeguir()};
@@ -227,7 +227,7 @@ function botonSeguir() {
    console.log(followers);
    if(bot.innerHTML=="dejar de seguir") {
       nums= nums-1;
-    bot.innerHTML="seguir"; 
+    bot.innerHTML="seguir";
     segui.innnerHTML = '<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b>';
     unfollow();
    }
@@ -296,17 +296,22 @@ function unfollow(){
 
 function cerrarmodal(num){ //en base a donde estamo
     document.querySelector('#capafondo').remove();
-    if(num==2){ // la de andrés
+    if(num==2){ // la de andrés - registro
         location.href="login.html";
     }
-    if(num==3){ //error inesperado, no hacer nada
+    else if(num==3){ //error inesperado, no hacer nada
         console.log("nada");
-    
+
     }
 
-    if(num==4){ //foto de mayor tamaño
+    else if(num==4){ //foto de mayor tamaño
         console.log("nada y borra");
-    
+
+    } else if(num==5){ //pregunta gucci
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const id = urlParams.get('id');
+      location.href=`articulo.html?id=${id}`;
     }
     else { // 1, te redirige a index
         location.href= "index.html";
@@ -314,7 +319,7 @@ function cerrarmodal(num){ //en base a donde estamo
 }
 
 function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cabecera y titulos
-    let div = document.createElement('div'); 
+    let div = document.createElement('div');
 
      // div.id = 'fondo'; //se puede hacer asi para asignar atributos o
     div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
@@ -337,13 +342,13 @@ function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cab
 
 // foto
 
-function cargarFoto(foto){  
+function cargarFoto(foto){
     if(foto.className!="reg"){
       if(foto.files[0].size/1024 > 300) {
           mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB",4);
           return false;
       }
-      
+
       if(document.getElementById('fotito').alt!="foto 1") {
         let otraimg = document.createElement('img');
         otraimg.src="img/No-image-available.png";
@@ -362,11 +367,11 @@ function cargarFoto(foto){
 
 function enviarFoto(img){ // 1:50 del video
     //peticion tipo fetch
-    
+
         let url = 'api/articulos/3/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
         usu = JSON.parse(sessionStorage['usuario']), //al estar en nuevo.html, solo va a entrar al estar logueado
         fd = new FormData();
-        fd.append('fichero',img);   
+        fd.append('fichero',img);
 
         fetch(url, {method:'POST',
                  body:fd,
@@ -380,7 +385,7 @@ function enviarFoto(img){ // 1:50 del video
                 console.log('Error al dar de alta foto');
             }
         });
-        return false;    
+        return false;
 }
 
 //foto END
@@ -393,7 +398,7 @@ function nuevoArticulo(form) {
     let url = "api/articulos",
     fd = new FormData(form),
     init = {method: 'POST', body:fd, headers:{'Authorization':`${usu.login}:${usu.token}`} };
-    
+
           fetch(url, init).then(function(response){
             if(!response.ok){
               console.log("Error con la subida");
@@ -405,9 +410,9 @@ function nuevoArticulo(form) {
               console.log("Registro completado");
               var fotos = document.getElementsByClassName("fotito");
               console.log(fotos);
-              
+
               document.getElementById("formu").reset();
-              
+
             }
           });
         return false;
@@ -427,23 +432,23 @@ function borraImg(){
         document.getElementById("lasfotos").appendChild(otraimg);
     }
     else {var x = document.getElementById("lasfotos").lastChild.remove();}
-    
+
 }
 function getBase64Image(img) {
     // Create an empty canvas element
     var canvas = document.createElement("canvas");
     canvas.width = img.width;
     canvas.height = img.height;
-  
+
     // Copy the image contents to the canvas
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
-  
+
     // Get the data-URL formatted image
     // Firefox supports PNG and JPEG. You could check img.src to
     // guess the original format, but be aware the using "image/jpg"
     // will re-encode the image.
     var dataURL = canvas.toDataURL("image/png");
-  
+
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
   }
