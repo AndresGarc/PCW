@@ -47,7 +47,11 @@
   cursor:pointer;
 }
 
-
+.fotito {
+  max-width: 100%;
+  height: auto;
+  margin: 1em auto;
+}
 
 /*CABECERA*/
   #logo{

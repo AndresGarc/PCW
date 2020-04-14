@@ -11,11 +11,11 @@
                 console.log(datos);
                 console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
-                mensajeemergente("Login correcto","");
+                mensajeemergente("Login correcto","",1);
             });
         }
         else {
-            mensajeemergente("Login incorrecto","Alguno de los datos introducidos no es correcto");
+            mensajeemergente("Login incorrecto","Alguno de los datos introducidos no es correcto",2);
         }
     });
     return false;
@@ -37,10 +37,10 @@ function noLogueadoIndex() { // lo contrario de arriba vaya
 function cerrarSesion() {
     if ((sessionStorage.usuario !=undefined)) {
         sessionStorage.clear();
-        mensajeemergente("Has cerrado sesion","");
+        mensajeemergente("Has cerrado sesion","",1);
     }
     else {
-        mensajeemergente("No habias iniciado sesion","No sé ni como has llegado aquí");
+        mensajeemergente("No habias iniciado sesion","No sé ni como has llegado aquí",1);
     }
 }
 
@@ -94,7 +94,7 @@ function creaArticulo(e) {
     let vis = document.createElement('p') ; let iV = document.createElement('i'); let bV = document.createElement('b');
     let seg  = document.createElement('p'); let iS = document.createElement('i'); let bS = document.createElement('b');
     let preg  = document.createElement('p'); let pregred = document.createElement('a'); let icpreg = document.createElement('i'); let bPre = document.createElement('b');
-
+    //cambiar estan dentro del A en el HREF etc para #preguntas
 
     //titulo
     art.id="prod";
@@ -115,8 +115,8 @@ function creaArticulo(e) {
    prc.className="attbprod"; iF.className = "far fa-images"; bF.innerHTML = "Nº Fotos:";
    nFot.className="attbprod"; iP.className = "fas fa-coins"; bP.innerHTML = "Precio:";
    vis.className="attbprod"; iV.className = "far fa-eye"; bV.innerHTML= "Visitas:";
-   seg.className="attbprod"; iS.className= "fas fa-users"; bS.innerHTML= "Seguidores:";
-   preg.className="attbprod"; pregred.href= "#preguntas"; pregred.title="Enlace a las preguntas"; //no dirige bien???
+   seg.className="attbprod";seg.id="seguidores"; iS.className= "fas fa-users"; bS.innerHTML= "Seguidores:";
+   preg.className="attbprod"; pregred.href= "#preguntas"; pregred.title="Enlace a las preguntas";//no dirige bien???
         icpreg.className="fas fa-question-circle"; bPre.innerHTML="Preguntas realizadas:";
 
     //creacion
@@ -141,15 +141,17 @@ function creaArticulo(e) {
     foot.appendChild(vis);
     seg.appendChild(iS); seg.appendChild(bS); seg.innerHTML+= ` ${e.nsiguiendo}`;
     foot.appendChild(seg);
-    preg.appendChild(pregred);preg.appendChild(icpreg);preg.appendChild(bPre); preg.innerHTML+=` ${e.npreguntas}`;
+    preg.appendChild(icpreg);preg.appendChild(bPre); pregred.innerHTML+=` ${e.npreguntas}`; preg.appendChild(pregred);
     foot.appendChild(preg);
 
     if(sessionStorage.usuario !=undefined){
         usu =   JSON.parse(sessionStorage['usuario']);
-        if (usu) {}
-        let botones  = document.createElement('p'); let follow = document.createElement('button'); let unf = document.createElement('button');
-        botones.className="attbprod"; follow.innerHTML = "seguir"; follow.onclick="seguir();"; unf.innerHTML = "dejar de seguir";
-        botones.appendChild(follow);botones.appendChild(unf);
+        console.log(usu);
+        let botones  = document.createElement('p'); let follow = document.createElement('button'); 
+        botones.className="attbprod"; follow.id="btnfollow";
+        if(`${e.estoy_siguiendo}`==1) {follow.innerHTML = "dejar de seguir";} else {follow.innerHTML = "seguir";}
+        follow.onclick= function() {botonSeguir()};
+        botones.appendChild(follow);
         foot.appendChild(botones);
     }
 
@@ -178,7 +180,7 @@ function infoArticulo(){
     xhr.onload = function(){
         console.log(xhr.responseText);
         let r = JSON.parse(xhr.responseText);
-        console.log(r.FILAS[0] );
+        console.log(r.FILAS[0]);
         creaArticulo(r.FILAS[0]);
     }
     if(sessionStorage.usuario != undefined) {
@@ -217,12 +219,29 @@ function infoArticulo(){
 //para las respuestas es IGUAL pero con let url ID/pregunta/IDPREGUNTA/respuesta
 //seguir y dejar de seguir igual pero con true y false y sin body 1:20 en video
 function botonSeguir() {
-
+   var bot = document.getElementById('btnfollow');
+   var segui = document.getElementById('seguidores');
+   nums = segui.innerHTML.substring(66,67);
+   console.log(nums);
+   followers = parseInt(nums,10);
+   console.log(followers);
+   if(bot.innerHTML=="dejar de seguir") {
+      nums= nums-1;
+    bot.innerHTML="seguir"; 
+    segui.innnerHTML = '<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b>';
+    unfollow();
+   }
+   else{
+    nums= nums+1;
+   bot.innerHTML="dejar de seguir";
+   follow();
+   segui.innnerHTML = '<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b> ' + nums;
+   }  //como editar los seguidores
 
 }
 
 function follow(){
-    window.alert("entro");
+    var si=false;
     const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
     const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
     const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
@@ -235,19 +254,19 @@ function follow(){
         if( respuesta.ok){
             respuesta.json().then(function(datos){
                 console.log(datos);
+                return true;
             });
         }
         else {
             console.log('error en peticion fetch de seguir');
-            mensajeemergente("Error desconocido al seguir","");
+            mensajeemergente("Error desconocido al seguir","",3);
         }
     });
-    return false;
-    document.getElementById
+    return si;
 }
 
 function unfollow(){
-    window.alert("entro");
+    var si=false;
     const queryString = window.location.search; //aqui podemos hacer un metodo para sacar parametros de la URL
     const urlParams = new URLSearchParams(queryString); //aqui podemos hacer un metodo para sacar parametros de la URL
     const id = urlParams.get('id'); //aqui podemos hacer un metodo para sacar parametros de la URL
@@ -260,36 +279,50 @@ function unfollow(){
         if( respuesta.ok){
             respuesta.json().then(function(datos){
                 console.log(datos);
+                return true;
             });
         }
         else {
             console.log('error en peticion fetch de dejar de seguir');
-            mensajeemergente("Error desconocido al dejar de seguir","");
+            mensajeemergente("Error desconocido al dejar de seguir","",3);
         }
     });
-    return false;
+    return si;
 
 }
 
 
 //END ARTICULO
 
-function cerrarmodal(){ //a donde redirige tras cerrar
+function cerrarmodal(num){ //en base a donde estamo
     document.querySelector('#capafondo').remove();
-    location.href= "index.html";
+    if(num==2){ // la de andrés
+        location.href="login.html";
+    }
+    if(num==3){ //error inesperado, no hacer nada
+        console.log("nada");
+    
+    }
+
+    if(num==4){ //foto de mayor tamaño
+        console.log("nada y borra");
+    
+    }
+    else { // 1, te redirige a index
+        location.href= "index.html";
+    }
 }
 
-function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecera y titulos
-    let div = document.createElement('div'); //aqui un div o que lo que
+function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cabecera y titulos
+    let div = document.createElement('div'); 
 
      // div.id = 'fondo'; //se puede hacer asi para asignar atributos o
     div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
-    //ejemplo de un html que le pasamos, hablar con bebé guapo si lo generamos aqui siempre o qué
     let html = '';
     html += '<article>';
     html += '<h2>'+titulo+'</h2>';
     html += '<p>'+mensaje+'</p>';
-    html += '<footer><button onclick="cerrarmodal();"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
+    html += '<footer><button onclick="cerrarmodal('+num+');"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
     html += '</article>';
 
 
@@ -307,26 +340,33 @@ function mensajeemergente(titulo, mensaje){ // mensaje(mensaje)? pasarle cabecer
 function cargarFoto(foto){  
     if(foto.className!="reg"){
       if(foto.files[0].size/1024 > 300) {
-          mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB");
+          mensajeemergente("Imagen muy grande","El peso de la imagen no debe exceder los 300KB",4);
           return false;
       }
+      
+      if(document.getElementById('fotito').alt!="foto 1") {
+        let otraimg = document.createElement('img');
+        otraimg.src="img/No-image-available.png";
+        otraimg.className="fotito";
+        document.getElementById('lasfotos').appendChild(otraimg);
+     } else {document.getElementById('fotito').alt="foto 2";}
     }
-
     let fr = new FileReader();
     fr.onload = function(){
-        foto.parentNode.querySelector('img').src = fr.result; //hay que cambiar esto para que se meta en el IMG
+        foto.parentNode.querySelector("img[src='img/No-image-available.png']").src = fr.result; //hay que cambiar esto para que se meta en el IMG
         //fr.result //donde esta la img
     };
 
     fr.readAsDataURL(foto.files[0]); //comprobar que no esta vacio
 }
 
-function enviarFoto(button){ // 1:50 del video
+function enviarFoto(img){ // 1:50 del video
     //peticion tipo fetch
-    function loginn(form) {
-        let url = 'api/articulos/IDARTICULO/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
+    
+        let url = 'api/articulos/3/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
         usu = JSON.parse(sessionStorage['usuario']), //al estar en nuevo.html, solo va a entrar al estar logueado
-        fd = new FormData(form);
+        fd = new FormData();
+        fd.append('fichero',img);   
 
         fetch(url, {method:'POST',
                  body:fd,
@@ -340,9 +380,70 @@ function enviarFoto(button){ // 1:50 del video
                 console.log('Error al dar de alta foto');
             }
         });
-        return false;
-
-    }
+        return false;    
 }
 
 //foto END
+
+
+// nuevo START
+
+function nuevoArticulo(form) {
+    let usu = JSON.parse(sessionStorage['usuario']);
+    let url = "api/articulos",
+    fd = new FormData(form),
+    init = {method: 'POST', body:fd, headers:{'Authorization':`${usu.login}:${usu.token}`} };
+    
+          fetch(url, init).then(function(response){
+            if(!response.ok){
+              console.log("Error con la subida");
+              response.json().then(function(datos){
+                  console.log(datos);
+              });
+            } else {
+              console.log(response);
+              console.log("Registro completado");
+              var fotos = document.getElementsByClassName("fotito");
+              console.log(fotos);
+              
+              document.getElementById("formu").reset();
+              
+            }
+          });
+        return false;
+
+     // 1:50 del video
+    //peticion tipo fetch
+}
+
+function borraImg(){
+    if( document.getElementById("lasfotos").lastChild==document.getElementById("lasfotos").firstChild) {
+        var x = document.getElementById("lasfotos").lastChild.remove();
+        let otraimg = document.createElement('img');
+        otraimg.src="img/No-image-available.png";
+        otraimg.className="fotito";
+        otraimg.id="fotito";
+        otraimg.alt="foto 1";
+        document.getElementById("lasfotos").appendChild(otraimg);
+    }
+    else {var x = document.getElementById("lasfotos").lastChild.remove();}
+    
+}
+function getBase64Image(img) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+  
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+  
+    // Get the data-URL formatted image
+    // Firefox supports PNG and JPEG. You could check img.src to
+    // guess the original format, but be aware the using "image/jpg"
+    // will re-encode the image.
+    var dataURL = canvas.toDataURL("image/png");
+  
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+  }
