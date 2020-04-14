@@ -47,11 +47,11 @@
   cursor:pointer;
 }
 
-.fotito {
-  max-width: 100%;
-  height: auto;
-  margin: 1em auto;
-}
+.fotito { 
+  max-width: 100%; 
+  height: auto; 
+  margin: 1em auto; 
+} 
 
 /*CABECERA*/
   #logo{
@@ -248,7 +248,7 @@ body{
     font-size: 1.15em;
   }
 
-    #formu>p>input, #formu>p>textarea{
+    #formu>p>input, #formu>p>textarea, .respuestica{
       width: 75%;
       margin: .2em auto;
       padding: .5em;
@@ -575,6 +575,27 @@ section{
     .estoycansado {
       text-align:center;
     }
+
+    .preguntame{
+      background-color: var(--colorAzulN);
+      margin: 0 2em;
+      border: 1px solid black;
+      padding: 0 1em 1em 1em;
+      border-radius: 1em;
+
+    }
+
+    .enlaceLogArt{
+      text-decoration: none;
+      color: black;
+      border: 1px solid black;
+      border-radius: 1em;
+      background-color: white;
+      padding: .5em 1.5em;
+      font-weight: bold;
+    }
+
+
     .mainpre{
       padding:0.5em;
       border-radius:1em;
@@ -620,6 +641,12 @@ section{
       color:white;
       margin-bottom:0px;
       padding-bottom:1em;
+    }
+
+    .responder{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
 /*END ARTICULO*/
@@ -795,6 +822,10 @@ section{
     max-width: 1000px;
   }
 /*END ARTICULO*/
+
+.preguntame{
+  margin: 0 10em;
+}
 }
 
 
@@ -822,6 +853,10 @@ section{
    max-width: 1200px;
    margin: 0 auto;
 
+  }
+
+  .preguntame{
+    margin: 0 20em;
   }
 }
 /*PARA FLEXEAR ARTICULOS*/

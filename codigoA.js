@@ -341,10 +341,6 @@ function crearPreguntas(p){
   let tiempo = p.fecha_hora.split(" ");
   h3.className = "titpre";
   h3.innerHTML =`${p.login} `; h3.innerHTML+=`<time datetime="${tiempo[0]}">${tiempo[0]}</time> / <time datetime"=${tiempo[1]}">${tiempo[1]}</time>`;
-//  h3.innerHTML+=`<time datetime"=${tiempo[1]}">`; h3.innerHTML+=`${tiempo[1]}</time>`;
-
-//  anyo.datetime = `${tiempo[0]}`; anyo.innerHTML = `${tiempo[0]}  / `;
-//  hora.datetime =  `${tiempo[1]}`; hora.innerHTML = `${tiempo[1]}`;
   preg.className = "text";
   preg.innerHTML = `${p.pregunta}`;
 
@@ -361,8 +357,8 @@ function crearPreguntas(p){
     xhr2.onload = function(e){
 
       let resp = JSON.parse(xhr2.responseText);
-      if(usu.login==resp.FILAS[0].vendedor){
-        let botonHTML = '<button onclick="responderPregunta()">Responder</button>';
+      if(usu.login==resp.FILAS[0].vendedor && art.className=="mainpre"){
+        let botonHTML = `<button onclick="responderPregunta(${art.id})" id="botonresponder">Responder</button>`;
         let boton = document.createElement('p'); boton.innerHTML = botonHTML;
         art.appendChild(boton);
       }
@@ -374,6 +370,30 @@ function crearPreguntas(p){
 
 
 }
+
+function enviarPregunta(frm){
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
+  let url = `api/articulos/${id}/pregunta`,
+      form = new FormData(frm),
+      usu = JSON.parse(sessionStorage['usuario']),
+      init = {method:'post', body:form, headers:{'Authorization':`${usu.login}:${usu.token}`}};
+
+  fetch(url, init).then(function(response){
+    if(!response.ok){
+
+    } else { //si se sube bien la pregunta
+      console.log("Pregunta enviada");
+      document.getElementById("formu").reset();
+      mensajeemergente("Pregunta correcto","Haz click en el botón para poder loggearte y empezar a comprar!");
+    }
+  });
+
+
+  return false;
+}
+
 
 function crearRespuesta(r){
   let art = document.createElement("article"),
@@ -389,6 +409,71 @@ function crearRespuesta(r){
 
 }
 
-function responderPregunta(){
-  console.log("ESTOY RESPONDIENDO A UNA PREGUNTA");
+function responderPregunta(id){
+
+//  let textAr = document.createElement("textarea"); textAr.className="respuestica";
+  let div = document.createElement("div");
+
+  div.innerHTML = `<form onsubmit="return enviarRespuesta(this, ${id});" ><p><textarea class="respuestica" name="texto"></textarea></p><button type="submit" name="responder">Responder</button></form>`;
+
+  let objetivo = document.getElementById('botonresponder');
+  objetivo.parentNode.replaceChild(div, objetivo);
+
+}
+
+function enviarRespuesta(frm, idPreg){
+  let pregunta = document.getElementById(idPreg),
+      respuesta = document.getElementById(idPreg).lastChild.firstChild.firstChild.value,
+      usu = JSON.parse(sessionStorage['usuario']),
+      url = `api/preguntas/${idPreg}/respuesta`,
+      fd= new FormData(frm),
+      init ={method:'post', body:fd, headers:{'Authorization':`${usu.login}:${usu.token}`}};
+
+      fetch(url, init).then(function(response){
+        if(response.ok){
+          limpiaryCargar();
+        } else {
+          console.log("Error al subir la respuesta");
+        }
+      });
+
+  return false;
+}
+
+function limpiaryCargar(){
+    let seccion = document.getElementById('preguntas');
+    seccion.innerHTML="";
+    let tit = document.createElement("h2"); tit.innerHTML = "Preguntas";
+    seccion.appendChild(tit);
+    cargarPreguntas();
+}
+
+function importarPregunta(){
+  if(sessionStorage.usuario !=undefined){
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+
+    let secP = document.getElementById('dejaPregunta'); //limpiar
+    secP.innerHTML=""; secP.className="estoycansado";
+    let xhr2 = new XMLHttpRequest(),
+        url = `api/articulos/${id}`;
+
+    xhr2.open('GET', url, true);
+    xhr2.onload = function(e){
+
+      let resp = JSON.parse(xhr2.responseText);
+      if(usu.login!=resp.FILAS[0].vendedor){
+        let xhr = new XMLHttpRequest(),
+            url = "formPregunta.html";
+
+        xhr.open('GET', url, true);
+        xhr.onload = function(){
+          secP.innerHTML = `${xhr.responseText}`;
+        };
+        xhr.send();
+      }
+  };
+  xhr2.send();
+  }
 }

@@ -9,7 +9,7 @@
     <title>NS - Articulo</title>
   </head>
 
-  <body onload="infoArticulo(),borraNavbar(''), cargarPreguntas()">
+  <body onload="infoArticulo(),borraNavbar(''), cargarPreguntas(), importarPregunta()">
     <header>
       <h1><img src="img/logo3.png" alt="Logo web" id="logo"> NegocioSincero</h1>
       <h2>Tu página de compra-venta de segunda mano de confianza</h2>
@@ -27,32 +27,8 @@
       </ul>
     </nav>
     <div id="flex"></div>
-      <!--<article id="prod">
-        <h2>Nombre del artículo</h2>
-        <div id="flex-prod">
-          <aside class="carrusel">
-            <img src="img/secador.jpg" alt="imagen articulo" class="foto">
-            <p>
-              <button type="button" name="prevFoto" class="moveFoto"><i class="fas fa-arrow-alt-circle-left"></i></button>
-              <span>1 de 5</span>
-              <button type="button" name="nextFoto" class="moveFoto"><i class="fas fa-arrow-alt-circle-right"></i></button>
-            </p>
-          </aside>
-          <footer>
-              <p class="descLong">Descripción del artículo la cual es muy larga entonces tienen que salir tres puntos suspensivos para que nos den la nota</p>
-              <p class="attbprod"><i class="fas fa-user"></i> <b>Vendedor/a: </b><a href="buscar.html">Vendedor 1</a></p>
-              <p class="attbprod"><i class="fas fa-coins"></i> <b>Precio: </b>15,00€</p>
-              <p class="attbprod"><i class="far fa-images"></i> <b>Nº Fotos: </b>5</p>
-              <p class="attbprod"><i class="far fa-eye"></i> <b>Visitas: </b>216548</p>
-              <p class="attbprod"><i class="fas fa-users"></i> <b>Seguidores: </b>4568</p>
-              <p class="attbprod"><a href="#preguntas" title="Enlace a las preguntas"><i class="fas fa-question-circle"></i><b> Preguntas realizadas:</b></a> 2</p>
-              <p class="attbprod"><button >Seguir</button> <button>Dejar de seguir</button></p>
-            </footer>
-        </div>
 
-      </article> -->
-
-
+<!--
       <form id="formu" action="index.html" enctype="multipart/form-data" method="post" class="estoycansado">
         <h2>Deja una pregunta para el vendedor</h2>
         <p>
@@ -61,38 +37,21 @@
         </p>
 
         <button type="submit" name="Subir">Enviar</button>
-        <!--enlazar a datalist-->
+        enlazar a datalist
 
       </form>
+-->
+      <div id="dejaPregunta" class="estoycansado preguntame">
+        <h3>ATENCIÓN</h3>
+        <p>Debes de hacer login para poder dejar una pregunta</p>
+        <p><a href="login.html" class="enlaceLogArt">Login</a></p>
+      </div>
 
       <section class="preguntas" id="preguntas">
         <h2>Preguntas</h2>
 
       </section>
-      <!--  <article class="mainpreconres">
-          <h3 class="titpre">
-            Autor <time datetime="1998-03-13">DD-MM-YYYY</time>  <time datetime="11:11">HH:MM</time>
-          </h3>
 
-          <p class="text"> Explicabo quia autem provident, est beatae dolorum doloribus quisquam consectetur repellat aperiam doloremque! Accusamus nostrum aspernatur eius tempore, alias perspiciatis! </p>
-
-        </article>
-
-        <article class="respuesta">
-          <h3 class="titpre">
-            Autor <time datetime="1998-03-13">DD-NOMMES-YYYY</time>  <time datetime="11:11">HH:MM</time>
-          </h3>
-          <p class="text"> Explicabo quia autem provident, est beatae dolorum doloribus quisquam consectetur repellat aperiam doloremque! Accusamus nostrum aspernatur eius tempore, alias perspiciatis! </p>
-
-        </article>
-
-        <article class="mainpre">
-          <h3 class="titpre">
-            Autor <time datetime="1998-03-13">DD-NOMMES-YYYY</time>  <time datetime="11:11">HH:MM</time>
-          </h3>
-          <p class="text"> Explicabo quia autem provident, est beatae dolorum doloribus quisquam consectetur repellat aperiam doloremque! Accusamus nostrum aspernatur eius tempore, alias perspiciatis! </p>
-          <button>Responder</button>
-        </article> -->
 
     <script src="codigoA.js"></script>
     <a href="#header" id="arriba"><i class="fas fa-sort-up"></i></a>
