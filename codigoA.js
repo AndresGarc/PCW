@@ -454,7 +454,8 @@ function importarPregunta(){
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
-
+    let usu =   JSON.parse(sessionStorage['usuario']);
+      
     let secP = document.getElementById('dejaPregunta'); //limpiar
     secP.innerHTML=""; secP.className="estoycansado";
     let xhr2 = new XMLHttpRequest(),

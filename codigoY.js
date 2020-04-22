@@ -1,4 +1,5 @@
  // Relacionado con login
+ //foto del vendedor
 
  function loginn(form) {
     let url = 'api/usuarios/login',
@@ -145,13 +146,20 @@ function creaArticulo(e) {
     foot.appendChild(preg);
 
     if(sessionStorage.usuario !=undefined){
-        usu =   JSON.parse(sessionStorage['usuario']);
-        console.log(usu);
+       let usu =   JSON.parse(sessionStorage['usuario']);
+      
         let botones  = document.createElement('p'); let follow = document.createElement('button');
         botones.className="attbprod"; follow.id="btnfollow";
         if(`${e.estoy_siguiendo}`==1) {follow.innerHTML = "dejar de seguir";} else {follow.innerHTML = "seguir";}
         follow.onclick= function() {botonSeguir()};
         botones.appendChild(follow);
+        if(usu.login ==`${e.vendedor}` ) {
+            let borrar = document.createElement('button'); borrar.id="btnborrar";
+            let modif = document.createElement('button'); modif.id="btnmodif";
+            borrar.onclick= function() {botonBorrar(e)}; borrar.innerHTML="borrar articulo";
+            modif.onclick= function() {botonModif(e)}; modif.innerHTML="modificar";
+            botones.appendChild(borrar); botones.appendChild(modif);
+        }
         foot.appendChild(botones);
     }
 
@@ -291,10 +299,100 @@ function unfollow(){
 
 }
 
+function botonBorrar(e){
+let div = document.createElement('div');
+
+// div.id = 'fondo'; //se puede hacer asi para asignar atributos o
+div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
+let html = '';
+html += '<article>';
+html += '<h2>Mensaje confirmacion</h2>';
+html += '<p>Estas seguro de que quieres borrar el articulo?</p>';
+html += '<footer><button onclick="cerrarmodal(6);"> Borrar</button>';  //para el css ejemplo min 53 video semana 23-29
+html += '<button onclick="cerrarmodal(4);"> Cancelar</button> </footer>';
+html += '</article>';
+div.innerHTML = html;
+document.body.appendChild(div);
+}
+
+function botonModif(e){ //locationhrefs
+let div = document.createElement('div');
+
+// div.id = 'fondo'; //se puede hacer asi para asignar atributos o
+div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
+let html = '';
+html += '<article>';
+html += '<h2>Modificar articulo</h2>';
+html += '<p>Puedes modificar precio y descripción</p>';
+html += '<form id="formu" action="index.html" enctype="multipart/form-data" method="post" onsubmit="return modificar(this)"'
+html+='<label for="precio">Precio(*)</label>'
+html += ' <input type="number" name="precio" id="precio" min="0" step=".01" placeholder="'+e.precio+'" required>'
+html += '<label for="descripcion">Descripcion(*)</label>'
+html += '<textarea name="descripcion" id="descripcion" rows=4 cols=20 maxlength="300" placeholder="'+e.descripcion+'" required></textarea>'
+html += '<footer><button type="submit" onclick="modificar();"> Cambiar</button>';  //para el css ejemplo min 53 video semana 23-29
+html += '<button onclick="cerrarmodal(4);"> Cancelar</button> </footer>';
+html += '</form>'
+html += '</article>';
+div.innerHTML = html;
+document.body.appendChild(div);
+}
+function modificar(form){
+    const queryString = window.location.search; 
+    const urlParams = new URLSearchParams(queryString); 
+    const id = urlParams.get('id');
+    let usu = JSON.parse(sessionStorage['usuario']);
+    let url = 'api/articulos/'+id,
+    fd = new FormData(form),
+    init = {method: 'POST', body:fd, headers:{'Authorization':`${usu.login}:${usu.token}`} };
+
+          fetch(url, init).then(function(response){
+            if(!response.ok){
+              console.log("Error con la subida");
+              response.json().then(function(datos){
+                  console.log(datos);
+              });
+            } else {
+              console.log(response);
+              console.log("Cambio completado");
+
+            }
+          });
+        return false;
+
+     // 1:50 del video
+    //peticion tipo fetch
+}
+
+function borraArt(){ //redirigir si esta borrado?
+    const queryString = window.location.search; 
+    const urlParams = new URLSearchParams(queryString); 
+    const id = urlParams.get('id');
+    let usu = JSON.parse(sessionStorage['usuario']);
+    let url = 'api/articulos/'+id;
+    console.log(id);
+    init = {method: 'DELETE', headers:{'Authorization':`${usu.login}:${usu.token}`} };
+
+          fetch(url, init).then(function(response){
+            if(!response.ok){
+              console.log("Error con la subida");
+              response.json().then(function(datos){
+                  console.log(datos);
+              });
+            } else {
+              console.log(response);
+              console.log("Borrado completado");
+
+            }
+          });
+        return false;
+
+     // 1:50 del video
+    //peticion tipo fetch
+}
 
 //END ARTICULO
 
-function cerrarmodal(num){ //en base a donde estamo
+function cerrarmodal(num){ //en base a donde estamo  //en login falta devolver el foco si sale mal //mesnaje para articulo guardado
     document.querySelector('#capafondo').remove();
     if(num==2){ // la de andrés - registro
         location.href="login.html";
@@ -313,6 +411,14 @@ function cerrarmodal(num){ //en base a donde estamo
       const id = urlParams.get('id');
       location.href=`articulo.html?id=${id}`;
     }
+else if(num==6){ //borra art
+    borraArt();
+   
+}
+else if(num==7){ //modifica art
+
+}
+
     else { // 1, te redirige a index
         location.href= "index.html";
     }
@@ -434,6 +540,7 @@ function borraImg(){
     else {var x = document.getElementById("lasfotos").lastChild.remove();}
 
 }
+
 function getBase64Image(img) {
     // Create an empty canvas element
     var canvas = document.createElement("canvas");
