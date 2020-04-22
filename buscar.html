@@ -28,7 +28,7 @@
     </nav>
 
 
-    <datalist id="opciones"></datalist>
+  <!--  <datalist id="opciones"></datalist> -->
 
     <h2>Busqueda</h2>
    <form id="formu" method="get">
@@ -49,7 +49,11 @@
       <input type="number" name="preciomax" id="preciomax" min="0" step=".01" placeholder="ejemplo: 420,00">
     </p>
     <p>
-      <input name="categoria" id="categoria" list="opciones" class="selectcat"/>
+      <label for="categoria">Categorias</label>
+    <!--  <input name="categoria" id="categoria" list="opciones" class="selectcat"/> -->
+      <select name="categoria" id="categoria" class="selectcat">
+        <option disabled selected>-</option>
+      </select>
     </p>
     <p class="radios" id="as"></p>
     <p class="radios" id="av"></p>

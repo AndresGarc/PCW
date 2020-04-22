@@ -83,6 +83,8 @@ function creaArticulo(e) {
     let divv = document.createElement('div');
     let carousel = document.createElement('aside');
     let img = document.createElement('img');
+    let imgVendedor = document.createElement('img');
+    let aVendedorFoto = document.createElement('a');
     let pp = document.createElement('p');
     let btnatras = document.createElement('button'); let iconatras = document.createElement('i');
     let span = document.createElement('span');
@@ -107,6 +109,20 @@ function creaArticulo(e) {
     img.className = "foto";
     img.src=`fotos/articulos/${e.imagen}`;
     img.alt="imagen articulo";
+
+    imgVendedor.className = "fotoPerfil";
+    let checkImg = e.foto_vendedor.split(".");
+    if(checkImg[1]!=""){
+      imgVendedor.src =`fotos/usuarios/${e.foto_vendedor}`;
+    } else {
+      imgVendedor.src =`img/No-image-available.png`;
+    }
+    imgVendedor.alt= "foto del vendedor";
+
+    aVendedorFoto.href="buscar.html?vendedor="+`${e.vendedor}`;
+    aVendedorFoto.appendChild(imgVendedor);
+
+
     btnatras.className = "moveFoto";btnatras.name="prevFoto";
         btndelante.className = "moveFoto";btnatras.name="nextFoto"; //tipo button?
     iconatras.className="fas fa-arrow-alt-circle-left";icondelante.className="fas fa-arrow-alt-circle-right";
@@ -132,6 +148,7 @@ function creaArticulo(e) {
 
     //footer (dentro de div)
     foot.appendChild(desc);
+    foot.appendChild(aVendedorFoto);
     vend.appendChild(iVe); vend.appendChild(bVe); url.innerHTML+=` ${e.vendedor}`; vend.appendChild(url);
     foot.appendChild(vend);
     prc.appendChild(iP); prc.appendChild(bP); prc.innerHTML+= ` ${e.precio}`;
@@ -147,7 +164,7 @@ function creaArticulo(e) {
 
     if(sessionStorage.usuario !=undefined){
        let usu =   JSON.parse(sessionStorage['usuario']);
-      
+
         let botones  = document.createElement('p'); let follow = document.createElement('button');
         botones.className="attbprod"; follow.id="btnfollow";
         if(`${e.estoy_siguiendo}`==1) {follow.innerHTML = "dejar de seguir";} else {follow.innerHTML = "seguir";}
@@ -337,8 +354,8 @@ div.innerHTML = html;
 document.body.appendChild(div);
 }
 function modificar(form){
-    const queryString = window.location.search; 
-    const urlParams = new URLSearchParams(queryString); 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
     let usu = JSON.parse(sessionStorage['usuario']);
     let url = 'api/articulos/'+id,
@@ -364,8 +381,8 @@ function modificar(form){
 }
 
 function borraArt(){ //redirigir si esta borrado?
-    const queryString = window.location.search; 
-    const urlParams = new URLSearchParams(queryString); 
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
     let usu = JSON.parse(sessionStorage['usuario']);
     let url = 'api/articulos/'+id;
@@ -413,7 +430,7 @@ function cerrarmodal(num){ //en base a donde estamo  //en login falta devolver e
     }
 else if(num==6){ //borra art
     borraArt();
-   
+
 }
 else if(num==7){ //modifica art
 

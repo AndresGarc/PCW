@@ -26,7 +26,6 @@
       </ul>
     </nav>
 
-    <datalist id="opciones"></datalist>
 
     <h2>Crea tu nuevo producto</h2>
     <form id="formu" action="index.html" enctype="multipart/form-data" method="post" onsubmit="return nuevoArticulo(this)">
@@ -44,7 +43,9 @@
       </p>
       <p>
         <label for="categoria">Categoria(*)</label>
-        <input type="text" name="categoria" id="categoria" size="20" maxlength="100" list="opciones" placeholder="elige de la lista o asigna tu una" required>
+        <select class="selectcat" name="categoria" id="categoria" required>
+          <option disabled selected>-</option>
+        </select>
       </p>
       <p>
         <label for="foto">Foto del artículo</label>

@@ -66,7 +66,7 @@ function cargarCats(){
       let op =document.createElement('option');
       op.value=e.id;
       op.innerHTML = e.nombre;
-      document.getElementById('opciones').appendChild(op);
+      document.getElementById('categoria').appendChild(op);
     });
 
   };
@@ -154,7 +154,7 @@ function urlBusq(){
   let ven = document.getElementById('vendedor').value;
   let prMx = document.getElementById('preciomax').value;
   let prMn = document.getElementById('precio').value;
-  let cat = document.getElementById('categoria').option;
+  let cat = document.getElementById('categoria').value;
 
 
 
@@ -290,7 +290,7 @@ function registrar(form){
         } else {
           console.log("Registro completado");
           document.getElementById("formu").reset();
-          mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!",1);
+          mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!",2);
         }
       });
 
@@ -455,7 +455,7 @@ function importarPregunta(){
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
     let usu =   JSON.parse(sessionStorage['usuario']);
-      
+
     let secP = document.getElementById('dejaPregunta'); //limpiar
     secP.innerHTML=""; secP.className="estoycansado";
     let xhr2 = new XMLHttpRequest(),

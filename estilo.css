@@ -524,6 +524,12 @@ section{
         height: auto;
         max-width: 250px;
       }
+
+      .fotoPerfil {
+        height: 100px;
+        width: 100px;
+        margin: 0 2em;
+      }
       .moveFoto{
 
         padding: 0;
@@ -813,6 +819,8 @@ section{
     .foto{
       max-width: 300px;
     }
+
+
 
   .descLong{
       margin-bottom: 3em;
