@@ -610,8 +610,12 @@ function borraImg(){
         otraimg.id="fotito";
         otraimg.alt="foto 1";
         document.getElementById("lasfotos").appendChild(otraimg);
+        fotosasubir.pop();
+        
     }
-    else {var x = document.getElementById("lasfotos").lastChild.remove();}
+    else {var x = document.getElementById("lasfotos").lastChild.remove();
+    fotosasubir.pop();
+}
 
 }
 

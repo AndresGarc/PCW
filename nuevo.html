@@ -52,9 +52,11 @@
         <input type="file" name="fichero" class="nue" id="foto" accept="image/*" onchange="cargarFoto(this)" multiple>
         <label for="foto" id="lasfotos"><img src="img/No-image-available.png" alt="foto 1" class="fotito" id="fotito"></label>
       </p>
-      <button id="resetfoto" onclick="borraImg()">Eliminar foto</button>
+      
       <button type="submit" name="Subir">Subir</button>
+      <button id="resetfoto" type="button" onclick="borraImg()">Eliminar foto</button>
       <button type="reset" value="Reiniciar">Reiniciar formulario</button>
+      
       <!--enlazar a datalist-->
 
     </form>
