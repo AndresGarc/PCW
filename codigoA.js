@@ -17,7 +17,7 @@ function crearArticulo(e){
   //enlace titulo
   at.innerHTML = `${e.nombre}`;
   at.href=`articulo.html?id=${e.id}`;
-  at.id = `${e.id}`;
+  //at.id = `${e.id}`;
 
   //enlace foto
   img.className = "ftoArt";
@@ -207,8 +207,8 @@ function busquedaR(url){
 
 
     });
-  }, function(error){ 
-    //console.log('ERROR CON EL FETCH') 
+  }, function(error){
+    //console.log('ERROR CON EL FETCH')
   });
 }
 function busquedaNR(url){
@@ -225,7 +225,7 @@ function busquedaNR(url){
 
 
     });
-  }, function(error){// console.log('ERROR CON EL FETCH') 
+  }, function(error){// console.log('ERROR CON EL FETCH')
 });
 }
 // -------------------------------------------------------------------------------
@@ -349,7 +349,7 @@ function crearPreguntas(p){
   art.id=`${p.id}`;
   let tiempo = p.fecha_hora.split(" ");
   h3.className = "titpre";
-  h3.innerHTML =`${p.login} `; h3.innerHTML+=`<time datetime="${tiempo[0]}">${tiempo[0]}</time> / <time datetime"=${tiempo[1]}">${tiempo[1]}</time>`;
+  h3.innerHTML =`${p.login} `; h3.innerHTML+=`<time datetime="${tiempo[0]}">${tiempo[0]}</time> / <time datetime="${tiempo[1]}">${tiempo[1]}</time>`;
   preg.className = "text";
   preg.innerHTML = `${p.pregunta}`;
 
@@ -368,7 +368,7 @@ function crearPreguntas(p){
       let resp = JSON.parse(xhr2.responseText);
       if(usu.login==resp.FILAS[0].vendedor && art.className=="mainpre"){
         let botonHTML = `<button onclick="responderPregunta(${art.id})" id="botonresponder">Responder</button>`;
-        let boton = document.createElement('p'); boton.innerHTML = botonHTML;
+        let boton = document.createElement('div'); boton.innerHTML = botonHTML;
         art.appendChild(boton);
       }
     };
@@ -424,7 +424,7 @@ function responderPregunta(id){
 //  let textAr = document.createElement("textarea"); textAr.className="respuestica";
   let div = document.createElement("div");
 
-  div.innerHTML = `<form onsubmit="return enviarRespuesta(this, ${id});" ><p><textarea class="respuestica" name="texto"></textarea></p><button type="submit" name="responder">Responder</button></form>`;
+  div.innerHTML = `<form onsubmit="return enviarRespuesta(this, ${id});" ><div class="separarBtonArea"><textarea class="respuestica" name="texto"></textarea></div><button type="submit" name="responder">Responder</button></form>`;
 
   let objetivo = document.getElementById('botonresponder');
   objetivo.parentNode.replaceChild(div, objetivo);
@@ -476,7 +476,7 @@ function importarPregunta(){
       let resp = JSON.parse(xhr2.responseText);
       if(usu.login!=resp.FILAS[0].vendedor){
         let xhr = new XMLHttpRequest(),
-            url = "formulario.html";
+            url = "formPreg.html";
 
         xhr.open('GET', url, true);
         xhr.onload = function(){
