@@ -21,7 +21,13 @@ function crearArticulo(e){
 
   //enlace foto
   img.className = "ftoArt";
-  img.src=`fotos/articulos/${e.imagen}`;
+  if(e.imagen==null){
+    img.src="img/No-image-available.png";
+    slidemax=1;
+}
+else {
+    img.src=`fotos/articulos/${e.imagen}`;
+}
   img.alt="imagen articulo";
 
   //cosas footer
@@ -191,7 +197,7 @@ function busquedaR(url){
   fetch(url, header).then(function(response){
     if(!response.ok){
          return false;
-         console.log('Error en la respuesta');
+         //console.log('Error en la respuesta');
     }
     response.json().then(function(datos){
 
@@ -201,13 +207,15 @@ function busquedaR(url){
 
 
     });
-  }, function(error){ console.log('ERROR CON EL FETCH') });
+  }, function(error){ 
+    //console.log('ERROR CON EL FETCH') 
+  });
 }
 function busquedaNR(url){
   fetch(url).then(function(response){
     if(!response.ok){
          return false;
-         console.log('Error en la respuesta');
+        // console.log('Error en la respuesta');
     }
     response.json().then(function(datos){
 
@@ -217,7 +225,8 @@ function busquedaNR(url){
 
 
     });
-  }, function(error){ console.log('ERROR CON EL FETCH') });
+  }, function(error){// console.log('ERROR CON EL FETCH') 
+});
 }
 // -------------------------------------------------------------------------------
 
@@ -283,19 +292,19 @@ function registrar(form){
 
       fetch(url, init).then(function(response){
         if(!response.ok){
-          console.log("Error con la subida");
+         // console.log("Error con la subida");
           response.json().then(function(datos){
               console.log(datos);
           });
         } else {
-          console.log("Registro completado");
+         // console.log("Registro completado");
           document.getElementById("formu").reset();
           mensajeemergente("Registro correcto","Haz click en el botón para poder loggearte y empezar a comprar!",2);
         }
       });
 
     } else {//si no ok
-      console.log("no epico");
+     // console.log("no epico");
     }
     return false;
 }
@@ -314,7 +323,7 @@ function cargarPreguntas(){
   xhr.open("GET", url, true);
   xhr.onload= function(){
     let inf = JSON.parse(xhr.responseText);
-    console.log(inf);
+    //console.log(inf);
     inf.FILAS.forEach(function(e){
       crearPreguntas(e);
     });
@@ -385,7 +394,7 @@ function enviarPregunta(frm){
       document.getElementById('descripcion').focus();
       mensajeemergente("Pregunta enviada correctamente","Haz click en el botón para volver al artículo!", 5);
     } else { //si se sube bien la pregunta
-      console.log("Pregunta enviada");
+      //console.log("Pregunta enviada");
       document.getElementById("formu").reset();
       mensajeemergente("Pregunta enviada correctamente","Haz click en el botón para volver al artículo!", 5);
     }
@@ -434,7 +443,7 @@ function enviarRespuesta(frm, idPreg){
         if(response.ok){
           limpiaryCargar();
         } else {
-          console.log("Error al subir la respuesta");
+          //console.log("Error al subir la respuesta");
         }
       });
 
@@ -472,7 +481,7 @@ function importarPregunta(){
         xhr.open('GET', url, true);
         xhr.onload = function(){
           secP.innerHTML = `${xhr.responseText}`;
-          console.log(xhr.responseText);
+          //console.log(xhr.responseText);
         };
         xhr.send();
       }

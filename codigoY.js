@@ -3,6 +3,7 @@
 var fotosasubir=new Array;
 var slideindex=1;
 var slidemax=5;
+var seguidores=1;
  function loginn(form) {
     let url = 'api/usuarios/login',
     fd = new FormData(form);
@@ -10,9 +11,10 @@ var slidemax=5;
     fetch(url, {method:'POST',
              body:fd}).then(function(respuesta){
         if( respuesta.ok){
+            
             respuesta.json().then(function(datos){
-                console.log(datos);
-                console.log(JSON.stringify(datos));
+                //console.log(datos);
+                //console.log(JSON.stringify(datos));
                 sessionStorage['usuario'] = JSON.stringify(datos);
                 mensajeemergente("Login correcto","",1);
             });
@@ -81,6 +83,7 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
 function creaArticulo(e) {
     slideindex=1;
     slidemax=e.nfotos;
+    seguidores=e.nsiguiendo;
     let art = document.createElement('article');
     let titulo = document.createElement('h2');
     let divv = document.createElement('div');
@@ -113,6 +116,7 @@ function creaArticulo(e) {
     img.className = "foto";
     if(e.imagen==null){
         img.src="img/No-image-available.png";
+        slidemax=1;
     }
     else {
         img.src=`fotos/articulos/${e.imagen}`;
@@ -154,7 +158,7 @@ function creaArticulo(e) {
     btndelante.onclick= function() {btndchcarousel()};
     btnatras.appendChild(iconatras); btndelante.appendChild(icondelante);
     span.id="xdey";
-    span.innerHTML+= slideindex + ' de' + ` ${e.nfotos}`; //como saber que foto es
+    span.innerHTML+= slideindex + ' de ' +  slidemax; //como saber que foto es
     pp.appendChild(btnatras);pp.appendChild(span); pp.appendChild(btndelante);
     carousel.appendChild(img);carousel.appendChild(pp);
 
@@ -215,9 +219,9 @@ function infoArticulo(){
     xhr.open('GET',url,true);
 
     xhr.onload = function(){
-        console.log(xhr.responseText);
+       // console.log(xhr.responseText);
         let r = JSON.parse(xhr.responseText);
-        console.log(r.FILAS[0]);
+        // console.log(r.FILAS[0]);
         creaArticulo(r.FILAS[0]);
     }
     if(sessionStorage.usuario != undefined) {
@@ -246,9 +250,12 @@ function fotosArticulo(){
   xhr.open("GET", url, true);
   xhr.onload= function(){
     let inf = JSON.parse(xhr.responseText);
-    console.log(inf);
-    console.log( inf.FILAS[slideindex-1].fichero);
-    document.getElementById("fotocarusel").src='fotos/articulos/'+inf.FILAS[slideindex-1].fichero;
+    //console.log(inf);
+    if(slideindex!=1 && slidemax!=1){
+      //  console.log("pasamos a la foto");
+        //console.log( inf.FILAS[slideindex-1].fichero);
+        document.getElementById("fotocarusel").src='fotos/articulos/'+inf.FILAS[slideindex-1].fichero;
+    }
   };
   xhr.send();
 
@@ -261,7 +268,7 @@ function btnizqcarousel(){
     else{
         slideindex=slideindex-1;
     }
-    document.getElementById("xdey").innerHTML= slideindex+'de'+slidemax;
+    document.getElementById("xdey").innerHTML= slideindex+' de '+slidemax;
     fotosArticulo();
 }
 function btndchcarousel(){
@@ -271,7 +278,7 @@ function btndchcarousel(){
     else{
         slideindex=slideindex+1;
     }
-    document.getElementById("xdey").innerHTML= slideindex+'de'+slidemax;
+    document.getElementById("xdey").innerHTML= slideindex+' de '+slidemax;
     fotosArticulo();
 }
 
@@ -279,21 +286,21 @@ function btndchcarousel(){
 function botonSeguir() {
    var bot = document.getElementById('btnfollow');
    var segui = document.getElementById('seguidores');
-   nums = segui.innerHTML.substring(66,67);
-   console.log(nums);
-   followers = parseInt(nums,10);
-   console.log(followers);
    if(bot.innerHTML=="dejar de seguir") {
-      nums= nums-1;
+      seguidores=seguidores-1;
     bot.innerHTML="seguir";
-    segui.innnerHTML = '<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b>';
+    document.getElementById("seguidores").innerHTML='<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b> ' + seguidores;
+    //console.log(segui.innerHTML);
+    //console.log(seguidores);
     unfollow();
    }
    else{
-    nums= nums+1;
+    seguidores=seguidores+1;
    bot.innerHTML="dejar de seguir";
    follow();
-   segui.innnerHTML = '<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b> ' + nums;
+   document.getElementById("seguidores").innerHTML='<i class="fas fa-users" aria-hidden="true"></i><b>Seguidores:</b> ' + seguidores;
+   //console.log(segui.innerHTML);
+   //console.log(seguidores);
    }  //como editar los seguidores
 
 }
@@ -311,12 +318,12 @@ function follow(){
              headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
         if( respuesta.ok){
             respuesta.json().then(function(datos){
-                console.log(datos);
+                //console.log(datos);
                 return true;
             });
         }
         else {
-            console.log('error en peticion fetch de seguir');
+            //console.log('error en peticion fetch de seguir');
             mensajeemergente("Error desconocido al seguir","",3);
         }
     });
@@ -336,12 +343,12 @@ function unfollow(){
              headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
         if( respuesta.ok){
             respuesta.json().then(function(datos){
-                console.log(datos);
+                //console.log(datos);
                 return true;
             });
         }
         else {
-            console.log('error en peticion fetch de dejar de seguir');
+            //console.log('error en peticion fetch de dejar de seguir');
             mensajeemergente("Error desconocido al dejar de seguir","",3);
         }
     });
@@ -397,14 +404,15 @@ function modificar(form){
 
           fetch(url, init).then(function(response){
             if(!response.ok){
-              console.log("Error con la subida");
+              //console.log("Error con la subida");
               response.json().then(function(datos){
-                  console.log(datos);
+                 // console.log(datos);
+                 location.reload();
               });
             } else {
-              console.log(response);
-              console.log("Cambio completado");
-
+              //console.log(response);
+              //console.log("Cambio completado");
+              location.reload();
             }
           });
         return false;
@@ -419,18 +427,20 @@ function borraArt(){ //redirigir si esta borrado?
     const id = urlParams.get('id');
     let usu = JSON.parse(sessionStorage['usuario']);
     let url = 'api/articulos/'+id;
-    console.log(id);
+    //console.log(id);
     init = {method: 'DELETE', headers:{'Authorization':`${usu.login}:${usu.token}`} };
 
           fetch(url, init).then(function(response){
             if(!response.ok){
-              console.log("Error con la subida");
+              //console.log("Error con la subida");
               response.json().then(function(datos){
-                  console.log(datos);
+                location.href= "index.html";
+                  //console.log(datos);
               });
             } else {
-              console.log(response);
-              console.log("Borrado completado");
+                location.href= "index.html";
+              //console.log(response);
+              //console.log("Borrado completado");
 
             }
           });
@@ -448,12 +458,12 @@ function cerrarmodal(num){ //en base a donde estamo  //en login falta devolver e
         location.href="login.html";
     }
     else if(num==3){ //error inesperado, no hacer nada
-        console.log("nada");
+        //console.log("nada");
 
     }
 
     else if(num==4){ //foto de mayor tamaño
-        console.log("nada y borra");
+        //console.log("nada y borra");
 
     } else if(num==5){ //pregunta gucci
       const queryString = window.location.search;
@@ -463,6 +473,7 @@ function cerrarmodal(num){ //en base a donde estamo  //en login falta devolver e
     }
 else if(num==6){ //borra art
     borraArt();
+    
 
 }
 else if(num==7){ //modifica art
@@ -524,8 +535,8 @@ function cargarFoto(foto){
 
 function enviarFoto(img,id){ // 1:50 del video
     //peticion tipo fetch
-        console.log("entro a enviar foto");
-        console.log(img);
+        //console.log("entro a enviar foto");
+        //console.log(img);
        
         let url = 'api/articulos/'+id+'/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
         usu = JSON.parse(sessionStorage['usuario']), //al estar en nuevo.html, solo va a entrar al estar logueado
@@ -536,14 +547,14 @@ function enviarFoto(img,id){ // 1:50 del video
                  body:fd,
                 headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
             if( respuesta.ok){
-                console.log(respuesta);
+                //console.log(respuesta);
                 respuesta.json().then(function(datos){
-                    console.log(datos);
-                    console.log("se ha subido bien la foto");
+                    //console.log(datos);
+                    //console.log("se ha subido bien la foto");
                 });
             }
             else {
-                console.log('Error al dar de alta foto');
+                //console.log('Error al dar de alta foto');
             }
         });
         return false;
@@ -562,24 +573,24 @@ function nuevoArticulo(form) {
 
           fetch(url, init).then(function(response){
             if(!response.ok){
-              console.log("Error con la subida");
+              //console.log("Error con la subida");
               response.json().then(function(datos){
-                  console.log(datos);
+                  //console.log(datos);
               });
             } else {
-              console.log(response);
+              //console.log(response);
               
               response.json().then(function(datos){
-                console.log(datos);
-                console.log(fotosasubir);
+                //console.log(datos);
+                //console.log(fotosasubir);
                 for(i=0;i<fotosasubir.length;i++) {
                     enviarFoto(fotosasubir[i],datos.ID);
                 }
                 
             });
-              console.log("Registro completado");
+              //console.log("Registro completado");
               
-
+            mensajeemergente("se ha guardado correctamente el articulo","",1)
               document.getElementById("formu").reset();
 
             }
