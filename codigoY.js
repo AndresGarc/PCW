@@ -1,6 +1,8 @@
  // Relacionado con login
  //foto del vendedor
-
+var fotosasubir=new Array;
+var slideindex=1;
+var slidemax=5;
  function loginn(form) {
     let url = 'api/usuarios/login',
     fd = new FormData(form);
@@ -77,7 +79,8 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
 
 
 function creaArticulo(e) {
-
+    slideindex=1;
+    slidemax=e.nfotos;
     let art = document.createElement('article');
     let titulo = document.createElement('h2');
     let divv = document.createElement('div');
@@ -106,8 +109,14 @@ function creaArticulo(e) {
 
     //foto
     carousel.className="carrusel";
+    img.id="fotocarusel";
     img.className = "foto";
-    img.src=`fotos/articulos/${e.imagen}`;
+    if(e.imagen==null){
+        img.src="img/No-image-available.png";
+    }
+    else {
+        img.src=`fotos/articulos/${e.imagen}`;
+    }
     img.alt="imagen articulo";
 
     imgVendedor.className = "fotoPerfil";
@@ -141,8 +150,11 @@ function creaArticulo(e) {
     desc.innerHTML = `${e.descripcion}`;
 
     //carrusel (dentro de div)
+    btnatras.onclick= function() {btnizqcarousel()};
+    btndelante.onclick= function() {btndchcarousel()};
     btnatras.appendChild(iconatras); btndelante.appendChild(icondelante);
-    span.innerHTML+='1 de' + ` ${e.nfotos}`; //como saber que foto es
+    span.id="xdey";
+    span.innerHTML+= slideindex + ' de' + ` ${e.nfotos}`; //como saber que foto es
     pp.appendChild(btnatras);pp.appendChild(span); pp.appendChild(btndelante);
     carousel.appendChild(img);carousel.appendChild(pp);
 
@@ -222,27 +234,48 @@ function infoArticulo(){
     return comprobar;
 }
 
-/*function pregunta(form) { //esto es para enviar y GUARDAR preguntas
-    let url = 'api/articulos/ID/pregunta', //editar ID en base al articulo
-    fd = new FormData(form),
-    usu =   JSON.parse(sessionStorage['usuario']);
+function fotosArticulo(){
+    
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const id = urlParams.get('id');
 
-     fetch(url, {method:'POST',
-             body:fd,
-             headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
-        if( respuesta.ok){
-            respuesta.json().then(function(datos)){
-                console.log(datos);
-            }
-        }
-        else {
-            console.log('error en peticion fetch de pregunta');
-        }
-    });
-    return false;
-} */ //Tras esto se debe hacer peticion, recargar, y mostrar otra vez las preguntas 1:19 en el video
-//para las respuestas es IGUAL pero con let url ID/pregunta/IDPREGUNTA/respuesta
-//seguir y dejar de seguir igual pero con true y false y sin body 1:20 en video
+  let xhr = new XMLHttpRequest(),
+      url = `api/articulos/${id}/fotos`;
+
+  xhr.open("GET", url, true);
+  xhr.onload= function(){
+    let inf = JSON.parse(xhr.responseText);
+    console.log(inf);
+    console.log( inf.FILAS[slideindex-1].fichero);
+    document.getElementById("fotocarusel").src='fotos/articulos/'+inf.FILAS[slideindex-1].fichero;
+  };
+  xhr.send();
+
+}
+
+function btnizqcarousel(){
+    if(slideindex==1){
+        slideindex=slidemax;
+    }
+    else{
+        slideindex=slideindex-1;
+    }
+    document.getElementById("xdey").innerHTML= slideindex+'de'+slidemax;
+    fotosArticulo();
+}
+function btndchcarousel(){
+    if(slideindex==slidemax){
+        slideindex=1;
+    }
+    else{
+        slideindex=slideindex+1;
+    }
+    document.getElementById("xdey").innerHTML= slideindex+'de'+slidemax;
+    fotosArticulo();
+}
+
+
 function botonSeguir() {
    var bot = document.getElementById('btnfollow');
    var segui = document.getElementById('seguidores');
@@ -483,15 +516,18 @@ function cargarFoto(foto){
     fr.onload = function(){
         foto.parentNode.querySelector("img[src='img/No-image-available.png']").src = fr.result; //hay que cambiar esto para que se meta en el IMG
         //fr.result //donde esta la img
+        fotosasubir.push(foto.files[0]);
     };
 
     fr.readAsDataURL(foto.files[0]); //comprobar que no esta vacio
 }
 
-function enviarFoto(img){ // 1:50 del video
+function enviarFoto(img,id){ // 1:50 del video
     //peticion tipo fetch
-
-        let url = 'api/articulos/3/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
+        console.log("entro a enviar foto");
+        console.log(img);
+       
+        let url = 'api/articulos/'+id+'/foto', //primero se envia el formulario, se da de alta el articulo y nos devuelve el ID que usamos AQUI
         usu = JSON.parse(sessionStorage['usuario']), //al estar en nuevo.html, solo va a entrar al estar logueado
         fd = new FormData();
         fd.append('fichero',img);
@@ -500,8 +536,10 @@ function enviarFoto(img){ // 1:50 del video
                  body:fd,
                 headers:{'Authorization':usu.login+':'+usu.token}}).then(function(respuesta){
             if( respuesta.ok){
+                console.log(respuesta);
                 respuesta.json().then(function(datos){
                     console.log(datos);
+                    console.log("se ha subido bien la foto");
                 });
             }
             else {
@@ -530,9 +568,17 @@ function nuevoArticulo(form) {
               });
             } else {
               console.log(response);
+              
+              response.json().then(function(datos){
+                console.log(datos);
+                console.log(fotosasubir);
+                for(i=0;i<fotosasubir.length;i++) {
+                    enviarFoto(fotosasubir[i],datos.ID);
+                }
+                
+            });
               console.log("Registro completado");
-              var fotos = document.getElementsByClassName("fotito");
-              console.log(fotos);
+              
 
               document.getElementById("formu").reset();
 
