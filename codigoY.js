@@ -251,10 +251,11 @@ function fotosArticulo(){
   xhr.onload= function(){
     let inf = JSON.parse(xhr.responseText);
     //console.log(inf);
-    if(slideindex!=1 && slidemax!=1){
+    if(slidemax!=1){
       //  console.log("pasamos a la foto");
         //console.log( inf.FILAS[slideindex-1].fichero);
         document.getElementById("fotocarusel").src='fotos/articulos/'+inf.FILAS[slideindex-1].fichero;
+      
     }
   };
   xhr.send();
@@ -268,6 +269,7 @@ function btnizqcarousel(){
     else{
         slideindex=slideindex-1;
     }
+  
     document.getElementById("xdey").innerHTML= slideindex+' de '+slidemax;
     fotosArticulo();
 }
@@ -278,6 +280,7 @@ function btndchcarousel(){
     else{
         slideindex=slideindex+1;
     }
+    
     document.getElementById("xdey").innerHTML= slideindex+' de '+slidemax;
     fotosArticulo();
 }
@@ -610,7 +613,7 @@ function borraImg(){
         otraimg.id="fotito";
         otraimg.alt="foto 1";
         document.getElementById("lasfotos").appendChild(otraimg);
-        fotosasubir.pop();
+        fotosasubir.pop();  
         
     }
     else {var x = document.getElementById("lasfotos").lastChild.remove();
