@@ -81,6 +81,7 @@ function borraNavbar(borraesto) { //le pasamos por string la pag actual, tras es
 
 
 function creaArticulo(e) {
+    console.log(e);
     slideindex=1;
     slidemax=e.nfotos;
     seguidores=e.nsiguiendo;

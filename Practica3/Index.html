@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/logo.png" type="image/png">
+    <link rel="stylesheet" href="estilo.css" title="Estilo básico" media="screen">
+      <script src="https://kit.fontawesome.com/6b4ca2c1fd.js" crossorigin="anonymous"></script> <!--que fuente usamos-->
+      <script src="codigoY.js"></script>
+    <title>SS - Index</title>
+  </head>
+
+  <!--Forzar footer?
+  Paleta de colores
+  Input number o selector
+  Logotipo
+  Tipografía
+  Estructura de CSS, mejor por clases esta vez? (celda bien, celda mal, celda vacia, celda llena)
+  Variables globales de color en JS?-->
+
+  <body onload="" >
+    <header id="header">
+      <h1><img src="img/logo.jpg"  alt="Logo juego" id="logo"> SudokuSincero</h1>
+      <h2>Tu juego matemático de confianza</h2>
+      <h2>El objetivo es rellenar una cuadrícula de 9×9 celdas dividida en subcuadrículas de 3×3 con las cifras del 1 al 9 partiendo de algunos números ya dispuestos en algunas de las celdas.
+
+        No se debe repetir ningún número en una misma fila, columna o subcuadrícula.</h2>
+    </header>
+
+    <form enctype="multipart/form-data" method="post" onsubmit="cargasudoku(this)">
+      <label for="tam">Tamaño del sudoku</label>
+      <input type="number" name="tam" minlength="4" maxlength="9" onchange="cambiasudoku()" required>
+      <button  type="submit">Jugar</button><!--//sustituir boton empezar por temporizador+comprobar+finalizar-->
+    </form>
+
+   <canvas id="canvas"></canvas>
+    <footer>
+      <h3><a href="acerca.html">Acerca</a></h3>
+      <p>
+          Copyright &copy; PCW <time datetime="2020">2020</time>
+      </p>
+  </footer>
+  </body>
+
+</html>
