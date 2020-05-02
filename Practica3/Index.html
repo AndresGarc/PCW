@@ -27,10 +27,10 @@
         No se debe repetir ningún número en una misma fila, columna o subcuadrícula.</h2>
     </header>
 
-    <form enctype="multipart/form-data" method="post" onsubmit="cargasudoku(this)">
+    <form onsubmit="cargasudoku()">
       <label for="tam">Tamaño del sudoku</label>
       <input type="number" name="tam" minlength="4" maxlength="9" onchange="cambiasudoku()" required>
-      <button  type="submit">Jugar</button><!--//sustituir boton empezar por temporizador+comprobar+finalizar-->
+      <button onclick="cargasudoku()">Jugar</button><!--//sustituir boton empezar por temporizador+comprobar+finalizar-->
     </form>
 
    <canvas id="canvas"></canvas>

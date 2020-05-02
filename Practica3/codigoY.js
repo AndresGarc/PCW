@@ -4,7 +4,7 @@ function cargasudoku(){ //el boton de empezar
     //desactiva elemento cambio tamaño
     //hacer peticion cargarsudoku
     let url = 'api/sudoku/generar/4';
-    fetch(url).then(function(respuesta){
+    fetch(url, {method:'POST'}).then(function(respuesta){
         if( respuesta.ok){
             
             respuesta.json().then(function(datos){
