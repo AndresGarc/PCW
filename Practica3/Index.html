@@ -30,10 +30,10 @@
     <form>
       <label for="tam">Tamaño del sudoku</label>
       <select class="selectcat" name="categoria" id="categoria" required onchange="canvaselector(this.value)">
-        <option value="4" selected="selected">4</option>
+        <option value="4" selected>4</option>
         <option value="9">9</option>
         </select>
-      <button onclick="cargarsudoku()">Empezar</button><!--//sustituir boton empezar por temporizador+comprobar+finalizar-->
+      <button type="button" onclick="cargasudoku()">Empezar</button><!--//sustituir boton empezar por temporizador+comprobar+finalizar-->
     </form>
 
    <canvas id="canvas"></canvas>
