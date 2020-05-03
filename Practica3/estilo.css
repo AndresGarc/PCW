@@ -68,13 +68,33 @@ body{
     font-size: 1.5em;
   }
 
+form {
+  font-size:2em;
+  color:var(--colorDarkGreen);
+  margin:1em;
+  align-content: center;
+  margin-left:35%;
+}
 
+form>select {
+  font-size:1.5em;
+  color:var(--colorDarkGreen);
+  background-color: var(--colorGWhite);
+}
+
+form>button{
+  margin-left:  5%;;
+  font-size:1.2em;
+  color: var(--colorDarkGreen);
+  background-color:var(--colorPowderBlue);
+  border-radius: 2em;
+}
 
 canvas {
   border: 5px solid var(--colorDarkGreen);
-   background-color:var(--colorPowderBlue);
-   width: 480px;
-   height: 360px; /* esto se tiene que hacer o en el html o en un JS que caargue los canvas, depende de como hagamos la pracgtica */
+   background-color:var(--colorGWhite);
+   margin-left:30%;
+  
 }
 
   body>footer{
@@ -128,8 +148,11 @@ canvas {
   }
 }
 
-
-
+@media all and(max-width:500px) {
+  canvas{
+    width:100%;
+  }
+}
 
 
 
