@@ -1,9 +1,11 @@
 //no se como van los sudokus pero a lo mejor nos vale la pena hacer una funcion que nos diga la posicion
 //de un elemento pasado para pintarlo en el canvas mas facilmente
+var region = 4;
+
 function cargasudoku(){ //el boton de empezar
     //desactiva elemento cambio tamaño
     //hacer peticion cargarsudoku
-    let url = 'api/sudoku/generar/4';
+    let url = 'api/sudoku/generar/' + region;
     console.log(url);
     fetch(url,{method:'POST'}).then(function(respuesta){
         if( respuesta.ok){
@@ -15,6 +17,8 @@ function cargasudoku(){ //el boton de empezar
                 // tras eso pintar en el canvas siguiendo la paleta
                 //sustituir boton empezar por temporizador+comprobar+finalizar
                 prepararInterfaz();
+                sudo =   JSON.parse(sessionStorage['sudoku']);
+                recorresudoku();
             });
         }
         else {
@@ -46,23 +50,23 @@ function botonfinalizar(){
     // si respuesta.ok parar temporizador y reiniciar la pagina
 }
 
-function canvaselector(regiones){
+function canvaselector(){
+   
     let cv = document.querySelector('canvas');
+    region = document.getElementById('categoria').value;
     //if regiones, entonces cambiar width y height???
     cv.width=640;
     cv.height=640;
     cv.onclick = function(evento){
-
-
-        let alto=cv.height/regiones,
-        ancho=cv.width/regiones;
+        let alto=cv.height/region,
+        ancho=cv.width/region;
         let columna = Math.floor(evento.offsetX/ancho),
         fila = Math.floor(evento.offsetY/alto);
         console.log(fila+' ' +columna);
 
     }
-    let subdivi = Math.sqrt(regiones);
-    crearrejilla(regiones,1);
+    let subdivi = Math.sqrt(region);
+    crearrejilla(region,1);
     crearrejilla(subdivi,3);
     //cv.onmousemove
     //cv.onmousedown al clickar
@@ -110,3 +114,32 @@ function prepararInterfaz(){
 
 
 }
+
+function recorresudoku(){
+    sudo =   JSON.parse(sessionStorage['sudoku']);
+
+    for(let i=0;i<sudo.SUDOKU.length;i++){
+        for(let j=0; j<sudo.SUDOKU[i].length;j++) {
+            if(sudo.SUDOKU[i][j] != 0) {
+                console.log(sudo.SUDOKU[i][j]);
+                pintarCasilla(i,j,sudo.SUDOKU[i][j]);
+            }
+        }
+    }
+}
+
+function pintarCasilla(f,c,numero){
+    let cv = document.querySelector("canvas"),
+        ctx = cv.getContext('2d'),
+        ancho = cv.width/region;
+  
+    ctx.fillStyle = "#B8DBD9";
+    ctx.fillRect(c*ancho,f*ancho, ancho, ancho);
+    ctx.fillStyle = "#04724D";
+    ctx.font = "50px Arial";
+    ancho=ancho-ancho/2;
+    ctx.fillText("2",c*ancho,f*ancho); // 71 0 ,,, 
+    let subdivi = Math.sqrt(region);
+    crearrejilla(region,1);
+    crearrejilla(subdivi,3);
+  }

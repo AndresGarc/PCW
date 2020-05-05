@@ -10,13 +10,7 @@
     <title>SS - Index</title>
   </head>
 
-  <!--Forzar footer?
-  Paleta de colores
-  Input number o selector
-  Logotipo
-  Tipografía
-  Estructura de CSS, mejor por clases esta vez? (celda bien, celda mal, celda vacia, celda llena)
-  Variables globales de color en JS?-->
+
 
   <body onload="canvaselector(4)" >
     <header id="header">
@@ -30,7 +24,7 @@
     <form>
       <label for="tam">Tamaño del sudoku</label>
       <select class="selectcat" name="categoria" id="categoria" required onchange="canvaselector(this.value)">
-        <option value="4" selected>4</option>
+        <option value="4" selected>4</option> <!-- mirar por que no se selecciona d default-->
         <option value="9">9</option>
         </select>
 
