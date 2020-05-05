@@ -7,14 +7,14 @@ function cargasudoku(){ //el boton de empezar
     console.log(url);
     fetch(url,{method:'POST'}).then(function(respuesta){
         if( respuesta.ok){
-            
+
             respuesta.json().then(function(datos){
-                console.log(datos);
+                console.log("bien bien");
                 //console.log(JSON.stringify(datos));
                 sessionStorage['sudoku'] = JSON.stringify(datos); //guarda el sudoku y un token que se usa de auth
-                console.log("bien bien");
                 // tras eso pintar en el canvas siguiendo la paleta
                 //sustituir boton empezar por temporizador+comprobar+finalizar
+                prepararInterfaz();
             });
         }
         else {
@@ -29,6 +29,10 @@ function cambiasudoku(){
     //esta funcion cambiaria el tamaño del grid del sudoku cada vez que se cambiase eso
 }
 
+function infoSudo(){
+  let usu =   JSON.parse(sessionStorage['sudoku']);
+  console.log(usu.SUDOKU[1][0]);
+}
 
 
 function compruebaerrores(){
@@ -48,14 +52,14 @@ function canvaselector(regiones){
     cv.width=640;
     cv.height=640;
     cv.onclick = function(evento){
-        
-       
+
+
         let alto=cv.height/regiones,
         ancho=cv.width/regiones;
         let columna = Math.floor(evento.offsetX/ancho),
         fila = Math.floor(evento.offsetY/alto);
         console.log(fila+' ' +columna);
-        
+
     }
     let subdivi = Math.sqrt(regiones);
     crearrejilla(regiones,1);
@@ -63,11 +67,11 @@ function canvaselector(regiones){
     //cv.onmousemove
     //cv.onmousedown al clickar
     //cv.onmouseup al soltar el click
-    //cv.onmousenter  al entrar al canvas (cuando los errores), onmouseleave 
+    //cv.onmousenter  al entrar al canvas (cuando los errores), onmouseleave
 }
 
 function crearrejilla(regiones,tam){
-    
+
     let cv = document.querySelector('canvas'),
     ctx = cv.getContext('2d'),
     ancho=cv.width/regiones,
@@ -77,12 +81,32 @@ function crearrejilla(regiones,tam){
     ctx.strokeStyle = '#04724D';
 
     for (let i=0;i<regiones;i++){
-        
+
             ctx.moveTo(i*ancho, 0);
             ctx.lineTo(i*ancho,cv.height);
             ctx.moveTo(0,i*alto);
             ctx.lineTo(cv.width,i*alto);
-        
+
     }
     ctx.stroke();
+}
+
+
+function prepararInterfaz(){
+//  objetivo.parentNode.replaceChild(div, objetivo); FUNCION SUSTITUCION
+  let objetivo = document.getElementById('start');
+  let div = document.getElementById('interfaz');
+  // <button type="button" onclick="infoSudo()">Informacion del sudoku</button>
+  let buttonCheck = document.createElement('button');
+  let buttonFinaliza = document.createElement('button');
+  //Hacer el temporizador que OK
+
+  buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
+  buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
+
+  objetivo.parentNode.replaceChild(buttonCheck, objetivo);
+  div.appendChild(buttonCheck);
+  div.appendChild(buttonFinaliza);
+
+
 }
