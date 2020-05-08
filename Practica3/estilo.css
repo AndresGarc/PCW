@@ -10,10 +10,10 @@
     --colorRosa: #FFD4BA;
     --colorGWhite: #F4F4F9;
     --colorRBlack:#000000;
-    --colorCadet: #586F7C;
+    --colorCadet: #8AA1B1;
     --colorPowderBlue: #B8DBD9;
     --colorDarkGreen: #04724D;
-
+   
   }
   /* FIN VARIABLES */
 
@@ -95,7 +95,12 @@ button{
 .interfaz{
   margin: .75em;
 }
-
+.sinborde {
+  border:0 solid black;
+}
+.conborde{
+  border: 3px solid var(--colorRBlack);
+}
 /* END FORMULARIO TAMAÑO DEL SUDOKU + BOTONERA*/
 canvas {
   border: 5px solid var(--colorDarkGreen);
@@ -141,7 +146,7 @@ canvas {
       margin: 0 0 0.5em 0;
     }
 #nums{
-  border: 3px solid var(--colorRBlack);
+  
   border-radius:2em;
   margin-top:2em;
   font-size:1em;

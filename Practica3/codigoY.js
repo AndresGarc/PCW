@@ -17,11 +17,11 @@ function cargasudoku(){ //el boton de empezar
                 //sustituir boton empezar por temporizador+comprobar+finalizar
                 prepararInterfaz();
                 sudo =   JSON.parse(sessionStorage['sudoku']);
-                let falsudoku = [];
+               
                 for(let i=0;i<sudo.SUDOKU.length;i++){
+                    let falsudoku = [];
                     for(let j=0;j<sudo.SUDOKU[i].length;j++){
-                        falsudoku[i]=sudo.SUDOKU[i][j];
-                        console.log(falsudoku);
+                        falsudoku[j]=sudo.SUDOKU[i][j];
                         console.log(falsudoku[i]);
                     }
                     misudoku[i]=falsudoku;
@@ -154,24 +154,24 @@ function canvaselector(){
                 fila = Math.floor(evento.offsetY/alto);
                 
                 region = Math.sqrt(region);
-                pintarCasilla(fila,columna,0,'#586F7C');
+                pintarCasilla(fila,columna,0,'#8AA1B1');
                 recorresudoku();
                 ancho = cv.width/region;
                 let c = Math.floor(evento.offsetX/ancho),
                 f = Math.floor(evento.offsetY/ancho);
                 
                     for(let i=0; i<sudo.SUDOKU.length; i++){
-                    for(let j=0; j<sudo.SUDOKU[0].length; j++){
-                        if(i==f && j!=c && sudo.SUDOKU[i][j]==0){
-                            pintarCasilla(i,j, sudo.SUDOKU[i][j],'#586F7C');
-                        
-                        } else if(j==c && i!=f && sudo.SUDOKU[i][j]==0){
-                            pintarCasilla(i,j,0,'#586F7C');            
+                        for(let j=0; j<sudo.SUDOKU[0].length; j++){
+                            if(i==f && j!=c && sudo.SUDOKU[i][j]==0 && misudoku[i][j]==0){
+                                pintarCasilla(i,j, sudo.SUDOKU[i][j],'#8AA1B1');
+                            
+                            } else if(j==c && i!=f && sudo.SUDOKU[i][j]==0 && misudoku[i][j]==0){
+                                pintarCasilla(i,j,0,'#8AA1B1');            
+                            }
                         }
                     }
-                    }
-            
-                    pintarCasilla(f,c,0,'#37505C');
+                    
+                    pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');    
                     pintarBorde(f,c);
                     crearDiv(f,c);
                     
@@ -211,8 +211,14 @@ function recorresudoku(){
 
     for(let i=0;i<sudo.SUDOKU.length;i++){
         for(let j=0; j<sudo.SUDOKU[i].length;j++) {
-            if(sudo.SUDOKU[i][j] != 0) {
-                pintarCasilla(i,j,sudo.SUDOKU[i][j],'#B8DBD9');
+            if(misudoku[i][j] != 0) {
+                if(sudo.SUDOKU[i][j] != 0){
+                    pintarCasilla(i,j,misudoku[i][j],'#B8DBD9');
+                }
+                else {
+                    pintarCasilla(i,j,misudoku[i][j],'#F4F4F9');
+                }
+                
             }
         }
     }
@@ -256,16 +262,42 @@ function pintarCasilla(f,c,numero,colorfondo){
 
   function crearDiv(f,c){
       borraDiv();
+      document.getElementById("nums").className = "conborde"; 
     for( i=1;i<=region;i++){
         let p = document.createElement('p');
         p.className="numeros";
         p.innerHTML=i;
-        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv()};
+        let cosa = parseInt(p.innerHTML);
+        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosa);limpiasudoku();};
         document.getElementById('nums').appendChild(p);
     }
   }
 
   function borraDiv(){
+    document.getElementById("nums").className = "sinborde";
      document.getElementById('nums').innerHTML="";
       
   }
+
+  function meteNumero(f,c,numero){
+    misudoku[f][c]=numero;
+    
+  }
+
+  function limpiasudoku(){
+    sudo =   JSON.parse(sessionStorage['sudoku']);
+
+    for(let i=0;i<sudo.SUDOKU.length;i++){
+        for(let j=0; j<sudo.SUDOKU[i].length;j++) {
+            if(misudoku[i][j] == 0) {
+                if(sudo.SUDOKU[i][j] == 0){
+                    pintarCasilla(i,j,misudoku[i][j],'#F4F4F9');
+                }
+                else {
+                    pintarCasilla(i,j,misudoku[i][j],'#F4F4F9');
+                }
+                
+            }
+        }
+    }
+}
