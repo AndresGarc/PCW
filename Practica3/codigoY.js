@@ -1,7 +1,6 @@
-//no se como van los sudokus pero a lo mejor nos vale la pena hacer una funcion que nos diga la posicion
-//de un elemento pasado para pintarlo en el canvas mas facilmente
-var region = 4;
 
+var region = 4;
+// PETICIONES
 function cargasudoku(){ //el boton de empezar
     //desactiva elemento cambio tamaño
     //hacer peticion cargarsudoku
@@ -9,9 +8,7 @@ function cargasudoku(){ //el boton de empezar
     console.log(url);
     fetch(url,{method:'POST'}).then(function(respuesta){
         if( respuesta.ok){
-
             respuesta.json().then(function(datos){
-                console.log("bien bien");
                 //console.log(JSON.stringify(datos));
                 sessionStorage['sudoku'] = JSON.stringify(datos); //guarda el sudoku y un token que se usa de auth
                 // tras eso pintar en el canvas siguiendo la paleta
@@ -22,23 +19,11 @@ function cargasudoku(){ //el boton de empezar
             });
         }
         else {
-           console.log("mal mal");
+           
         }
     });
     return false;
 }
-
-function cambiasudoku(){
-    console.log("cambio de sudoku");
-    //esta funcion cambiaria el tamaño del grid del sudoku cada vez que se cambiase eso
-}
-
-function infoSudo(){
-  let usu =   JSON.parse(sessionStorage['sudoku']);
-  console.log(usu.SUDOKU[1][0]);
-}
-
-
 function compruebaerrores(){
     //let sudoku  sessionstorage sudoku, con eso hacemos una peticion POST a /id sudoku/comprobar
 
@@ -50,24 +35,127 @@ function botonfinalizar(){
     // si respuesta.ok parar temporizador y reiniciar la pagina
 }
 
-function canvaselector(){
-   
-    let cv = document.querySelector('canvas');
-    region = document.getElementById('categoria').value;
-    //if regiones, entonces cambiar width y height???
-    cv.width=640;
-    cv.height=640;
-    cv.onclick = function(evento){
-        let alto=cv.height/region,
-        ancho=cv.width/region;
-        let columna = Math.floor(evento.offsetX/ancho),
-        fila = Math.floor(evento.offsetY/alto);
-        console.log(fila+' ' +columna);
 
-    }
+//END PETICIONES
+
+//funciones de utilidad
+
+function cambiasudoku(){
+    console.log("cambio de sudoku");
+    //esta funcion cambiaria el tamaño del grid del sudoku cada vez que se cambiase eso
+}
+
+function infoSudo(){
+  let usu =   JSON.parse(sessionStorage['sudoku']);
+  console.log(usu.SUDOKU[1][0]);
+}
+
+function rellenaLineas(){
     let subdivi = Math.sqrt(region);
     crearrejilla(region,1);
     crearrejilla(subdivi,3);
+  }
+
+function prepararInterfaz(){
+    //  objetivo.parentNode.replaceChild(div, objetivo); FUNCION SUSTITUCION
+      let objetivo = document.getElementById('start');
+      let div = document.getElementById('interfaz');
+      // <button type="button" onclick="infoSudo()">Informacion del sudoku</button>
+      let buttonCheck = document.createElement('button');
+      let buttonFinaliza = document.createElement('button');
+      //Hacer el temporizador que OK
+    
+      buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
+      buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
+    
+      objetivo.parentNode.replaceChild(buttonCheck, objetivo);
+      div.appendChild(buttonCheck);
+      div.appendChild(buttonFinaliza);
+        
+    }
+
+//END funciones utilidad
+
+//CANVAS
+
+function canvaselector(){
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let cv = document.querySelector('canvas');
+    region = document.getElementById('categoria').value;
+    //if regiones, entonces cambiar width y height???
+    if (region==9) {
+    cv.width=640;
+    cv.height=640;
+    } else {
+        cv.width=480;
+        cv.height=480;
+    }
+    
+    rellenaLineas();
+
+    cv.onmousemove = function(evento){
+        if(sessionStorage.sudoku != undefined) {
+            let fila, columna,
+            ancho = cv.width/region;  
+            fila = Math.floor(evento.offsetY / ancho); 
+            columna = Math.floor(evento.offsetX / ancho);
+            const cuadrado = new Path2D();
+            cuadrado.rect(fila*ancho,columna*ancho,fila*ancho,columna*ancho);
+            ctx.fillStyle ='red';
+            let sudo =   JSON.parse(sessionStorage['sudoku']);
+            if(sudo.SUDOKU[fila][columna] == 0) {
+                document.getElementById('canvas').style.cursor = "pointer";
+                
+                if (ctx.isPointInPath(cuadrado, fila*ancho,columna*ancho)) {
+                    pintarCasilla(fila,columna,0,'#586F7C');
+                  }
+                  else {
+                    pintarCasilla(fila,columna,0,'#F4F4F9');
+                   
+                  }
+                
+            }
+            else{   
+                document.getElementById('canvas').style.cursor = "auto";
+            }
+        }
+            
+    }
+
+    cv.onclick =  function (evento){
+        let sudo = JSON.parse(sessionStorage['sudoku']);
+      
+            sqrt = Math.sqrt(region);
+            let alto=cv.height/sqrt,
+            ancho=cv.width/sqrt;
+             let columna = Math.floor(evento.offsetX/ancho),
+            fila = Math.floor(evento.offsetY/alto);
+            
+            region = Math.sqrt(region);
+            pintarCasilla(fila,columna,0,'#586F7C');
+            
+         
+             
+             ancho = cv.width/region;
+             let c = Math.floor(evento.offsetX/ancho),
+             f = Math.floor(evento.offsetY/ancho);
+            
+             
+              
+                for(let i=0; i<sudo.SUDOKU.length; i++){
+                  for(let j=0; j<sudo.SUDOKU[0].length; j++){
+                    if(i==f && j!=c && sudo.SUDOKU[i][j]==0){
+                        pintarCasilla(i,j,0,'#586F7C');
+                      
+                    } else if(j==c && i!=f && sudo.SUDOKU[i][j]==0){
+                        pintarCasilla(i,j,0,'#586F7C');            
+                    }
+                  }
+                }
+        
+      
+      }
     //cv.onmousemove
     //cv.onmousedown al clickar
     //cv.onmouseup al soltar el click
@@ -95,51 +183,36 @@ function crearrejilla(regiones,tam){
     ctx.stroke();
 }
 
-
-function prepararInterfaz(){
-//  objetivo.parentNode.replaceChild(div, objetivo); FUNCION SUSTITUCION
-  let objetivo = document.getElementById('start');
-  let div = document.getElementById('interfaz');
-  // <button type="button" onclick="infoSudo()">Informacion del sudoku</button>
-  let buttonCheck = document.createElement('button');
-  let buttonFinaliza = document.createElement('button');
-  //Hacer el temporizador que OK
-
-  buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
-  buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
-
-  objetivo.parentNode.replaceChild(buttonCheck, objetivo);
-  div.appendChild(buttonCheck);
-  div.appendChild(buttonFinaliza);
-
-
-}
-
 function recorresudoku(){
     sudo =   JSON.parse(sessionStorage['sudoku']);
 
     for(let i=0;i<sudo.SUDOKU.length;i++){
         for(let j=0; j<sudo.SUDOKU[i].length;j++) {
             if(sudo.SUDOKU[i][j] != 0) {
-                console.log(sudo.SUDOKU[i][j]);
-                pintarCasilla(i,j,sudo.SUDOKU[i][j]);
+                pintarCasilla(i,j,sudo.SUDOKU[i][j],'#B8DBD9');
             }
         }
     }
 }
 
-function pintarCasilla(f,c,numero){
+function pintarCasilla(f,c,numero,colorfondo){
     let cv = document.querySelector("canvas"),
         ctx = cv.getContext('2d'),
         ancho = cv.width/region;
   
-    ctx.fillStyle = "#B8DBD9";
+    ctx.fillStyle = colorfondo;
     ctx.fillRect(c*ancho,f*ancho, ancho, ancho);
-    ctx.fillStyle = "#04724D";
-    ctx.font = "50px Arial";
-    ancho=ancho-ancho/2;
-    ctx.fillText("2",c*ancho,f*ancho); // 71 0 ,,, 
-    let subdivi = Math.sqrt(region);
-    crearrejilla(region,1);
-    crearrejilla(subdivi,3);
+    if(numero!=0){
+        ctx.fillStyle = "#04724D";
+        ctx.font = "50px Arial";
+        ctx.textAlign = "center"; 
+        f=f+1;
+        
+        ctx.fillText(numero,c * ancho + (ancho/2) ,f * ancho - (ancho/2)+20); 
+    }
+         // 71 0 ,,, 
+    if(region==3 || region==2) {region=region*region;}
+    rellenaLineas();
   }
+
+
