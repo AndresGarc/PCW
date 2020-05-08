@@ -148,7 +148,7 @@ canvas {
   justify-content: center;
   display:flex;
   flex-direction: row;
-  
+
 }
 
 .numeros{
@@ -159,9 +159,60 @@ canvas {
 .numeros:hover{
   cursor: pointer;
   font-size: 1.8em;
-  
+
 }
 
+
+
+/* ACERCA */
+.titAcerca{
+  text-align:center;
+  margin: 1.5em auto;
+  padding: .5em;
+  max-width: 900px;
+
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: var(--colorPowderBlue);
+}
+
+
+.contenedor{
+  display:flex;
+  flex-direction:column;
+  max-width: 900px;
+  margin: 1.5em auto;
+
+  border: 1px solid black;
+  border-radius: 20px;
+  background-color: var(--colorCadet);
+
+}
+.nombre{
+  text-align:center;
+}
+
+.subapartado{
+
+  padding: 0.4em 0 0.4em 1em;
+  margin: 1em 1em 0;
+
+  font-size: 1.4em;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+
+}
+
+.texto{
+  margin:0 1em;
+  background-color:white;
+  padding: 1em 1em;
+
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+
+}
+/* END ACERCA */
 /*END BODY*/
 
 /*QUERYS*/
