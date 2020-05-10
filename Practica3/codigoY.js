@@ -22,7 +22,7 @@ function cargasudoku(){ //el boton de empezar
                     let falsudoku = [];
                     for(let j=0;j<sudo.SUDOKU[i].length;j++){
                         falsudoku[j]=sudo.SUDOKU[i][j];
-                        console.log(falsudoku[i]);
+                        
                     }
                     misudoku[i]=falsudoku;
 
@@ -39,14 +39,50 @@ function cargasudoku(){ //el boton de empezar
     return false;
 }
 function compruebaerrores(){
-    //let sudoku  sessionstorage sudoku, con eso hacemos una peticion POST a /id sudoku/comprobar
+    
+    let sudo =   JSON.parse(sessionStorage['sudoku']);
+    let  autorizacion = sudo.TOKEN ;
+    let args = "juego="+misudoku;
+    let xhr = new XMLHttpRequest(),
+    url = 'api/sudoku/'+ sudo.ID+'/comprobar'; //tomando la info del sessionstorage
+    console.log(args);
+    console.log(url);
+    xhr.open('POST',url,true);
+
+    xhr.onload = function(){
+      
+
+        console.log(xhr.responseText);
+    
+    }
+   xhr.setRequestHeader('Authorization',autorizacion);
+    xhr.send(args);
+
 
     //tras encontrar fallos, for each llamar a destacar fallos
 }
 
 function botonfinalizar(){
-    //peticion tipo delete igual que compruebaerrores
-    // si respuesta.ok parar temporizador y reiniciar la pagina
+    let sudo = JSON.parse(sessionStorage['sudoku']);
+    let url = 'api/sudoku/'+ sudo.ID+'/delete';
+    init = {method: 'DELETE', headers:{'Authorization':`${sudo.TOKEN}`} };
+
+          fetch(url, init).then(function(response){
+              console.log(response);
+            if(!response.ok){
+              //console.log("Error con la subida");
+              response.json().then(function(datos){
+                console.log("bien");
+                console.log(datos);
+              });
+            } else {
+                console.log("mal");
+              console.log(response);
+              //console.log("Borrado completado");
+
+            }
+          });
+        return false;
 }
 
 
@@ -83,14 +119,33 @@ function prepararInterfaz(){
       //Hacer el temporizador que OK
 
       buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
+      buttonCheck.onclick= function() {compruebaerrores()};
       buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
-
+      buttonFinaliza.onclick= function() {botonfinalizar()};
       objetivo.parentNode.replaceChild(buttonCheck, objetivo);
       div.appendChild(buttonCheck);
       div.appendChild(buttonFinaliza);
 
     }
 
+function compruebasudoku(){
+    let patata=false;
+    for(let i=0;i<misudoku.length;i++){
+        for(let j=0;j<misudoku[i].length;j++){
+            if(misudoku[i][j]==0){patata=true;}
+        }
+    }
+    if(patata==false){
+        compruebaerrores();
+    }
+}
+
+function erroresonclick() {
+    if(fallos.length<1){}
+        for(let i=0;i<fallos.length;i++){
+        pintarCasilla(fallos[i].fila,fallos[i].columna,0, '#8D021F');
+        }
+}
 //END funciones utilidad
 
 //CANVAS
