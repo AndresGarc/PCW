@@ -29,6 +29,7 @@ function cargasudoku(){ //el boton de empezar
                 }
 
                 recorresudoku();
+                document.getElementById('categoria').disabled = true; //RECORDAR AL TERMINAR PONERLO A FALSE
             });
         }
         else {
