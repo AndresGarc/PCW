@@ -17,7 +17,7 @@ function cargasudoku(){ //el boton de empezar
                 //sustituir boton empezar por temporizador+comprobar+finalizar
                 prepararInterfaz();
                 sudo =   JSON.parse(sessionStorage['sudoku']);
-               
+
                 for(let i=0;i<sudo.SUDOKU.length;i++){
                     let falsudoku = [];
                     for(let j=0;j<sudo.SUDOKU[i].length;j++){
@@ -25,14 +25,14 @@ function cargasudoku(){ //el boton de empezar
                         console.log(falsudoku[i]);
                     }
                     misudoku[i]=falsudoku;
-                     
+
                 }
-                
+
                 recorresudoku();
             });
         }
         else {
-           
+
         }
     });
     return false;
@@ -73,18 +73,21 @@ function prepararInterfaz(){
     //  objetivo.parentNode.replaceChild(div, objetivo); FUNCION SUSTITUCION
       let objetivo = document.getElementById('start');
       let div = document.getElementById('interfaz');
+      let temp = document.getElementById('tempo');
+      //iniciar reloj aka REINICIAR
+      temp.style.display = "block";
       // <button type="button" onclick="infoSudo()">Informacion del sudoku</button>
       let buttonCheck = document.createElement('button');
       let buttonFinaliza = document.createElement('button');
       //Hacer el temporizador que OK
-    
+
       buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
       buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
-    
+
       objetivo.parentNode.replaceChild(buttonCheck, objetivo);
       div.appendChild(buttonCheck);
       div.appendChild(buttonFinaliza);
-        
+
     }
 
 //END funciones utilidad
@@ -95,7 +98,13 @@ function canvaselector(){
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let cv = document.querySelector('canvas');
-    region = document.getElementById('categoria').value;
+      region = document.getElementById('categoria').value,
+      t = document.getElementById('tempo');
+
+    if(t.style.display==="block"){ //temporizador Y REINICIAR RELOJ
+      t.style.display="none";
+    }
+
     //if regiones, entonces cambiar width y height???
     if (region==9) {
     cv.width=640;
@@ -104,14 +113,14 @@ function canvaselector(){
         cv.width=480;
         cv.height=480;
     }
-    
+
     rellenaLineas();
 
     cv.onmousemove = function(evento){
         if(sessionStorage.sudoku != undefined) {
             let fila, columna,
-            ancho = cv.width/region;  
-            fila = Math.floor(evento.offsetY / ancho); 
+            ancho = cv.width/region;
+            fila = Math.floor(evento.offsetY / ancho);
             columna = Math.floor(evento.offsetX / ancho);
             const cuadrado = new Path2D();
             cuadrado.rect(fila*ancho,columna*ancho,fila*ancho,columna*ancho);
@@ -119,70 +128,71 @@ function canvaselector(){
             let sudo =   JSON.parse(sessionStorage['sudoku']);
             if(sudo.SUDOKU[fila][columna] == 0) {
                 document.getElementById('canvas').style.cursor = "pointer";
-                
+
               /*  if (ctx.isPointInPath(cuadrado, fila*ancho,columna*ancho)) {
                     pintarCasilla(fila,columna,0,'#586F7C');
                   }
                   else {
                     pintarCasilla(fila,columna,0,'#F4F4F9');
-                   
+
                   } */
-                
+
             }
-            else{   
+            else{
                 document.getElementById('canvas').style.cursor = "auto";
             }
         }
-            
-    } 
+
+    }
 
     cv.onclick =  function (evento){
         let sudo = JSON.parse(sessionStorage['sudoku']);
         let fila, columna,
-            ancho = cv.width/region;  
-            fila = Math.floor(evento.offsetY / ancho); 
+            ancho = cv.width/region;
+            fila = Math.floor(evento.offsetY / ancho);
             columna = Math.floor(evento.offsetX / ancho);
-        
+
         if(sudo.SUDOKU[fila][columna]==0){
-            ctx.clearRect(0, 0, cv.width, cv.height);     
+            ctx.clearRect(0, 0, cv.width, cv.height);
             let sudo = JSON.parse(sessionStorage['sudoku']);
-        
+
                 sqrt = Math.sqrt(region);
                 let alto=cv.height/sqrt,
                 ancho=cv.width/sqrt;
                 let columna = Math.floor(evento.offsetX/ancho),
                 fila = Math.floor(evento.offsetY/alto);
-                
+
                 region = Math.sqrt(region);
                 pintarCasilla(fila,columna,0,'#8AA1B1');
                 recorresudoku();
                 ancho = cv.width/region;
                 let c = Math.floor(evento.offsetX/ancho),
                 f = Math.floor(evento.offsetY/ancho);
-                
+
                     for(let i=0; i<sudo.SUDOKU.length; i++){
                         for(let j=0; j<sudo.SUDOKU[0].length; j++){
                             if(i==f && j!=c && sudo.SUDOKU[i][j]==0 && misudoku[i][j]==0){
                                 pintarCasilla(i,j, sudo.SUDOKU[i][j],'#8AA1B1');
-                            
+
                             } else if(j==c && i!=f && sudo.SUDOKU[i][j]==0 && misudoku[i][j]==0){
-                                pintarCasilla(i,j,0,'#8AA1B1');            
+                                pintarCasilla(i,j,0,'#8AA1B1');
                             }
                         }
                     }
-                    
-                    pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');    
+
+                    pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');
                     pintarBorde(f,c);
                     crearDiv(f,c);
-                    
+
             }
 
-           
+
     }
     //cv.onmousemove
     //cv.onmousedown al clickar
     //cv.onmouseup al soltar el click
     //cv.onmousenter  al entrar al canvas (cuando los errores), onmouseleave
+
 }
 
 function crearrejilla(regiones,tam){
@@ -218,7 +228,7 @@ function recorresudoku(){
                 else {
                     pintarCasilla(i,j,misudoku[i][j],'#F4F4F9');
                 }
-                
+
             }
         }
     }
@@ -228,18 +238,18 @@ function pintarCasilla(f,c,numero,colorfondo){
     let cv = document.querySelector("canvas"),
         ctx = cv.getContext('2d'),
         ancho = cv.width/region;
-  
+
     ctx.fillStyle = colorfondo;
     ctx.fillRect(c*ancho,f*ancho, ancho, ancho);
     if(numero!=0){
         ctx.fillStyle = "#04724D";
         ctx.font = "50px Arial";
-        ctx.textAlign = "center"; 
+        ctx.textAlign = "center";
         f=f+1;
-        
-        ctx.fillText(numero,c * ancho + (ancho/2) ,f * ancho - (ancho/2)+20); 
+
+        ctx.fillText(numero,c * ancho + (ancho/2) ,f * ancho - (ancho/2)+20);
     }
-        
+
     if(region==3 || region==2) {region=region*region;}
     rellenaLineas();
   }
@@ -255,14 +265,14 @@ function pintarCasilla(f,c,numero,colorfondo){
     ctx.strokeStyle = '#8D021F';
     ctx.strokeRect(c*ancho,f*ancho, ancho, ancho);
     ctx.stroke();
-    
+
   }
 
   //NUMEROS
 
   function crearDiv(f,c){
       borraDiv();
-      document.getElementById("nums").className = "conborde"; 
+      document.getElementById("nums").className = "conborde";
     for( i=1;i<=region;i++){
         let p = document.createElement('p');
         p.className="numeros";
@@ -276,12 +286,12 @@ function pintarCasilla(f,c,numero,colorfondo){
   function borraDiv(){
     document.getElementById("nums").className = "sinborde";
      document.getElementById('nums').innerHTML="";
-      
+
   }
 
   function meteNumero(f,c,numero){
     misudoku[f][c]=numero;
-    
+
   }
 
   function limpiasudoku(){
@@ -296,7 +306,7 @@ function pintarCasilla(f,c,numero,colorfondo){
                 else {
                     pintarCasilla(i,j,misudoku[i][j],'#F4F4F9');
                 }
-                
+
             }
         }
     }
