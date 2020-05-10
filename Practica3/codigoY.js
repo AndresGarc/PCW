@@ -22,7 +22,7 @@ function cargasudoku(){ //el boton de empezar
                     let falsudoku = [];
                     for(let j=0;j<sudo.SUDOKU[i].length;j++){
                         falsudoku[j]=sudo.SUDOKU[i][j];
-                        
+
                     }
                     misudoku[i]=falsudoku;
 
@@ -30,6 +30,7 @@ function cargasudoku(){ //el boton de empezar
 
                 recorresudoku();
                 document.getElementById('categoria').disabled = true; //RECORDAR AL TERMINAR PONERLO A FALSE
+                iniciarTemporizador();
             });
         }
         else {
@@ -39,7 +40,7 @@ function cargasudoku(){ //el boton de empezar
     return false;
 }
 function compruebaerrores(){
-    
+
     let sudo =   JSON.parse(sessionStorage['sudoku']);
     let  autorizacion = sudo.TOKEN ;
     let args = "juego="+misudoku;
@@ -50,10 +51,10 @@ function compruebaerrores(){
     xhr.open('POST',url,true);
 
     xhr.onload = function(){
-      
+
 
         console.log(xhr.responseText);
-    
+
     }
    xhr.setRequestHeader('Authorization',autorizacion);
     xhr.send(args);
@@ -367,3 +368,37 @@ function pintarCasilla(f,c,numero,colorfondo){
         }
     }
 }
+
+
+//-------------------- FUNCIONES TEMPORIZADOR ---------------------------
+function iniciarTemporizador(){
+  document.getElementById('crono').innerHTML = '00:00:00';
+  document.getElementById('crono').setAttribute('data-valor', '0');
+  document.getElementById('crono').removeAttribute('data-parar')
+  setTimeout(actualizarTempo, 1000); //cuando pase 1 segundo se llama y actualizamos
+}
+
+function actualizarTempo(){
+  if(document.getElementById('crono').getAttribute('data-parar')){
+    return false;
+  }
+  let valor = parseInt(document.getElementById('crono').getAttribute('data-valor'))+1, //valor del cronometro anterior y le sumo 1
+      horas = Math.floor(valor/3600),
+      minutos = Math.floor((valor - horas*3600)/60),
+      segundos = valor-horas*36000 - minutos * 60;
+
+  horas = (horas < 10 ?'0':'') + horas;
+  minutos = (minutos < 10 ?'0':'') + minutos;
+  segundos = (segundos < 10 ?'0':'') + segundos;
+
+
+  document.getElementById('crono').innerHTML = `${horas}:${minutos}:${segundos}`;
+  document.getElementById('crono').setAttribute('data-valor', valor);
+  setTimeout( actualizarTempo, 1000);
+
+}
+
+function pararTempo(){
+  document.getElementById('crono').setAttribute('data-parar', 'si');
+}
+//------------------------ END TEMPORIZADOR -------------------------------
