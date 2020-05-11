@@ -42,34 +42,41 @@ function cargasudoku(){ //el boton de empezar
     return false;
 }
 function compruebaerrores(){
-
     let sudo =   JSON.parse(sessionStorage['sudoku']);
     let  autorizacion = sudo.TOKEN ;
-    let args = "juego="+misudoku;
+    let args = JSON.stringify(misudoku);
     let xhr = new XMLHttpRequest(),
-    url = 'api/sudoku/'+ sudo.ID+'/comprobar'; //tomando la info del sessionstorage
-    console.log(args);
-    console.log(url);
-    xhr.open('POST',url,true);
+    url = 'api/sudoku/'+ sudo.ID+'/comprobar', //tomando la info del sessionstorage
+    fd = new FormData();
 
-    xhr.onload = function(){
+    fd.append("juego", args);
+    
 
-
-        console.log(xhr.responseText);
-
+fetch(url, {method:'POST',
+  body:fd, headers:{'Authorization':autorizacion}}).then(function(respuesta){
+    if(respuesta.ok){
+      respuesta.json().then(function(datos){
+        console.log(datos);
+        let fallos = JSON.stringify(datos);
+        console.log(fallos);
+        console.log(fallos.FALLOS);
+        console.log(datos.FALLOS);
+        for(let i=0;datos.FALLOS.length;i++){
+            f=datos.FALLOS[i].fila;
+            c=datos.FALLOS[i].columna;
+            pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');
+            //pintar fondo de rojo, quitar al entrar al canvas
+        }
+      });
     }
-   xhr.setRequestHeader('Authorization',autorizacion);
-    xhr.send(args);
+});
 
-
-    //tras encontrar fallos, for each llamar a destacar fallos
 }
 
 function botonfinalizar(){
     let sudo = JSON.parse(sessionStorage['sudoku']);
-    let url = 'api/sudoku/'+ sudo.ID+'/delete';
-    init = {method: 'DELETE', headers:{'Authorization':`${sudo.TOKEN}`} };
-
+    let url = 'api/sudoku/'+ sudo.ID;
+    init = {method: 'DELETE', headers:{'Authorization':sudo.TOKEN} };
           fetch(url, init).then(function(response){
               console.log(response);
             if(!response.ok){
@@ -77,6 +84,8 @@ function botonfinalizar(){
               response.json().then(function(datos){
                 console.log("bien");
                 console.log(datos);
+                //terminar temporizador
+                //reiniciar juego/pag?
               });
             } else {
                 console.log("mal");
@@ -122,9 +131,7 @@ function prepararInterfaz(){
       //Hacer el temporizador que OK
 
       buttonCheck.innerHTML = "Comprobar"; buttonCheck.type = "button"; buttonCheck.addEventListener("click", compruebaerrores);
-      buttonCheck.onclick= function() {compruebaerrores()};
       buttonFinaliza.innerHTML = "Terminar"; buttonFinaliza.type = "button"; buttonFinaliza.addEventListener("click", botonfinalizar);
-      buttonFinaliza.onclick= function() {botonfinalizar()};
       objetivo.parentNode.replaceChild(buttonCheck, objetivo);
       div.appendChild(buttonCheck);
       div.appendChild(buttonFinaliza);
