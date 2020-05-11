@@ -42,7 +42,7 @@ function cargasudoku(){ //el boton de empezar
     return false;
 }
 function compruebaerrores(){
-    
+
     let sudo =   JSON.parse(sessionStorage['sudoku']);
     let  autorizacion = sudo.TOKEN ;
     let args = JSON.stringify(misudoku);
@@ -51,7 +51,7 @@ function compruebaerrores(){
     fd = new FormData();
 
     fd.append("juego", args);
-    
+
 
 fetch(url, {method:'POST',
   body:fd, headers:{'Authorization':autorizacion}}).then(function(respuesta){
@@ -70,7 +70,7 @@ fetch(url, {method:'POST',
       });
     }
 });
-    
+
 }
 
 function botonfinalizar(){
@@ -78,19 +78,14 @@ function botonfinalizar(){
     let url = 'api/sudoku/'+ sudo.ID;
     init = {method: 'DELETE', headers:{'Authorization':sudo.TOKEN} };
           fetch(url, init).then(function(response){
-              console.log(response);
-            if(!response.ok){
-              //console.log("Error con la subida");
+            if(response.ok){
               response.json().then(function(datos){
                 console.log("bien");
-                console.log(datos);
+                resetGame();
                 //terminar temporizador
                 //reiniciar juego/pag?
               });
             } else {
-                console.log("mal");
-              console.log(response);
-              //console.log("Borrado completado");
 
             }
           });
@@ -165,6 +160,33 @@ function erroresonclick() {
         pintarCasilla(fallos[i].fila,fallos[i].columna,0, '#8D021F');
         }
 }
+
+
+function resetGame(){
+  let cv = document.querySelector('canvas'),
+      ctx = cv.getContext('2d'),
+      temp = document.getElementById('tempo'),
+      butini = document.createElement('button'),
+      div = document.getElementById('interfaz');
+
+  sessionStorage.clear(); //limpiar storage
+  pararTempo();
+  document.getElementById('categoria').disabled = false;
+
+  //vaciar sudoku
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  rellenaLineas();
+
+  //ocultar temporizador
+  temp.style.display = "none";
+
+  //crear boton empezar
+  butini.innerHTML = "Empezar"; butini.type = "button"; butini.addEventListener("click", cargasudoku);
+  butini.id="start";
+  div.innerHTML = "";
+  div.appendChild(butini);
+
+}
 //END funciones utilidad
 
 //CANVAS
@@ -201,31 +223,31 @@ function canvaselector(){
             columna = Math.floor(evento.offsetX / ancho);
             let sudo =   JSON.parse(sessionStorage['sudoku']);
 
-            
+
             if(sudo.SUDOKU[fila][columna] == 0) { //hasta aqui funcionaba vale el resto es codigo nuevo?
                 //hay 2 variables globales, filact y colact, que usamos para guardar la fila y columna ANTERIORES
-                if(filact == -1 || colact ==-1) { 
+                if(filact == -1 || colact ==-1) {
                     //imagina que empezamos con el cursor en 3,2, se guarda la posicion inicial
                     filact=fila; // 3
                     colact=columna; // 2
                 }
-                let num = misudoku[filact][colact]; //el numero a pintar 
+                let num = misudoku[filact][colact]; //el numero a pintar
                 if(filact!=fila || colact!=columna){  //ahora imagina que pasamos a la pos 4,2
-                    
+
                     pintarCasilla(filact,colact,num,'#F4F4F9'); // se pinta 3, 2
-                    filact=fila; // 4 luego pasamos las variables a la siguiente instancia 
+                    filact=fila; // 4 luego pasamos las variables a la siguiente instancia
                     colact=columna; //2 para que en el siguiente bucle pinte si salimos de 4,2
-                    
+
                 }
                 document.getElementById('canvas').style.cursor = "pointer";
-                pintarCasilla(filact,colact,num,'#8AA1B1'); 
+                pintarCasilla(filact,colact,num,'#8AA1B1');
             }
             else{ //si pasamos de blanquito a casilla estatica
                 if (filact !=-1){ //para que no explote el programa
                     if(sudo.SUDOKU[filact][colact]==0){ // comprobamos que sea blanquito
                         let num = misudoku[filact][colact];
-                        pintarCasilla(filact,colact,num,'#F4F4F9'); 
-                       
+                        pintarCasilla(filact,colact,num,'#F4F4F9');
+
                     }
                 }
                 document.getElementById('canvas').style.cursor = "auto";
@@ -370,7 +392,7 @@ function pintarCasilla(f,c,numero,colorfondo){
         let cosita = parseInt(p.innerHTML);
         p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosita);limpiasudoku();nopintar=1;compruebasudoku();};
         document.getElementById('nums').appendChild(p);
-        
+
     }
   }
 
@@ -456,10 +478,10 @@ function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cab
 
 }
 
-function cerrarmodal(num){ 
+function cerrarmodal(num){
     document.querySelector('#capafondo').remove();
-    if(num==1){ 
+    if(num==1){
         location.href="login.html";
     }
-    
+
 }
