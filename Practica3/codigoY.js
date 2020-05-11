@@ -1,7 +1,9 @@
 
 var region = 4;
 var misudoku = [];
-
+var filact =-1;
+var colact =-1;
+var nopintar = 1;
 // PETICIONES
 function cargasudoku(){ //el boton de empezar
     //desactiva elemento cambio tamaño
@@ -174,32 +176,47 @@ function canvaselector(){
     rellenaLineas();
 
     cv.onmousemove = function(evento){
+        if(nopintar==1){
+            
         if(sessionStorage.sudoku != undefined) {
             let fila, columna,
             ancho = cv.width/region;
             fila = Math.floor(evento.offsetY / ancho);
             columna = Math.floor(evento.offsetX / ancho);
-            const cuadrado = new Path2D();
-            cuadrado.rect(fila*ancho,columna*ancho,fila*ancho,columna*ancho);
-            ctx.fillStyle ='red';
             let sudo =   JSON.parse(sessionStorage['sudoku']);
-            if(sudo.SUDOKU[fila][columna] == 0) {
+
+            
+            if(sudo.SUDOKU[fila][columna] == 0) { //hasta aqui funcionaba vale el resto es codigo nuevo?
+                //hay 2 variables globales, filact y colact, que usamos para guardar la fila y columna ANTERIORES
+                if(filact == -1 || colact ==-1) { 
+                    //imagina que empezamos con el cursor en 3,2, se guarda la posicion inicial
+                    filact=fila; // 3
+                    colact=columna; // 2
+                }
+                let num = misudoku[filact][colact]; //el numero a pintar 
+                if(filact!=fila || colact!=columna){  //ahora imagina que pasamos a la pos 4,2
+                    
+                    pintarCasilla(filact,colact,num,'#F4F4F9'); // se pinta 3, 2
+                    filact=fila; // 4 luego pasamos las variables a la siguiente instancia 
+                    colact=columna; //2 para que en el siguiente bucle pinte si salimos de 4,2
+                    
+                }
                 document.getElementById('canvas').style.cursor = "pointer";
-
-              /*  if (ctx.isPointInPath(cuadrado, fila*ancho,columna*ancho)) {
-                    pintarCasilla(fila,columna,0,'#586F7C');
-                  }
-                  else {
-                    pintarCasilla(fila,columna,0,'#F4F4F9');
-
-                  } */
-
+                pintarCasilla(filact,colact,num,'#8AA1B1'); 
             }
-            else{
+            else{ //si pasamos de blanquito a casilla estatica
+                if (filact !=-1){ //para que no explote el programa
+                    if(sudo.SUDOKU[filact][colact]==0){ // comprobamos que sea blanquito
+                        let num = misudoku[filact][colact];
+                        pintarCasilla(filact,colact,num,'#F4F4F9'); 
+                       
+                    }
+                }
                 document.getElementById('canvas').style.cursor = "auto";
             }
         }
 
+        }
     }
 
     cv.onclick =  function (evento){
@@ -218,7 +235,6 @@ function canvaselector(){
                 ancho=cv.width/sqrt;
                 let columna = Math.floor(evento.offsetX/ancho),
                 fila = Math.floor(evento.offsetY/alto);
-
                 region = Math.sqrt(region);
                 pintarCasilla(fila,columna,0,'#8AA1B1');
                 recorresudoku();
@@ -240,6 +256,7 @@ function canvaselector(){
                     pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');
                     pintarBorde(f,c);
                     crearDiv(f,c);
+                    nopintar=0;
 
             }
 
@@ -335,8 +352,9 @@ function pintarCasilla(f,c,numero,colorfondo){
         p.className="numeros";
         p.innerHTML=i;
         let cosa = parseInt(p.innerHTML);
-        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosa);limpiasudoku();};
+        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosa);limpiasudoku();nopintar=1;};
         document.getElementById('nums').appendChild(p);
+        
     }
   }
 
