@@ -1,4 +1,4 @@
-
+var cosa = 0;
 var region = 4;
 var misudoku = [];
 var filact =-1;
@@ -42,6 +42,7 @@ function cargasudoku(){ //el boton de empezar
     return false;
 }
 function compruebaerrores(){
+    
     let sudo =   JSON.parse(sessionStorage['sudoku']);
     let  autorizacion = sudo.TOKEN ;
     let args = JSON.stringify(misudoku);
@@ -57,11 +58,10 @@ fetch(url, {method:'POST',
     if(respuesta.ok){
       respuesta.json().then(function(datos){
         console.log(datos);
-        let fallos = JSON.stringify(datos);
-        console.log(fallos);
-        console.log(fallos.FALLOS);
-        console.log(datos.FALLOS);
-        for(let i=0;datos.FALLOS.length;i++){
+        console.log(datos.FALLOS.length);
+        cosa = datos.FALLOS.length;
+        console.log(cosa + 'en compruebaerror');
+        for(let i=0;i<datos.FALLOS.length;i++){
             f=datos.FALLOS[i].fila;
             c=datos.FALLOS[i].columna;
             pintarCasilla(f,c,misudoku[f][c],'#E5FFDE');
@@ -70,7 +70,7 @@ fetch(url, {method:'POST',
       });
     }
 });
-
+    
 }
 
 function botonfinalizar(){
@@ -146,7 +146,16 @@ function compruebasudoku(){
         }
     }
     if(patata==false){
+        console.log(cosa);
         compruebaerrores();
+        console.log(cosa);
+      if (cosa==0){
+          console.log("has ganado");
+          mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",2);
+      }
+      else{
+        mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos",2);
+      }
     }
 }
 
@@ -184,7 +193,7 @@ function canvaselector(){
 
     cv.onmousemove = function(evento){
         if(nopintar==1){
-            
+            recorresudoku();
         if(sessionStorage.sudoku != undefined) {
             let fila, columna,
             ancho = cv.width/region;
@@ -358,8 +367,8 @@ function pintarCasilla(f,c,numero,colorfondo){
         let p = document.createElement('p');
         p.className="numeros";
         p.innerHTML=i;
-        let cosa = parseInt(p.innerHTML);
-        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosa);limpiasudoku();nopintar=1;};
+        let cosita = parseInt(p.innerHTML);
+        p.onclick= function() {pintarCasilla(f,c,p.innerHTML,'#F4F4F9');borraDiv();meteNumero(f,c,cosita);limpiasudoku();nopintar=1;compruebasudoku();};
         document.getElementById('nums').appendChild(p);
         
     }
@@ -373,7 +382,6 @@ function pintarCasilla(f,c,numero,colorfondo){
 
   function meteNumero(f,c,numero){
     misudoku[f][c]=numero;
-
   }
 
   function limpiasudoku(){
@@ -427,3 +435,31 @@ function pararTempo(){
   document.getElementById('crono').setAttribute('data-parar', 'si');
 }
 //------------------------ END TEMPORIZADOR -------------------------------
+
+
+function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cabecera y titulos
+    let div = document.createElement('div');
+
+     // div.id = 'fondo'; //se puede hacer asi para asignar atributos o
+    div.setAttribute('id','capafondo'); //diapositiva 17 tema 5
+    let html = '';
+    html += '<article>';
+    html += '<h2>'+titulo+'</h2>';
+    html += '<p>'+mensaje+'</p>';
+    html += '<footer><button onclick="cerrarmodal('+num+');"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
+    html += '</article>';
+
+
+    div.innerHTML = html;
+    document.body.appendChild(div);
+
+
+}
+
+function cerrarmodal(num){ 
+    document.querySelector('#capafondo').remove();
+    if(num==1){ 
+        location.href="login.html";
+    }
+    
+}
