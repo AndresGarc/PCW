@@ -19,27 +19,27 @@ function cargasudoku(){ //el boton de empezar
                     //sustituir boton empezar por temporizador+comprobar+finalizar
                     prepararInterfaz();
                     sudo =   JSON.parse(sessionStorage['sudoku']);
-    
+
                     for(let i=0;i<sudo.SUDOKU.length;i++){
                         let falsudoku = [];
                         for(let j=0;j<sudo.SUDOKU[i].length;j++){
                             falsudoku[j]=sudo.SUDOKU[i][j];
-    
+
                         }
                         misudoku[i]=falsudoku;
-    
+
                     }
-    
+
                     recorresudoku();
                     document.getElementById('categoria').disabled = true; //RECORDAR AL TERMINAR PONERLO A FALSE
                     iniciarTemporizador();
                 });
             }
             else {
-    
+
             }
         });
-    
+
 
     return false;
 }
@@ -157,8 +157,8 @@ function compruebasudoku(){
 
 function forcompruebasudoku(){
   if (cosa==0){
-      console.log("has ganado");
-      mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",1);
+      let tiempo = document.getElementById('crono').innerHTML;
+      mensajeemergente("ENHORABUENA",`has ganado en un tiempo de ${tiempo}`,1);
   }
   else{
     mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos?",0);
@@ -480,10 +480,10 @@ function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cab
     html += '<h2>'+titulo+'</h2>';
     html += '<p>'+mensaje+'</p>';
     if(num==1){
-        html += '<footer><button onclick="cerrarmodal(1);"> Aceptar </button> </footer>'; 
+        html += '<footer><button onclick="cerrarmodal(1);"> Aceptar </button> </footer>';
     }
     else{
-        html += '<footer><button onclick="cerrarmodal(0);"> SI </button> <button onclick="cerrarmodal(1);"> NO </button> </footer>'; 
+        html += '<footer><button onclick="cerrarmodal(0);"> SI </button> <button onclick="cerrarmodal(1);"> NO </button> </footer>';
     }
       //para el css ejemplo min 53 video semana 23-29
     html += '</article>';
@@ -501,4 +501,3 @@ function cerrarmodal(num){
         resetGame();
     }
 }
-
