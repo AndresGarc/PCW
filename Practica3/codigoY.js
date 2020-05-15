@@ -10,35 +10,37 @@ function cargasudoku(){ //el boton de empezar
     //hacer peticion cargarsudoku
     let url = 'api/sudoku/generar/' + region;
     console.log(url);
-    fetch(url,{method:'POST'}).then(function(respuesta){
-        if( respuesta.ok){
-            respuesta.json().then(function(datos){
-                //console.log(JSON.stringify(datos));
-                sessionStorage['sudoku'] = JSON.stringify(datos); //guarda el sudoku y un token que se usa de auth
-                // tras eso pintar en el canvas siguiendo la paleta
-                //sustituir boton empezar por temporizador+comprobar+finalizar
-                prepararInterfaz();
-                sudo =   JSON.parse(sessionStorage['sudoku']);
-
-                for(let i=0;i<sudo.SUDOKU.length;i++){
-                    let falsudoku = [];
-                    for(let j=0;j<sudo.SUDOKU[i].length;j++){
-                        falsudoku[j]=sudo.SUDOKU[i][j];
-
+           fetch(url,{method:'POST'}).then(function(respuesta){
+            if( respuesta.ok){
+                respuesta.json().then(function(datos){
+                    //console.log(JSON.stringify(datos));
+                    sessionStorage['sudoku'] = JSON.stringify(datos); //guarda el sudoku y un token que se usa de auth
+                    // tras eso pintar en el canvas siguiendo la paleta
+                    //sustituir boton empezar por temporizador+comprobar+finalizar
+                    prepararInterfaz();
+                    sudo =   JSON.parse(sessionStorage['sudoku']);
+    
+                    for(let i=0;i<sudo.SUDOKU.length;i++){
+                        let falsudoku = [];
+                        for(let j=0;j<sudo.SUDOKU[i].length;j++){
+                            falsudoku[j]=sudo.SUDOKU[i][j];
+    
+                        }
+                        misudoku[i]=falsudoku;
+    
                     }
-                    misudoku[i]=falsudoku;
+    
+                    recorresudoku();
+                    document.getElementById('categoria').disabled = true; //RECORDAR AL TERMINAR PONERLO A FALSE
+                    iniciarTemporizador();
+                });
+            }
+            else {
+    
+            }
+        });
+    
 
-                }
-
-                recorresudoku();
-                document.getElementById('categoria').disabled = true; //RECORDAR AL TERMINAR PONERLO A FALSE
-                iniciarTemporizador();
-            });
-        }
-        else {
-
-        }
-    });
     return false;
 }
 function compruebaerrores(){
@@ -96,7 +98,14 @@ function botonfinalizar(){
 //END PETICIONES
 
 //funciones de utilidad
-
+function cargasudoku2() {
+    sessionStorage.clear();
+//    if(sessionStorage.sudoku != undefined){
+//        canvaselector(region);
+//        prepararInterfaz();
+//        recorresudoku();
+//    }
+}
 function cambiasudoku(){
     console.log("cambio de sudoku");
     //esta funcion cambiaria el tamaño del grid del sudoku cada vez que se cambiase eso
@@ -149,10 +158,10 @@ function compruebasudoku(){
 function forcompruebasudoku(){
   if (cosa==0){
       console.log("has ganado");
-      mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",2);
+      mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",1);
   }
   else{
-    mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos",2);
+    mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos?",0);
   }
 }
 
@@ -216,9 +225,9 @@ function canvaselector(){
     rellenaLineas();
 
     cv.onmousemove = function(evento){
+        if(sessionStorage.sudoku !=undefined) {
         if(nopintar==1){
             recorresudoku();
-        if(sessionStorage.sudoku != undefined) {
             let fila, columna,
             ancho = cv.width/region;
             fila = Math.floor(evento.offsetY / ancho);
@@ -470,7 +479,13 @@ function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cab
     html += '<article>';
     html += '<h2>'+titulo+'</h2>';
     html += '<p>'+mensaje+'</p>';
-    html += '<footer><button onclick="cerrarmodal('+num+');"> Aceptar </button> </footer>';  //para el css ejemplo min 53 video semana 23-29
+    if(num==1){
+        html += '<footer><button onclick="cerrarmodal(1);"> Aceptar </button> </footer>'; 
+    }
+    else{
+        html += '<footer><button onclick="cerrarmodal(0);"> SI </button> <button onclick="cerrarmodal(1);"> NO </button> </footer>'; 
+    }
+      //para el css ejemplo min 53 video semana 23-29
     html += '</article>';
 
 
@@ -483,8 +498,7 @@ function mensajeemergente(titulo, mensaje,num){ // mensaje(mensaje)? pasarle cab
 function cerrarmodal(num){
     document.querySelector('#capafondo').remove();
     if(num==1){
-        location.href="login.html";
+        resetGame();
     }
-
 }
 
