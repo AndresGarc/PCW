@@ -141,17 +141,19 @@ function compruebasudoku(){
         }
     }
     if(patata==false){
-        console.log(cosa);
         compruebaerrores();
-        console.log(cosa);
-      if (cosa==0){
-          console.log("has ganado");
-          mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",2);
-      }
-      else{
-        mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos",2);
-      }
+        setTimeout(forcompruebasudoku,400);
     }
+}
+
+function forcompruebasudoku(){
+  if (cosa==0){
+      console.log("has ganado");
+      mensajeemergente("ENHORABUENA","has ganado en un tiempo de hh dd zzzz",2);
+  }
+  else{
+    mensajeemergente('Hay '+cosa+' errores',"quieres intentar corregirlos",2);
+  }
 }
 
 function erroresonclick() {
@@ -485,3 +487,4 @@ function cerrarmodal(num){
     }
 
 }
+
