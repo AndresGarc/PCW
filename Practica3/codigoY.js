@@ -9,7 +9,7 @@ function cargasudoku(){ //el boton de empezar
     //desactiva elemento cambio tamaño
     //hacer peticion cargarsudoku
     let url = 'api/sudoku/generar/' + region;
-    console.log(url);
+    
            fetch(url,{method:'POST'}).then(function(respuesta){
             if( respuesta.ok){
                 respuesta.json().then(function(datos){
@@ -59,10 +59,7 @@ fetch(url, {method:'POST',
   body:fd, headers:{'Authorization':autorizacion}}).then(function(respuesta){
     if(respuesta.ok){
       respuesta.json().then(function(datos){
-        console.log(datos);
-        console.log(datos.FALLOS.length);
         cosa = datos.FALLOS.length;
-        console.log(cosa + 'en compruebaerror');
         for(let i=0;i<datos.FALLOS.length;i++){
             f=datos.FALLOS[i].fila;
             c=datos.FALLOS[i].columna;
@@ -82,7 +79,6 @@ function botonfinalizar(){
           fetch(url, init).then(function(response){
             if(response.ok){
               response.json().then(function(datos){
-                console.log("bien");
                 resetGame();
                 //terminar temporizador
                 //reiniciar juego/pag?
@@ -107,13 +103,13 @@ function cargasudoku2() {
 //    }
 }
 function cambiasudoku(){
-    console.log("cambio de sudoku");
+    
     //esta funcion cambiaria el tamaño del grid del sudoku cada vez que se cambiase eso
 }
 
 function infoSudo(){
   let usu =   JSON.parse(sessionStorage['sudoku']);
-  console.log(usu.SUDOKU[1][0]);
+  
 }
 
 function rellenaLineas(){
@@ -233,8 +229,7 @@ function canvaselector(){
             fila = Math.floor(evento.offsetY / ancho);
             columna = Math.floor(evento.offsetX / ancho);
             let sudo =   JSON.parse(sessionStorage['sudoku']);
-
-
+            if(fila==region || fila < 0){ return false;}
             if(sudo.SUDOKU[fila][columna] == 0) { //hasta aqui funcionaba vale el resto es codigo nuevo?
                 //hay 2 variables globales, filact y colact, que usamos para guardar la fila y columna ANTERIORES
                 if(filact == -1 || colact ==-1) {
@@ -269,12 +264,13 @@ function canvaselector(){
     }
 
     cv.onclick =  function (evento){
+        if(sessionStorage.sudoku != undefined){
         let sudo = JSON.parse(sessionStorage['sudoku']);
         let fila, columna,
             ancho = cv.width/region;
             fila = Math.floor(evento.offsetY / ancho);
             columna = Math.floor(evento.offsetX / ancho);
-
+            if(fila==region || fila < 0){ return false;}
         if(sudo.SUDOKU[fila][columna]==0){
             ctx.clearRect(0, 0, cv.width, cv.height);
             let sudo = JSON.parse(sessionStorage['sudoku']);
@@ -309,7 +305,7 @@ function canvaselector(){
 
             }
 
-
+    }
     }
     //cv.onmousemove
     //cv.onmousedown al clickar
